@@ -25,3 +25,4 @@ fi
 
 # Disable Microsoft AutoUpdate
 launchctl disable gui/$(id -u)/com.microsoft.update.agent
+
