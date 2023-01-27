@@ -30,6 +30,11 @@ echo "Installing openjdk@17..."
 brew install openjdk@17
 echo "openjdk@17 installed!"
 
+# Install nvm
+echo "Installing nvm..."
+brew install nvm
+echo "nvm installed!"
+
 # Install tree
 echo "Installing tree..."
 brew install tree
