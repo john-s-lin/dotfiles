@@ -20,6 +20,9 @@ else
     echo "`git --version` already installed."
 fi
 
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # Install coreutils for passion.zsh-theme
 echo "Installing coreutils..."
 brew install coreutils
@@ -103,6 +106,11 @@ echo "office installed!"
 echo "Installing discord..."
 brew install --cask discord
 echo "discord installed!"
+
+# Install tomatobar
+echo "Installing tomatobar..."
+brew install --cask tomatobar
+echo "tomatobar installed!"
 
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
