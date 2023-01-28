@@ -4,9 +4,10 @@ ZSH_DISABLE_COMPFIX="true"
 local brew_path="/usr/local/bin"
 local brew_opt_path="/usr/local/opt"
 local nvm_path="$HOME/.nvm"
+local java_path="${brew_opt_path}/openjdk@17/bin"
 
 # If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:${brew_path}:/usr/local/bin:${PATH}"
+export PATH="${HOME}/bin:${brew_path}:${java_path}:/usr/local/bin:${PATH}"
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
