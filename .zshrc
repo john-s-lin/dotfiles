@@ -1,12 +1,13 @@
 # Disable warning messages at the beginning since you're not admin
 ZSH_DISABLE_COMPFIX="true"
 
-local brew_path="/opt/homebrew/bin"
-local brew_opt_path="/opt/homebrew/opt"
+local brew_path="/usr/local/bin"
+local brew_opt_path="/usr/local/opt"
 local nvm_path="$HOME/.nvm"
+local java_path="${brew_opt_path}/openjdk@17/bin"
 
 # If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:${brew_path}:/usr/local/bin:${PATH}"
+export PATH="${HOME}/bin:${brew_path}:${java_path}:/usr/local/bin:${PATH}"
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
@@ -113,14 +114,14 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
