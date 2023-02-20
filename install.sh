@@ -43,6 +43,11 @@ echo "Installing tree..."
 brew install tree
 echo "tree installed!"
 
+# Install neovim
+echo "Installing neovim..."
+brew install neovim
+echo "neovim installed!"
+
 ##########
 # CASKS
 ##########
