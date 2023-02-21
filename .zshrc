@@ -1,17 +1,28 @@
 # Disable warning messages at the beginning since you're not admin
 ZSH_DISABLE_COMPFIX="true"
 
-local brew_path="/usr/local/bin"
-local brew_opt_path="/usr/local/opt"
+# Get architecture
+arch=$(uname -m)
+if [[ $arch =~ arm* ]]; then
+    brew_path=""
+    brew_opt_path""
+elif [[ $arch =~ x86* ]]; then
+    brew_path="/usr/local/bin"
+    brew_opt_path="/usr/local/opt"
+fi
+
 local nvm_path="$HOME/.nvm"
-local java_path="${brew_opt_path}/openjdk@17/bin"
+
+if type -p java; then
+    java_path="${brew_opt_path}/openjdk@17/bin"
+fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH="${HOME}/bin:${brew_path}:${java_path}:/usr/local/bin:${PATH}"
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
