@@ -13,7 +13,7 @@ fi
 
 local nvm_path="$HOME/.nvm"
 
-if type -p java; then
+if [[ $(type -p java) ]]; then
     java_path="${brew_opt_path}/openjdk@17/bin"
 fi
 
