@@ -2,22 +2,22 @@
 
 # Install Homebrew
 echo "Checking for Homebrew..."
-if test ! $(which brew); then
+if test ! "$(which brew)"; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo "Homebrew installed!"
 else
-    echo "`brew --version` already installed."
+    echo "$(brew --version) already installed."
 fi
 
 # Install git
 echo "Checking for git..."
-if test ! $(which git); then
+if test ! "$(which git)"; then
     echo "Installing git..."
     brew install git
     echo "git installed!"
 else
-    echo "`git --version` already installed."
+    echo "$(git --version) already installed."
 fi
 
 # Install oh-my-zsh
@@ -121,4 +121,4 @@ echo "tomatobar installed!"
 conda init "$(basename "${SHELL}")"
 
 # Disable Microsoft AutoUpdate
-launchctl disable gui/$(id -u)/com.microsoft.update.agent
+launchctl disable gui/"$(id -u)"/com.microsoft.update.agent
