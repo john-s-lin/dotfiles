@@ -6,11 +6,13 @@ arch=$(uname -m)
 
 # Change variables depending on architecture
 if [[ $arch =~ arm* ]]; then
-    brew_path=""
-    brew_opt_path""
+    brew_path="/opt/homebrew/bin"
+    brew_opt_path="/opt/homebrew/opt"
+    brew_conda_path="/opt/homebrew"
 elif [[ $arch =~ x86* ]]; then
     brew_path="/usr/local/bin"
     brew_opt_path="/usr/local/opt"
+    brew_conda_path="/usr/local"
 fi
 
 # Set nvm path
@@ -129,14 +131,14 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$(${brew_conda_path}/Caskroom/miniconda/base/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    if [ -f "${brew_conda_path}/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "${brew_conda_path}/Caskroom/miniconda/base/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="${brew_conda_path}/Caskroom/miniconda/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
