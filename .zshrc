@@ -3,6 +3,8 @@ ZSH_DISABLE_COMPFIX="true"
 
 # Get architecture
 arch=$(uname -m)
+
+# Change variables depending on architecture
 if [[ $arch =~ arm* ]]; then
     brew_path=""
     brew_opt_path""
@@ -11,8 +13,10 @@ elif [[ $arch =~ x86* ]]; then
     brew_opt_path="/usr/local/opt"
 fi
 
+# Set nvm path
 local nvm_path="$HOME/.nvm"
 
+# Set java path if exists
 if [[ $(type -p java) ]]; then
     java_path="${brew_opt_path}/openjdk@17/bin"
 fi
