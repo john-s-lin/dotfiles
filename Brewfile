@@ -1,0 +1,57 @@
+# Taps
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+
+# List
+# Dependency for passion.zsh-theme
+brew "coreutils"
+# Dependency for nvim telescope
+brew "fd"
+# Neovim
+brew "neovim"
+# Node version manager
+brew "nvm"
+# OpenJDK@17 LTS
+brew "openjdk@17"
+# Dependency for nvim telescope
+brew "ripgrep"
+# tmux
+brew "tmux"
+# tree
+brew "tree"
+
+# Casks
+# Discord
+cask "discord"
+# Firefox
+cask "firefox"
+# NerdFont FiraCode for iTerm2
+cask "font-fira-code-nerd-font"
+# Chrome
+cask "google-chrome"
+# Drive
+cask "google-drive"
+# iTerm2
+cask "iterm2"
+# Dependency for MS Office
+# Optional, comment out if not needed
+# cask "microsoft-auto-update"
+# MS Office
+# cask "microsoft-office"
+# Conda for python
+cask "miniconda"
+# Keymap for window snap-to-grid
+cask "rectangle"
+# Selfcontrol
+cask "selfcontrol"
+# Spotify
+cask "spotify"
+# Pomodoro bar
+cask "tomatobar"
+# VSCode
+cask "visual-studio-code"
+# VLC
+cask "vlc"
