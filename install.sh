@@ -16,11 +16,11 @@ fi
 # Check brew doctor
 brew doctor
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # Install brew packages from Brewfile
 brew bundle install --file="$(pwd)"/Brewfile
+
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
