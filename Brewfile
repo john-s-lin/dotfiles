@@ -22,6 +22,8 @@ brew "ripgrep"
 brew "tmux"
 # tree
 brew "tree"
+# Universal-ctags for nvim tagbar
+brew "universal-ctags"
 
 # Casks
 # Discord
