@@ -65,6 +65,7 @@ require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'preservim/tagbar' -- Tagbar
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -300,6 +301,9 @@ require('nvim-treesitter.configs').setup {
 require('nvim-tree').setup()
 vim.keymap.set('n', '<C-t>', ':NvimTreeToggle<CR>', { silent = true })
 vim.keymap.set('n', '<C-f>', ':NvimTreeFocus<CR>', { silent = true })
+
+-- Tagbar
+vim.keymap.set('n', '<F8>', ':TagbarToggle<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
