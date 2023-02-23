@@ -17,7 +17,7 @@ fi
 brew doctor
 
 # Install brew packages from Brewfile
-brew bundle install --file="$(pwd)"/Brewfile
+brew bundle install -d --file="$(pwd)"/Brewfile
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
