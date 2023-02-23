@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Xcode CLT
-xcode-select --install
+sudo xcode-select --install
 
 # Install Homebrew
 echo "Checking for Homebrew..."
