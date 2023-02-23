@@ -21,3 +21,5 @@ Then execute the `install.sh` script to install everything you need. You may nee
 
 - Automatically symlink the config files from an executable script
 - Automatically create the right config directory for nvim and symlink `init.lua`
+- Figure out how to configure Mac settings from a config file or shell script
+
