@@ -20,7 +20,8 @@ brew doctor
 brew bundle install -v --file="$(pwd)"/Brewfile
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+chmod u+x "$(pwd)"/scripts/zsh_setup.sh
+sh -c "$(pwd)"/scripts/zsh_setup.sh
 
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
