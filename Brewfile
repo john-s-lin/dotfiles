@@ -32,6 +32,8 @@ cask "discord"
 cask "firefox"
 # NerdFont FiraCode for iTerm2
 cask "font-fira-code-nerd-font"
+# NerdFont JetBrains Mono for iTerm2
+cask "font-jetbrains-mono-nerd-font"
 # Chrome
 cask "google-chrome"
 # Drive
@@ -40,9 +42,9 @@ cask "google-drive"
 cask "iterm2"
 # Dependency for MS Office
 # Optional, comment out if not needed
-# cask "microsoft-auto-update"
+cask "microsoft-auto-update"
 # MS Office
-# cask "microsoft-office"
+cask "microsoft-office"
 # Conda for python
 cask "miniconda"
 # Keymap for window snap-to-grid
