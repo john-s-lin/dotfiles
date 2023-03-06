@@ -5,4 +5,4 @@
 [pager]
 	branch = false
 [push]
-    autoSetupRemote = true
+	autoSetupRemote = true
