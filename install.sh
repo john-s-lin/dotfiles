@@ -20,8 +20,10 @@ brew doctor
 brew bundle install -v --file="$(pwd)"/Brewfile
 
 # Install oh-my-zsh
-chmod u+x "$(pwd)"/scripts/zsh_setup.sh
-sh -c "$(pwd)"/scripts/zsh_setup.sh
+# TODO oh-my-zsh install messes up the rest of the script
+# Figure out a way to install this in a separate terminal
+# chmod u+x "$(pwd)"/scripts/zsh_setup.sh
+# sh -c "$(pwd)"/scripts/zsh_setup.sh
 
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
