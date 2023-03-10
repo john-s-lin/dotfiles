@@ -53,6 +53,12 @@ require('packer').startup(function(use)
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
+
+  use { -- Bufferline for the top
+      'akinsho/bufferline.nvim',
+      tag = "v3.*",
+      requires = { 'nvim-tree/nvim-web-devicons' }
+    }
   }
 
   -- Git related plugins
@@ -218,6 +224,9 @@ require('telescope').setup {
     },
   },
 }
+
+-- Enable Bufferline setup
+require("bufferline").setup{}
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
