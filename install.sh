@@ -25,6 +25,10 @@ brew bundle install -v --file="$(pwd)"/Brewfile
 # chmod u+x "$(pwd)"/scripts/zsh_setup.sh
 # sh -c "$(pwd)"/scripts/zsh_setup.sh
 
+# Install fzf autocompletion
+# TODO figure out how to install fzf autocomplete
+# $(brew --prefix)/opt/fzf/install
+
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
 
