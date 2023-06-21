@@ -10,6 +10,8 @@ tap "homebrew/services"
 brew "coreutils"
 # Dependency for nvim telescope
 brew "fd"
+# Fuzzy finder
+brew "fzf"
 # Neovim
 brew "neovim"
 # Node version manager
