@@ -129,6 +129,9 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 [ -s "${brew_opt_path}/nvm/nvm.sh" ] && \. "${brew_opt_path}/nvm/nvm.sh"  # This loads nvm
 [ -s "${brew_opt_path}/nvm/etc/bash_completion.d/nvm" ] && \. "${brew_opt_path}/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+# Fuzzy finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$(${brew_conda_path}/Caskroom/miniconda/base/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
@@ -143,5 +146,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
