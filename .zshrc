@@ -15,13 +15,6 @@ elif [[ $arch =~ x86* ]]; then
     brew_conda_path="/usr/local"
 fi
 
-# If ~/.cargo exists add rust path
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    rust_path="$HOME/.cargo/bin"
-else
-    rust_path=""
-fi
-
 # Set nvm path
 local nvm_path="$HOME/.nvm"
 
@@ -31,7 +24,7 @@ if [[ $(type -p java) == "${brew_opt_path}/openjdk@17/bin/java" ]]; then
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:${brew_path}:${java_path}:/usr/local/bin:/usr/local/sbin:${rust_path}:${PATH}"
+export PATH="${HOME}/bin:${brew_path}:${java_path}:/usr/local/bin:/usr/local/sbin:${PATH}"
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
