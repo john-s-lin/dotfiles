@@ -101,6 +101,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Rust Cargo
+. "$HOME/.cargo/env"
+
 # Fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
