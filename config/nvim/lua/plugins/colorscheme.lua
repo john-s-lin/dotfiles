@@ -2,11 +2,10 @@ return {
   -- Add OneDark
   {
     "navarasu/onedark.nvim",
-    event = "VeryLazy",
     opts = {
       style = "darker",
       transparent = "true",
-      enabled = "false",
+      enabled = "true",
     },
   },
 
@@ -15,14 +14,14 @@ return {
     opts = {
       style = "night",
       transparent = "true",
-      enabled = "true",
+      enabled = "false",
     },
   },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      colorscheme = "onedark",
     },
   },
 }
