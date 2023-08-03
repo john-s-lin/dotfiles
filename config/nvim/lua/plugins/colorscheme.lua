@@ -5,7 +5,6 @@ return {
     opts = {
       style = "darker",
       transparent = "true",
-      enabled = "true",
     },
   },
 
@@ -14,14 +13,13 @@ return {
     opts = {
       style = "night",
       transparent = "true",
-      enabled = "false",
     },
   },
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "onedark",
+      colorscheme = "tokyonight",
     },
   },
 }
