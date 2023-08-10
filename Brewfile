@@ -1,8 +1,6 @@
 # Taps
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
 tap "homebrew/services"
 
 # List
@@ -12,6 +10,14 @@ brew "coreutils"
 brew "fd"
 # Fuzzy finder
 brew "fzf"
+# Go
+brew "go"
+# Lazydocker
+brew "lazydocker"
+# Lazygit
+brew "lazygit"
+# Mac App Store CLI
+brew "mas"
 # Neovim
 brew "neovim"
 # Node version manager
@@ -30,6 +36,8 @@ brew "universal-ctags"
 # Casks
 # Discord
 cask "discord"
+# Docker
+cask "docker"
 # Firefox
 cask "firefox"
 # NerdFont FiraCode for iTerm2
@@ -44,11 +52,13 @@ cask "google-drive"
 cask "iterm2"
 # Dependency for MS Office
 # Optional, comment out if not needed
-cask "microsoft-auto-update"
+# cask "microsoft-auto-update"
 # MS Office
-cask "microsoft-office"
+# cask "microsoft-office"
 # Conda for python
 cask "miniconda"
+# Obsidian
+cask "obsidian"
 # Keymap for window snap-to-grid
 cask "rectangle"
 # Selfcontrol
