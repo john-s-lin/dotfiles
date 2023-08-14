@@ -104,6 +104,9 @@ fi
 # Rust Cargo
 . "$HOME/.cargo/env"
 
+# Go
+export GOPATH="${HOME}/.go"
+
 # Fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
