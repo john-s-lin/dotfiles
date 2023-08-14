@@ -26,8 +26,16 @@ if [[ $(type -p java) == "${brew_opt_path}/openjdk@17/bin/java" ]]; then
     java_path="${brew_opt_path}/openjdk@17/bin"
 fi
 
+# Set GOPATH if exists
+if command -v go &> /dev/null; then
+    export GOPATH="${HOME}/.go"
+    local go_path=$(go env GOPATH)/bin
+else
+    local go_path=""
+fi
+
 # If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:${brew_path}:${java_path}:${docker_path}:/usr/local/bin:/usr/local/sbin:${PATH}"
+export PATH="${HOME}/bin:${brew_path}:${java_path}:${docker_path}:${go_path}:/usr/local/bin:/usr/local/sbin:${PATH}"
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
