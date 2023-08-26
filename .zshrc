@@ -21,6 +21,11 @@ local nvm_path="$HOME/.nvm"
 # Set docker bin path
 local docker_path="$HOME/.docker/bin"
 
+# Set rust bin path if exists
+if [ -d "$HOME/.cargo" ]; then
+    rust_path="$HOME/.cargo/bin"
+fi
+
 # Set java path if exists
 if [[ $(type -p java) == "${brew_opt_path}/openjdk@17/bin/java" ]]; then
     java_path="${brew_opt_path}/openjdk@17/bin"
@@ -35,7 +40,16 @@ else
 fi
 
 # If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:${brew_path}:${java_path}:${docker_path}:${go_path}:/usr/local/bin:/usr/local/sbin:${PATH}"
+export PATH="${HOME}/bin:\
+${brew_path}:\
+${java_path}:\
+${docker_path}:\
+${go_path}:\
+${rust_path}:\
+/usr/local/bin:\
+/usr/local/sbin:\
+${PATH}"
+
 export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
