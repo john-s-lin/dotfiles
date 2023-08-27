@@ -23,7 +23,7 @@ brew "neovim"
 # Node version manager
 brew "nvm"
 # OpenJDK@17 LTS
-brew "openjdk@17"
+# brew "openjdk@17"
 # Dependency for nvim telescope
 brew "ripgrep"
 # tmux
