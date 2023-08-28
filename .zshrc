@@ -23,7 +23,9 @@ local docker_path="$HOME/.docker/bin"
 
 # Set rust bin path if exists
 if [ -d "$HOME/.cargo" ]; then
-    rust_path="$HOME/.cargo/bin"
+    local rust_path="$HOME/.cargo/bin"
+else
+    local rust_path=""
 fi
 
 # Set java path if exists
