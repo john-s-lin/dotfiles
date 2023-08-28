@@ -22,8 +22,6 @@ brew "mas"
 brew "neovim"
 # Node version manager
 brew "nvm"
-# OpenJDK@17 LTS
-# brew "openjdk@17"
 # Dependency for nvim telescope
 brew "ripgrep"
 # tmux
@@ -50,11 +48,6 @@ cask "google-chrome"
 cask "google-drive"
 # iTerm2
 cask "iterm2"
-# Dependency for MS Office
-# Optional, comment out if not needed
-# cask "microsoft-auto-update"
-# MS Office
-# cask "microsoft-office"
 # Conda for python
 cask "miniconda"
 # Obsidian
