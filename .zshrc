@@ -29,8 +29,10 @@ else
 fi
 
 # Set java path if exists
-if [[ $(type -p java) == "${brew_opt_path}/openjdk@17/bin/java" ]]; then
-    java_path="${brew_opt_path}/openjdk@17/bin"
+if command -v java &> /dev/null && java --version 2>&1 | grep -q "openjdk"; then
+    local java_path="${brew_opt_path}/openjdk/bin"
+else
+    local java_path=""
 fi
 
 # Set GOPATH if exists
@@ -57,9 +59,6 @@ export NVM_DIR="${nvm_path}"
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="passion"
 
