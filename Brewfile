@@ -50,6 +50,8 @@ cask "google-chrome"
 cask "google-drive"
 # iTerm2
 cask "iterm2"
+# Linear
+cask "linear-linear"
 # Conda for python
 cask "miniconda"
 # Obsidian
