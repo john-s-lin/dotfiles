@@ -6,6 +6,7 @@ return {
       style = "darker",
       transparent = "true",
     },
+    lazy = "true",
   },
 
   {
@@ -14,6 +15,7 @@ return {
       style = "night",
       transparent = "true",
     },
+    lazy = "true",
   },
 
   {
