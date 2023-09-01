@@ -4,6 +4,8 @@ tap "homebrew/cask-fonts"
 tap "homebrew/services"
 
 # List
+# TUI System Metrics
+brew "bottom"
 # Dependency for passion.zsh-theme
 brew "coreutils"
 # Dependency for nvim telescope
