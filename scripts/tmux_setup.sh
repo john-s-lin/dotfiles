@@ -8,7 +8,7 @@ mkdir -p "$HOME/.config/tmux"
 ln -s "$HOME/.oh-my-tmux/.tmux.conf" "$HOME/.config/tmux/tmux.conf"
 
 # Symlink .dotfiles/config/tmux.conf.local
-ln -s "$HOME/.dotfiles/config/tmux.conf.local" "$HOME/.config/tmux/tmux.conf.local"
+ln -s "$HOME/.dotfiles/config/tmux/tmux.conf.local" "$HOME/.config/tmux/tmux.conf.local"
 
 exit 0
 
