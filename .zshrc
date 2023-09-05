@@ -149,8 +149,11 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
+#alias zshconfig="nvim ~/.zshrc"
+#alias ohmyzsh="code ~/.oh-my-zsh"
+
+# Tmux autostart
+[ -z "$TMUX" ] && exec tmux new -As 
 
 [ -s "${brew_opt_path}/nvm/nvm.sh" ] && \. "${brew_opt_path}/nvm/nvm.sh"  # This loads nvm
 [ -s "${brew_opt_path}/nvm/etc/bash_completion.d/nvm" ] && \. "${brew_opt_path}/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
