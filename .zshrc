@@ -153,7 +153,7 @@ source $ZSH/oh-my-zsh.sh
 #alias ohmyzsh="code ~/.oh-my-zsh"
 
 # Tmux autostart
-[ -z "$TMUX" ] && exec tmux new -As 
+# [ -z "$TMUX" ] && exec tmux new -As 
 
 [ -s "${brew_opt_path}/nvm/nvm.sh" ] && \. "${brew_opt_path}/nvm/nvm.sh"  # This loads nvm
 [ -s "${brew_opt_path}/nvm/etc/bash_completion.d/nvm" ] && \. "${brew_opt_path}/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
