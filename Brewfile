@@ -6,12 +6,16 @@ tap "homebrew/services"
 # List
 # TUI System Metrics
 brew "bottom"
+# Cmake
+brew "cmake"
 # Dependency for passion.zsh-theme
 brew "coreutils"
 # Dependency for nvim telescope
 brew "fd"
 # Fuzzy finder
 brew "fzf"
+# Ghostscript for PDF compression
+brew "ghostscript"
 # Go
 brew "go"
 # Lazydocker
@@ -24,7 +28,9 @@ brew "mas"
 brew "neovim"
 # Node version manager
 brew "nvm"
-# Dependency for nvim telescope
+# Parallel
+brew "parallel"
+# Ripgrep
 brew "ripgrep"
 # tmux
 brew "tmux"
