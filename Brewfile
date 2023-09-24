@@ -18,8 +18,6 @@ brew "fzf"
 brew "ghostscript"
 # Go
 brew "go"
-# Lazydocker
-brew "lazydocker"
 # Lazygit
 brew "lazygit"
 # Mac App Store CLI
