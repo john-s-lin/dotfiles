@@ -22,4 +22,13 @@ printf "\nSetting remote login to 'on'...\n"
 systemsetup -setremotelogin on
 systemsetup -getremotelogin
 
+# Enable symlinks for .zshrc, .bashrc, .condarc
+ln -sfn "$(HOME)/.dotfiles/.zshrc" "$(HOME)/.zshrc"
+ln -sfn "$(HOME)/.dotfiles/.bashrc" "$(HOME)/.bashrc"
+ln -sfn "$(HOME)/.dotfiles/.condarc" "$(HOME)/.condarc"
+
+# Enable symlinks for iterm2 and nvim
+ln -sfn "$(HOME)/.dotfiles/config/iterm2/com.googlecode.iterm2.plist" "$(HOME)/.config/iterm2/com.googlecode.iterm2.plist"
+ln -sfn "$(HOME)/.dotfiles/config/nvim" "$(HOME)/.config/nvim"
+
 exit 0
