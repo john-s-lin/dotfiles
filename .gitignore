@@ -1,3 +1,6 @@
+# Mac
+.DS_Store
+
 # Neovim
 config/nvim/lazy-lock.json
 
