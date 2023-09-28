@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
-# Assert ZSH_CUSTOM exists
-if [ -z "${ZSH_CUSTOM}" ]; then
-  ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+# Ensure .oh-my-zsh is already installed
+if [[ -z "${ZSH}" || ! -d "${ZSH}" ]]; then
+  echo ".oh-my-zsh is not installed. Please install it first."
+  exit 1
 fi
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Assert ZSH_CUSTOM exists
+if [ -z "${ZSH_CUSTOM}" ]; then
+  ZSH_CUSTOM="${ZSH}/custom"
+fi
 
 # Download modified passion.zsh-theme from saved config
-cp "${HOME}/.dotfiles/config/zsh/themes/passion.zsh-theme" "${ZSH_CUSTOM}"/themes/
+cp "${HOME}/.dotfiles/config/zsh/themes/passion.zsh-theme" "${ZSH_CUSTOM}"/themes
 
 # Download zsh-autosuggestions plugin
 git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions
