@@ -72,3 +72,11 @@ cask "tomatobar"
 cask "visual-studio-code"
 # VLC
 cask "vlc"
+
+# Mac App Store
+# Microsoft Office
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft Outlook", id: 985367838
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Word", id: 462054704
+mas "OneDrive", id: 823766827
