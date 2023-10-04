@@ -42,6 +42,7 @@ defaults write com.apple.dock "tilesize" -int 36 &&\
 defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&\
   defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&\
   defaults write com.apple.finder "ShowPathbar" -bool "true" &&\
+  defaults write com.apple.finder "ShowStatusBar" -bool "true" &&\
   killall Finder
 
 exit 0
