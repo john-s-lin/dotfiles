@@ -33,4 +33,15 @@ ln -sfn "${parent_dir}/.condarc" "${HOME}/.condarc"
 ln -sfn "${parent_dir}/config/iterm2/com.googlecode.iterm2.plist" "${HOME}/.config/iterm2/com.googlecode.iterm2.plist"
 ln -sfn "${parent_dir}/config/nvim" "${HOME}/.config/nvim"
 
+# Set dock orientation to left and tilesize = 36
+defaults write com.apple.dock "tilesize" -int 36 &&\
+  defaults write com.apple.dock "orientation" -string "left" &&\
+  killall Dock
+
+# Show  list view, all file extensions, and show path bar inside Finder
+defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&\
+  defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&\
+  defaults write com.apple.finder "ShowPathbar" -bool "true" &&\
+  killall Finder
+
 exit 0
