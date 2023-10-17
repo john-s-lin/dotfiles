@@ -33,6 +33,7 @@ ln -sfn "${parent_dir}/.condarc" "${HOME}/.condarc"
 ln -sfn "${parent_dir}/config/iterm2/com.googlecode.iterm2.plist" "${HOME}/.config/iterm2/com.googlecode.iterm2.plist"
 ln -sfn "${parent_dir}/config/nvim" "${HOME}/.config/nvim"
 
+# REF: https://macos-defaults.com/
 # Set dock orientation to left and tilesize = 36
 defaults write com.apple.dock "tilesize" -int 36 &&\
   defaults write com.apple.dock "orientation" -string "left" &&\
