@@ -28,6 +28,7 @@ parent_dir="$(dirname "$(pwd)")"
 ln -sfn "${parent_dir}/.zshrc" "${HOME}/.zshrc"
 ln -sfn "${parent_dir}/.bashrc" "${HOME}/.bashrc"
 ln -sfn "${parent_dir}/.condarc" "${HOME}/.condarc"
+ln -sfn "${parent_dir}/.bash_aliases" "${HOME}/.bash_aliases"
 
 # Enable s{parent_dir}s for iterm2 and nvim
 ln -sfn "${parent_dir}/config/iterm2/com.googlecode.iterm2.plist" "${HOME}/.config/iterm2/com.googlecode.iterm2.plist"
@@ -35,15 +36,15 @@ ln -sfn "${parent_dir}/config/nvim" "${HOME}/.config/nvim"
 
 # REF: https://macos-defaults.com/
 # Set dock orientation to left and tilesize = 36
-defaults write com.apple.dock "tilesize" -int 36 &&\
-  defaults write com.apple.dock "orientation" -string "left" &&\
-  killall Dock
+defaults write com.apple.dock "tilesize" -int 36 &&
+	defaults write com.apple.dock "orientation" -string "left" &&
+	killall Dock
 
 # Show  list view, all file extensions, and show path bar inside Finder
-defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&\
-  defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&\
-  defaults write com.apple.finder "ShowPathbar" -bool "true" &&\
-  defaults write com.apple.finder "ShowStatusBar" -bool "true" &&\
-  killall Finder
+defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&
+	defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&
+	defaults write com.apple.finder "ShowPathbar" -bool "true" &&
+	defaults write com.apple.finder "ShowStatusBar" -bool "true" &&
+	killall Finder
 
 exit 0

@@ -151,6 +151,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 #alias zshconfig="nvim ~/.zshrc"
 #alias ohmyzsh="code ~/.oh-my-zsh"
+if [ -e "${HOME}/.bash_aliases" ]; then
+  source "${HOME}/.bash_aliases"
+fi
 
 # Tmux autostart
 # [ -z "$TMUX" ] && exec tmux new -As 
