@@ -61,6 +61,11 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="passion"
+if [[ "${ZSH_THEME}" == "passion" ]]; then
+  conda config --set changeps1 False
+else
+  conda config --set changeps1 True
+fi
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
