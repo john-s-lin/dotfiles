@@ -99,6 +99,10 @@ alias l='ls -CF'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+
+# bash_profile
+if [ -f "$HOME/.bash_profile" ]; then
+	source "$HOME/.bash_profile"
 fi
 
 # Rust Cargo
