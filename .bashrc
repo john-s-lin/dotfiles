@@ -105,6 +105,11 @@ if [ -f "$HOME/.bash_profile" ]; then
 	source "$HOME/.bash_profile"
 fi
 
+# conda changeps1 = True
+if command -v conda &>/dev/null; then
+	conda config --set changeps1 True
+fi
+
 # Rust Cargo
 . "$HOME/.cargo/env"
 

@@ -61,7 +61,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="passion"
-if [[ "${ZSH_THEME}" == "passion" ]]; then
+if [[ "${ZSH_THEME}" == "passion" && -x "$(command -v conda)" ]]; then
   conda config --set changeps1 False
 else
   conda config --set changeps1 True
