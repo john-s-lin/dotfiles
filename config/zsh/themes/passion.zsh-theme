@@ -48,8 +48,9 @@ function login_info() {
 }
 
 # conda environment
+# REF setting a custom color: https://dev.to/yujinyuz/custom-colors-in-oh-my-zsh-themes-4h13
 function conda_info() {
-    echo "%{$fg[magenta]%}(${CONDA_DEFAULT_ENV})%{$reset_color%}"
+    echo "%{$fg_no_bold[magenta]%}(${CONDA_DEFAULT_ENV})%{$reset_color%}"
 }
 
 # directory
