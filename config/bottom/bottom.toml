@@ -17,9 +17,9 @@ battery=true
   [[row.child]]
     ratio=2
     [[row.child.child]]
-      type="disk"
-    [[row.child.child]]
       type="temp"
+    [[row.child.child]]
+      type="disk"
 [[row]]
   [[row.child]]
     type="net"
