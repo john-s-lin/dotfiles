@@ -1,0 +1,31 @@
+# Flags
+[flags]
+battery=true
+
+# Layout
+[[row]]
+  [[row.child]]
+    ratio=3
+    type="cpu"
+  [[row.child]]
+    ratio=2
+    type="battery"
+[[row]]
+  [[row.child]]
+    ratio=3
+    type="mem"
+  [[row.child]]
+    ratio=2
+    [[row.child.child]]
+      type="disk"
+    [[row.child.child]]
+      type="temp"
+[[row]]
+  [[row.child]]
+    type="net"
+  [[row.child]]
+    type="proc"
+
+[disk_filter]
+is_list_ignored = true
+list = ["/dev/disk1s2", "/dev/disk1s4", "/dev/disk1s5", "/dev/disk1s6"]
