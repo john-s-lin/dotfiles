@@ -34,6 +34,11 @@ ln -sfn "${parent_dir}/.bash_aliases" "${HOME}/.bash_aliases"
 ln -sfn "${parent_dir}/config/iterm2/com.googlecode.iterm2.plist" "${HOME}/.config/iterm2/com.googlecode.iterm2.plist"
 ln -sfn "${parent_dir}/config/nvim" "${HOME}/.config/nvim"
 
+# If bottom exists, symlink bottom.toml config
+if command -v btm >/dev/null 2>&1; then
+	ln -sfn "${parent_dir}/config/bottom" "${HOME}/.config/bottom"
+fi
+
 # REF: https://macos-defaults.com/
 # Set dock orientation to left and tilesize = 36
 defaults write com.apple.dock "tilesize" -int 36 &&
