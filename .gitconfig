@@ -6,3 +6,5 @@
 	branch = false
 [push]
 	autoSetupRemote = true
+[gpg]
+	format = ssh
