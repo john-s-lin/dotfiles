@@ -8,11 +8,25 @@ In the terminal, run
 networksetup -getdnsservers wi-fi # To view DNS servers connected through Wi-Fi en0
 ```
 
-To setup your custom DNS urls, run
+To setup your custom upstream DNS provider, run
 
 ```bash
 networksetup -setdnsservers wi-fi <dns1> <dns2> ... <dns_n> # To set DNS server
 
-# Example setting up 1.1.1.1 Cloudflare
+# Example: setting up 1.1.1.1 Cloudflare DNS
 networksetup -setdnsservers wi-fi 1.1.1.1 1.0.0.1
+```
+
+# Removing old wireless networks if you no longer intend to use them
+
+To remove old wireless networks that you no longer recognize and want to connect to, you can run
+
+```bash
+# en0 = wi-fi
+networksetup -listpreferredwirelessnetworks en0
+
+# Find your target network you want to drop, then
+networksetup -removepreferredwirelessnetwork en0 <SSID>
+# If SSID is a multi-word string with spaces, use double quotes. e.g. "Toronto Public Library"
+networksetup -removedpreferredwirelessnetwork en0 "Toronto Public Library"
 ```
