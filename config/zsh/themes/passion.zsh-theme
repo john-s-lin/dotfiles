@@ -70,7 +70,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY=" ⚡️%{$fg_no_bold[cyan]%}]";
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_no_bold[cyan]%}]";
 
 function update_git_status() {
-    GIT_STATUS=$(git_prompt_info);
+    GIT_STATUS=$(_omz_git_prompt_info);
 }
 
 function git_status() {
