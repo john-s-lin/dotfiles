@@ -129,6 +129,7 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
+zstyle ':omz:alpha:lib:git' async-prompt no
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
