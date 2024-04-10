@@ -3,6 +3,7 @@
 
 # Neovim
 config/nvim/lazy-lock.json
+config/nvim/lazyvim.json
 
 # Homebrew
 Brewfile.lock.json
