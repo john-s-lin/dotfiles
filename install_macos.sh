@@ -25,10 +25,8 @@ brew doctor
 brew bundle install -v --file="$(pwd)"/Brewfile
 
 # Install oh-my-zsh
-# TODO oh-my-zsh install messes up the rest of the script
-# Figure out a way to install this in a separate terminal
-# chmod u+x "$(pwd)"/scripts/zsh_setup.sh
-# sh -c "$(pwd)"/scripts/zsh_setup.sh
+chmod u+x "$(pwd)"/scripts/zsh_setup.sh
+sh -c "$(pwd)"/scripts/zsh_setup.sh
 
 # Install fzf autocompletion and key bindings
 if test "$(which fzf)"; then
