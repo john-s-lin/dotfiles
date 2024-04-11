@@ -2,8 +2,7 @@
 
 # Ensure .oh-my-zsh is already installed
 if [[ -z "${ZSH}" || ! -d "${ZSH}" ]]; then
-	echo ".oh-my-zsh is not installed. Please install it first."
-	exit 1
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 # Assert ZSH_CUSTOM exists
