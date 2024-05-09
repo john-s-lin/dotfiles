@@ -64,6 +64,8 @@ cask "obsidian"
 cask "rectangle"
 # Selfcontrol
 cask "selfcontrol"
+# Signal
+cask "signal"
 # Spotify
 cask "spotify"
 # Pomodoro bar
