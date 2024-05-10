@@ -167,6 +167,9 @@ fi
 # Fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# zoxide
+eval "$(zoxide init zsh)"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$(${brew_conda_path}/Caskroom/miniconda/base/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
