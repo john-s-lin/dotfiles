@@ -36,6 +36,8 @@ brew "tmux"
 brew "tree"
 # Universal-ctags for nvim tagbar
 brew "universal-ctags"
+# zoxide
+brew "zoxide"
 
 # Casks
 # Discord
