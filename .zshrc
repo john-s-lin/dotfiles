@@ -127,9 +127,10 @@ fi
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git nvm zsh-autosuggestions zsh-syntax-highlighting)
 
 zstyle ':omz:alpha:lib:git' async-prompt no
+zstyle ':omz:plugins:nvm' lazy yes
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -160,9 +161,6 @@ source $ZSH/oh-my-zsh.sh
 if [ -e "${HOME}/.bash_aliases" ]; then
   source "${HOME}/.bash_aliases"
 fi
-
-[ -s "${brew_opt_path}/nvm/nvm.sh" ] && \. "${brew_opt_path}/nvm/nvm.sh"  # This loads nvm
-[ -s "${brew_opt_path}/nvm/etc/bash_completion.d/nvm" ] && \. "${brew_opt_path}/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
