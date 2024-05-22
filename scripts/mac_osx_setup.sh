@@ -30,9 +30,10 @@ ln -sfn "${parent_dir}/.bashrc" "${HOME}/.bashrc"
 ln -sfn "${parent_dir}/.condarc" "${HOME}/.condarc"
 ln -sfn "${parent_dir}/.bash_aliases" "${HOME}/.bash_aliases"
 
-# Enable s{parent_dir}s for iterm2 and nvim
-ln -sfn "${parent_dir}/config/iterm2/com.googlecode.iterm2.plist" "${HOME}/.config/iterm2/com.googlecode.iterm2.plist"
+# Symlink config settings
 ln -sfn "${parent_dir}/config/nvim" "${HOME}/.config/nvim"
+ln -sfn "${parent_dir}/config/tmux" "${HOME}/.config/tmux"
+ln -sfn "${parent_dir}/config/alacritty" "${HOME}/.config/alacritty"
 
 # If bottom exists, symlink bottom.toml config
 if command -v btm >/dev/null 2>&1; then

@@ -40,6 +40,8 @@ brew "universal-ctags"
 brew "zoxide"
 
 # Casks
+# Alacritty
+cask "alacritty"
 # Discord
 cask "discord"
 # Docker
@@ -54,8 +56,6 @@ cask "font-jetbrains-mono-nerd-font"
 cask "google-chrome"
 # Drive
 cask "google-drive"
-# iTerm2
-cask "iterm2"
 # Linear
 cask "linear-linear"
 # Conda for python
