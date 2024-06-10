@@ -54,8 +54,6 @@ cask "font-fira-code-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 # Chrome
 cask "google-chrome"
-# Drive
-cask "google-drive"
 # Linear
 cask "linear-linear"
 # Conda for python
