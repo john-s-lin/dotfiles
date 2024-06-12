@@ -27,6 +27,8 @@ brew "neovim"
 brew "nvm"
 # Parallel
 brew "parallel"
+# Rename
+brew "rename"
 # Ripgrep
 brew "ripgrep"
 # tmux
