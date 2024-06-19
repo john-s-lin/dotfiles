@@ -49,9 +49,9 @@ cask "discord"
 cask "docker"
 # Firefox
 cask "firefox"
-# NerdFont FiraCode for iTerm2
-cask "font-fira-code-nerd-font"
-# NerdFont JetBrains Mono for iTerm2
+# Interface and NerdFonts
+cask "font-geist"
+cask "font-geist-mono-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
 # Chrome
 cask "google-chrome"
