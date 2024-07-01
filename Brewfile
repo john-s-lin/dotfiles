@@ -25,6 +25,8 @@ brew "mas"
 brew "neovim"
 # Node version manager
 brew "nvm"
+# NVTOP for GPUs
+brew "nvtop"
 # Parallel
 brew "parallel"
 # Rename
