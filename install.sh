@@ -27,4 +27,6 @@ else
 	exit 1
 fi
 
+sh -c "$(pwd)/scripts/rust_setup.sh"
+
 exit 0
