@@ -46,11 +46,14 @@ defaults write com.apple.dock "tilesize" -int 36 &&
 	defaults write com.apple.dock "orientation" -string "left" &&
 	killall Dock
 
-# Show  list view, all file extensions, and show path bar inside Finder
+# Show list view, all file extensions, and show path bar inside Finder
 defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&
 	defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&
 	defaults write com.apple.finder "ShowPathbar" -bool "true" &&
 	defaults write com.apple.finder "ShowStatusBar" -bool "true" &&
 	killall Finder
+
+# Mouse defaults
+defaults write NSGlobalDomain com.apple.mouse.linear -bool "true"
 
 exit 0
