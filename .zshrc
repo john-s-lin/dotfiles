@@ -67,6 +67,9 @@ else
   conda config --set changeps1 True
 fi
 
+# Export ENV CONFIG
+export CONFIG_HOME="${HOME}/.config"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -163,7 +166,7 @@ if [ -e "${HOME}/.bash_aliases" ]; then
 fi
 
 # Fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "${HOME}/.fzf.zsh" ] && source "${HOME}/.fzf.zsh"
 
 # zoxide
 eval "$(zoxide init zsh)"
