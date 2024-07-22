@@ -15,9 +15,6 @@ elif [[ $arch =~ x86* ]]; then
     brew_conda_path="/usr/local"
 fi
 
-# Set nvm path
-local nvm_path="$HOME/.nvm"
-
 # Set docker bin path
 local docker_path="$HOME/.docker/bin"
 
@@ -53,8 +50,6 @@ ${rust_path}:\
 /usr/local/bin:\
 /usr/local/sbin:\
 ${PATH}"
-
-export NVM_DIR="${nvm_path}"
 
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
@@ -130,10 +125,10 @@ export CONFIG_HOME="${HOME}/.config"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 zstyle ':omz:alpha:lib:git' async-prompt no
-zstyle ':omz:plugins:nvm' lazy yes
+# zstyle ':omz:plugins:nvm' lazy yes
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
