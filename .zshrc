@@ -63,7 +63,7 @@ else
 fi
 
 # fnm
-if command -v fnm &> /dev/null; then
+if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd)"
 fi
 
