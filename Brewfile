@@ -1,16 +1,21 @@
 # Taps
 tap "homebrew/bundle"
 tap "homebrew/services"
+tap "oven-sh/bun"
 
 # List
 # TUI System Metrics
 brew "bottom"
+# Bun
+brew "oven-sh/bun/bun"
 # Cmake
 brew "cmake"
 # Dependency for passion.zsh-theme
 brew "coreutils"
 # Dependency for nvim telescope
 brew "fd"
+# fnm - Fast Node Manager
+brew "fnm"
 # Fuzzy finder
 brew "fzf"
 # Ghostscript for PDF compression
