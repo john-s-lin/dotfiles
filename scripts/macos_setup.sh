@@ -54,6 +54,7 @@ defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&
 	killall Finder
 
 # Mouse defaults
-defaults write NSGlobalDomain com.apple.mouse.linear -bool "true"
+defaults write NSGlobalDomain com.apple.mouse.linear -bool "true" &&
+	defaults write NSGlobalDomain com.apple.mouse.scaling -float "2.5"
 
 exit 0
