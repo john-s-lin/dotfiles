@@ -62,6 +62,11 @@ else
   conda config --set changeps1 True
 fi
 
+# fnm
+if command -v fnm &> /dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
 # Export ENV CONFIG
 export CONFIG_HOME="${HOME}/.config"
 
