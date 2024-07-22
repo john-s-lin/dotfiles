@@ -29,10 +29,14 @@ chmod u+x "$(pwd)"/scripts/zsh_setup.sh
 sh -c "$(pwd)"/scripts/zsh_setup.sh
 
 # Install fzf autocompletion and key bindings
-if test "$(which fzf)"; then
+if command -v fzf &>/dev/null; then
 	echo "Installing fzf autocomplete and key bindings..."
 	"$(brew --prefix)"/opt/fzf/install
 fi
+
+# Setup macOS default config
+chmod u+x "$(pwd)/scripts/macos_setup.sh"
+sh -c "$(pwd)/scripts/macos_setup.sh"
 
 # Initialize miniconda
 conda init "$(basename "${SHELL}")"
