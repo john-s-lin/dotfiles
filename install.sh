@@ -18,15 +18,16 @@ OS="$(uname -s)"
 
 if [[ "$OS" == "Darwin" ]]; then
 	echo "Running install script for MacOS..."
-	source install_macos.sh
+	sh -c install_macos.sh
 elif [[ "$OS" == "Linux" ]]; then
 	echo "Running install script for Linux..."
-	source install_linux.sh
+	sh -c install_linux.sh
 else
 	echo "Not a supported OS. Exiting..."
 	exit 1
 fi
 
+sh -c "$(pwd)/scripts/symlinks.sh"
 sh -c "$(pwd)/scripts/rust_setup.sh"
 
 exit 0
