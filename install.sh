@@ -27,7 +27,10 @@ else
 	exit 1
 fi
 
+chmod u+x "$(pwd)/scripts/symlinks.sh"
 sh -c "$(pwd)/scripts/symlinks.sh"
+
+chmod u+x "$(pwd)/scripts/rust_setup.sh"
 sh -c "$(pwd)/scripts/rust_setup.sh"
 
 exit 0
