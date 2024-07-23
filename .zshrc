@@ -133,7 +133,6 @@ export CONFIG_HOME="${HOME}/.config"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 zstyle ':omz:alpha:lib:git' async-prompt no
-# zstyle ':omz:plugins:nvm' lazy yes
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
