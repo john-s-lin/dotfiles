@@ -1,18 +1,27 @@
 # Disable warning messages at the beginning since you're not admin
 ZSH_DISABLE_COMPFIX="true"
 
-# Get architecture
+# Get architecture and platform
 arch=$(uname -m)
+platform=$(uname -s)
 
-# Change variables depending on architecture
-if [[ $arch =~ arm* ]]; then
+# Change variables depending on architecture and OS type
+if [[ "$platform" == "Darwin" ]]; then
+  if [[ "$arch" =~ "arm"* ]]; then
     brew_path="/opt/homebrew/bin"
     brew_opt_path="/opt/homebrew/opt"
-    brew_conda_path="/opt/homebrew"
-elif [[ $arch =~ x86* ]]; then
+    conda_path="/opt/homebrew/Caskroom/miniconda/base"
+  elif [[ "$arch" =~ "x86"* ]]; then
     brew_path="/usr/local/bin"
     brew_opt_path="/usr/local/opt"
-    brew_conda_path="/usr/local"
+    conda_path="/usr/local/Caskroom/miniconda/base"
+  fi
+elif [[ "$platform" =~ "Linux" ]]; then
+  if [[ -d "${HOME}/.miniconda3" ]]; then
+    conda_path="${HOME}/.miniconda3"
+  elif [[ -d "${HOME}/.miniforge3" ]]; then
+    conda_path="${HOME}/.miniforge3"
+  fi
 fi
 
 # Set docker bin path
@@ -176,15 +185,15 @@ fi
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$(${brew_conda_path}/Caskroom/miniconda/base/bin/conda 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$(${conda_path}/bin/conda 'shell.zsh' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+  eval "$__conda_setup"
 else
-    if [ -f "${brew_conda_path}/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "${brew_conda_path}/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="${brew_conda_path}/Caskroom/miniconda/base/bin:$PATH"
-    fi
+  if [ -f "${conda_path}/etc/profile.d/conda.sh" ]; then
+    . "${conda_path}/etc/profile.d/conda.sh"
+  else
+    export PATH="${conda_path}/bin:$PATH"
+  fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
