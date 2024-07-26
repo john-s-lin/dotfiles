@@ -35,6 +35,10 @@ unset PLATFORM
 
 # Change access mode to u+x, runs the setup script on path passed in as argument 1, then chmod back to rw-r--r--
 function run_setup_script() {
+	if [[ "$1" != *.sh ]]; then
+		echo "$1 is not an executable shell script."
+		exit 1
+	fi
 	chmod 755 "$1"
 	sh -c "$1"
 	chmod 644 "$1"
