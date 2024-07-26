@@ -22,10 +22,10 @@ export PLATFORM
 
 if [[ "${PLATFORM}" == "Darwin" ]]; then
 	echo "Running install script for MacOS..."
-	# sh -c install_macos.sh
+	sh -c install_macos.sh
 elif [[ "${PLATFORM}" == "Linux" ]]; then
 	echo "Running install script for Linux..."
-	# sh -c install_linux.sh
+	sh -c install_linux.sh
 else
 	echo "Not a supported OS. Exiting..."
 	exit 1
