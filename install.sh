@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+DOTFILES_ROOT="$(pwd)"
+export DOTFILES_ROOT
+
 # Ensure you are running as root
 if [[ ${EUID} = 0 ]]; then
 	echo "(1) Running as superuser already."
@@ -14,12 +17,13 @@ else
 	fi
 fi
 
-OS="$(uname -s)"
+PLATFORM="$(uname -s)"
+export PLATFORM
 
-if [[ "$OS" == "Darwin" ]]; then
+if [[ "${PLATFORM}" == "Darwin" ]]; then
 	echo "Running install script for MacOS..."
 	sh -c install_macos.sh
-elif [[ "$OS" == "Linux" ]]; then
+elif [[ "${PLATFORM}" == "Linux" ]]; then
 	echo "Running install script for Linux..."
 	sh -c install_linux.sh
 else
@@ -27,10 +31,18 @@ else
 	exit 1
 fi
 
-chmod u+x "$(pwd)/scripts/symlinks.sh"
-sh -c "$(pwd)/scripts/symlinks.sh"
+unset PLATFORM
 
-chmod u+x "$(pwd)/scripts/rust_setup.sh"
-sh -c "$(pwd)/scripts/rust_setup.sh"
+# Install oh-my-zsh
+chmod u+x "${DOTFILES_ROOT}/scripts/zsh_setup.sh"
+sh -c "${DOTFILES_ROOT}/scripts/zsh_setup.sh"
+
+chmod u+x "${DOTFILES_ROOT}/scripts/symlinks.sh"
+sh -c "${DOTFILES_ROOT}/scripts/symlinks.sh"
+
+chmod u+x "${DOTFILES_ROOT}/scripts/rust_setup.sh"
+sh -c "${DOTFILES_ROOT}/scripts/rust_setup.sh"
+
+unset DOTFILES_ROOT
 
 exit 0
