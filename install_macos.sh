@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if [[ "$OS" != "Darwin" ]]; then
-	echo "Oops! $OS is not MacOS. Running the wrong install script. Exiting..."
+if [[ "${PLATFORM}" != "Darwin" ]]; then
+	echo "Oops! ${PLATFORM} is not MacOS. Running the wrong install script. Exiting..."
 	exit 1
 fi
 
@@ -22,11 +22,7 @@ fi
 brew doctor
 
 # Install brew packages from Brewfile
-brew bundle install -v --file="$(pwd)"/Brewfile
-
-# Install oh-my-zsh
-chmod u+x "$(pwd)"/scripts/zsh_setup.sh
-sh -c "$(pwd)"/scripts/zsh_setup.sh
+brew bundle install -v --file="${DOTFILES_ROOT}"/Brewfile
 
 # Install fzf autocompletion and key bindings
 if command -v fzf &>/dev/null; then
@@ -35,11 +31,8 @@ if command -v fzf &>/dev/null; then
 fi
 
 # Setup macOS default config
-chmod u+x "$(pwd)/scripts/macos_setup.sh"
-sh -c "$(pwd)/scripts/macos_setup.sh"
-
-# Initialize miniconda
-conda init "$(basename "${SHELL}")"
+chmod u+x "${DOTFILES_ROOT}/scripts/macos_setup.sh"
+sh -c "${DOTFILES_ROOT}/scripts/macos_setup.sh"
 
 # Disable Microsoft AutoUpdate
 launchctl disable gui/"$(id -u)"/com.microsoft.update.agent
