@@ -22,10 +22,10 @@ export PLATFORM
 
 if [[ "${PLATFORM}" == "Darwin" ]]; then
 	echo "Running install script for MacOS..."
-	sh -c install_macos.sh
+	# sh -c install_macos.sh
 elif [[ "${PLATFORM}" == "Linux" ]]; then
 	echo "Running install script for Linux..."
-	sh -c install_linux.sh
+	# sh -c install_linux.sh
 else
 	echo "Not a supported OS. Exiting..."
 	exit 1
@@ -33,15 +33,22 @@ fi
 
 unset PLATFORM
 
+# Change access mode to u+x, runs the setup script on path passed in as argument 1, then chmod back to rw-r--r--
+function run_setup_script() {
+	chmod 755 "$1"
+	sh -c "$1"
+	chmod 644 "$1"
+}
+
 # Install oh-my-zsh
-chmod u+x "${DOTFILES_ROOT}/scripts/zsh_setup.sh"
-sh -c "${DOTFILES_ROOT}/scripts/zsh_setup.sh"
+zsh_setup_path="${DOTFILES_ROOT}/scripts/zsh_setup.sh"
+run_setup_script "$zsh_setup_path"
 
-chmod u+x "${DOTFILES_ROOT}/scripts/symlinks.sh"
-sh -c "${DOTFILES_ROOT}/scripts/symlinks.sh"
+symlinks_setup_path="${DOTFILES_ROOT}/scripts/symlinks.sh"
+run_setup_script "$symlinks_setup_path"
 
-chmod u+x "${DOTFILES_ROOT}/scripts/rust_setup.sh"
-sh -c "${DOTFILES_ROOT}/scripts/rust_setup.sh"
+rust_setup_path="${DOTFILES_ROOT}/scripts/rust_setup.sh"
+run_setup_script "$rust_setup_path"
 
 unset DOTFILES_ROOT
 
