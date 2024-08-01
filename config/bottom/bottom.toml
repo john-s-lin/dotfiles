@@ -1,6 +1,7 @@
 # Flags
 [flags]
 battery = true
+enable_gpu = true
 
 # Layout
 [[row]]
