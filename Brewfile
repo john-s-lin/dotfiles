@@ -19,7 +19,8 @@ brew "fnm"
 # Fuzzy finder
 brew "fzf"
 # Ghostscript for PDF compression
-brew "ghostscript"
+# NOTE: this  has too many dependencies installed via brew
+# brew "ghostscript"
 # Go
 brew "go"
 # Lazygit
