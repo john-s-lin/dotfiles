@@ -10,8 +10,6 @@ brew "bottom"
 brew "oven-sh/bun/bun"
 # Cmake
 brew "cmake"
-# Dependency for passion.zsh-theme
-brew "coreutils"
 # Dependency for nvim telescope
 brew "fd"
 # fnm - Fast Node Manager
