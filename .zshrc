@@ -69,13 +69,10 @@ add_to_path "/usr/local/sbin"
 export ZSH="${HOME}/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="passion"
+# ZSH_THEME="robbyrussell"
+# Since you're using starship now, just set conda ps1 to false
 if [[ -x "$(command -v conda)" ]]; then
-  if [[ "${ZSH_THEME}" == "passion" ]]; then
-    conda config --set changeps1 False
-  else
-    conda config --set changeps1 True
-  fi
+  conda config --set changeps1 False
 fi
 
 # fnm
@@ -103,6 +100,11 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
+
+# Starship
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
+export STARSHIP_CACHE="${HOME}/.starship/cache"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
