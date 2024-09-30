@@ -35,6 +35,8 @@ brew "parallel"
 brew "rename"
 # Ripgrep
 brew "ripgrep"
+# Starship.rs
+brew "starship"
 # tmux
 brew "tmux"
 # tree

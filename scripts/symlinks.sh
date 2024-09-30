@@ -11,6 +11,7 @@ ln -sfn "${DOTFILES_ROOT}/.gitconfig" "${HOME}/.gitconfig"
 ln -sfn "${DOTFILES_ROOT}/config/nvim" "${HOME}/.config/nvim"
 ln -sfn "${DOTFILES_ROOT}/config/tmux" "${HOME}/.config/tmux"
 ln -sfn "${DOTFILES_ROOT}/config/alacritty" "${HOME}/.config/alacritty"
+ln -sfn "${DOTFILES_ROOT}/config/starship" "${HOME}/.config/starship"
 
 # If bottom exists, symlink bottom.toml config
 if command -v btm >/dev/null 2>&1; then
