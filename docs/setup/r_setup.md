@@ -16,6 +16,7 @@ cask "xquartz" # And this is why you try not to use the geoR package
 
 # Formulae
 brew "gcc"
+brew "tcl-tk" # For some bs package
 ```
 
 ## Setup using `renv`
@@ -81,6 +82,13 @@ which builds all your packages from the lockfile that you have saved in `renv.lo
 ## Troubleshooting
 
 I experienced build errors first for `nlme`, then for `MASS`, then back to `nlme`. Why? `nlme` requires `gfortran` which is installed with `gcc` from `brew`. When you setup your `R` environment to use `gcc` instead of `clang`, guess what? `MASS` now has build errors.
+
+There's also one package that requires `tcl-tk`, but then R can't find it. Add this to your PATH in `~/.bash_profile` cause you don't want to fuck with your `.zshrc` or `.bashrc`.
+
+```bash
+# Add tcl-tk to PATH
+export PATH="${PATH}:/usr/local/opt/tcl-tk/bin/"
+```
 
 This is my `~/.R/Makevars` file. This should help things build correctly.
 
