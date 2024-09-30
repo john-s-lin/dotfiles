@@ -5,6 +5,13 @@ ZSH_DISABLE_COMPFIX="true"
 arch=$(uname -m)
 platform=$(uname -s)
 
+# Function to add paths if not already in $PATH
+add_to_path() {
+  if [[ -n "$1" && ":$PATH:" != *":$1:"* ]]; then
+    export PATH="$1:$PATH"
+  fi
+}
+
 # Change variables depending on architecture and OS type
 if [[ "$platform" == "Darwin" ]]; then
   if [[ "$arch" =~ "arm"* ]]; then
@@ -49,16 +56,14 @@ else
   local go_path=""
 fi
 
-# If you come from bash you might have to change your $PATH.
-export PATH="${HOME}/bin:\
-${brew_path}:\
-${java_path}:\
-${docker_path}:\
-${go_path}:\
-${rust_path}:\
-/usr/local/bin:\
-/usr/local/sbin:\
-${PATH}"
+# Add paths to PATH without duplicates
+add_to_path "${brew_path}"
+add_to_path "${java_path}"
+add_to_path "${docker_path}"
+add_to_path "${go_path}"
+add_to_path "${rust_path}"
+add_to_path "/usr/local/bin"
+add_to_path "/usr/local/sbin"
 
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
