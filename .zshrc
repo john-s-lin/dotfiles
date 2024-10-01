@@ -92,7 +92,6 @@ export CONFIG_HOME="${HOME}/.config"
 
 # ohmyzsh plugins and config
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-zstyle ':omz:alpha:lib:git' async-prompt no
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
