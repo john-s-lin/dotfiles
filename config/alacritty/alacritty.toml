@@ -1,2 +1,3 @@
+[general]
 import = ["~/.config/alacritty/appearance.toml"]
 live_config_reload = true
