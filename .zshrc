@@ -104,7 +104,7 @@ fi
 
 # zoxide
 if command -v zoxide >/dev/null 2>&1; then
-  export _ZO_DATA_DIR="${HOME}/.local/share"
+  export _ZO_DATA_DIR="${HOME}/.local/share/zoxide"
   eval "$(zoxide init --cmd cd zsh)"
 fi
 
