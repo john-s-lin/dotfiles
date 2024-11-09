@@ -110,9 +110,9 @@ fi
 
 # Starship
 if command -v starship >/dev/null 2>&1; then
-  eval "$(starship init zsh)"
   export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
   export STARSHIP_CACHE="${HOME}/.starship/cache"
+  eval "$(starship init zsh)"
 fi
 
 # >>> conda initialize >>>
