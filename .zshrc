@@ -74,7 +74,7 @@ ZSH_THEME=""
 if [ -d "${HOME}/.config/starship" ]; then
   ZSH_THEME=""
 else
-  ZSH_THEME="robbyrussell"
+  ZSH_THEME="lukerandall"
 fi
 
 # Since you're using starship now, just set conda ps1 to false
