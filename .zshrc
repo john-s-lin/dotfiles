@@ -91,7 +91,7 @@ fi
 export CONFIG_HOME="${HOME}/.config"
 
 # ohmyzsh plugins and config
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # Aliases
