@@ -69,7 +69,8 @@ add_to_path "/usr/local/sbin"
 export ZSH="${HOME}/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# If you have starship, don't set the theme, else set it to robbyrussell
+# If you have starship, don't set the theme, else set it to lukerandall
+# because it shows you the hostname in the prompt
 ZSH_THEME=""
 if [ -d "${HOME}/.config/starship" ]; then
   ZSH_THEME=""
@@ -77,9 +78,15 @@ else
   ZSH_THEME="lukerandall"
 fi
 
-# Since you're using starship now, just set conda ps1 to false
+# If you have conda and are using starship, set prompt to none since starship will
+# take care of it.
+# If you aren't using starship, set prompt to true for conda envs
 if [[ -x "$(command -v conda)" ]]; then
-  conda config --set changeps1 False
+  if [ -d "${HOME}/.config/starship" ]; then
+    conda config --set changeps1 False
+  else
+    conda config --set changeps1 True
+  fi
 fi
 
 # fnm
