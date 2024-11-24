@@ -12,6 +12,7 @@ fi
 
 # Symlink modified passion theme to ZSH_CUSTOM
 ln -s "${HOME}/.dotfiles/config/zsh/themes/passion.zsh-theme" "${ZSH_CUSTOM}"/themes
+ln -s "${HOME}/.dotfiles/config/zsh/themes/robbyrussell.zsh-theme" "${ZSH_CUSTOM}"/themes
 
 # Download zsh-autosuggestions plugin
 git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions
