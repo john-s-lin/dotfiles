@@ -28,6 +28,12 @@ defaults write com.apple.dock "tilesize" -int 36 &&
 	defaults write com.apple.dock "orientation" -string "left" &&
 	killall Dock
 
+# Window tiling disable for Rectangle
+defaults write com.apple.WindowManager "EnableTilingByEdgeDrag" -int 0 &&
+	defaults write com.apple.WindowManager "EnableTiledWindowMargins" -int 0 &&
+	defaults write com.apple.WindowManager "EnableTopTilingByEdgeDrag" -int 0 &&
+	defaults write com.apple.WindowManager "EnableTilingOptionAccelerator" -int 0
+
 # Show list view, all file extensions, and show path bar inside Finder
 defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&
 	defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true" &&
