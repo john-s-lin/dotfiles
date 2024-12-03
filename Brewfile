@@ -77,8 +77,6 @@ cask "selfcontrol"
 cask "signal"
 # Spotify
 cask "spotify"
-# Pomodoro bar
-cask "tomatobar"
 # VSCode
 cask "visual-studio-code"
 # VLC
