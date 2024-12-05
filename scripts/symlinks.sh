@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Set DOTFILES_ROOT to the upper directory of the current script if not already set
+# Set DOTFILES_ROOT to the upper directory of the current scjipt if not already set
 if [ -z "$DOTFILES_ROOT" ]; then
 	DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 fi
@@ -8,7 +8,13 @@ fi
 # Enable symlinks for .zshrc, .bashrc, .condarc
 ln -sfn "${DOTFILES_ROOT}/.zshrc" "${HOME}/.zshrc"
 ln -sfn "${DOTFILES_ROOT}/.bashrc" "${HOME}/.bashrc"
-ln -sfn "${DOTFILES_ROOT}/.condarc" "${HOME}/.condarc"
+
+if [ uname -s == "Darwin" ]; then
+	ln -sfn "${DOTFILES_ROOT}/.condarc" "${HOME}/.condarc"
+elif [ uname -s == "Linux" ]; then
+	ln -sfn "${DOTFILES_ROOT}/.condarc.linux" "${HOME}/.condarc"
+fi
+
 ln -sfn "${DOTFILES_ROOT}/.bash_aliases" "${HOME}/.bash_aliases"
 ln -sfn "${DOTFILES_ROOT}/.gitconfig" "${HOME}/.gitconfig"
 
