@@ -9,9 +9,9 @@ fi
 ln -sfn "${DOTFILES_ROOT}/.zshrc" "${HOME}/.zshrc"
 ln -sfn "${DOTFILES_ROOT}/.bashrc" "${HOME}/.bashrc"
 
-if [ uname -s == "Darwin" ]; then
+if [ $(uname -s) == "Darwin" ]; then
 	ln -sfn "${DOTFILES_ROOT}/.condarc" "${HOME}/.condarc"
-elif [ uname -s == "Linux" ]; then
+elif [ $(uname -s) == "Linux" ]; then
 	ln -sfn "${DOTFILES_ROOT}/.condarc.linux" "${HOME}/.condarc"
 fi
 
