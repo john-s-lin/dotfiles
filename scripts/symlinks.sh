@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# Set DOTFILES_ROOT to the upper directory of the current scjipt if not already set
+# Set DOTFILES_ROOT to the upper directory of the current script if not already set
 if [ -z "$DOTFILES_ROOT" ]; then
-	DOTFILES_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+	DOTFILES_ROOT="${HOME}/.dotfiles"
 fi
 
 # Enable symlinks for .zshrc, .bashrc, .condarc
