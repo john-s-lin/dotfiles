@@ -21,6 +21,8 @@ brew "fzf"
 # brew "ghostscript"
 # Go
 brew "go"
+# hyperfine
+brew "hyperfine"
 # Lazygit
 brew "lazygit"
 # Mac App Store CLI
