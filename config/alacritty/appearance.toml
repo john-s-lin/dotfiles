@@ -3,8 +3,8 @@ import = ["~/.config/alacritty/themes/tokyo_night.toml"]
 
 [window]
 decorations = "Buttonless"
-opacity = 0.9
-blur = true
+opacity = 1.0
+blur = false
 dynamic_padding = true
 padding = { x = 5, y = 5 }
 
