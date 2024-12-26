@@ -9,5 +9,5 @@ config/nvim/lazyvim.json
 Brewfile.lock.json
 
 # Zed
-config/zed/
-!config/zed/settings.json
+config/zed/prompts
+config/zed/conversations
