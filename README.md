@@ -13,6 +13,8 @@ Make sure to first install `xcode-select` CLI on macOS.
 xcode-select --install
 ```
 
+Then clone this repo!
+
 Make sure `install.sh` is executable:
 
 Then execute the `install.sh` script to install everything you need. You may need `sudo` permissions.
