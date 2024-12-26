@@ -51,8 +51,6 @@ brew "uv"
 brew "zoxide"
 
 # Casks
-# Alacritty
-cask "alacritty"
 # Discord
 cask "discord"
 # Docker
@@ -63,6 +61,8 @@ cask "firefox"
 cask "font-geist"
 cask "font-geist-mono-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
+# Ghostty
+cask "ghostty"
 # Chrome
 cask "google-chrome"
 # Linear
