@@ -7,3 +7,7 @@ config/nvim/lazyvim.json
 
 # Homebrew
 Brewfile.lock.json
+
+# Zed
+config/zed/
+!config/zed/settings.json
