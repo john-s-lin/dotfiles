@@ -6,11 +6,14 @@ This is largely one-touch deployment for Darwin (macOS) systems.
 
 ## Setup
 
-Make sure `install.sh` is executable:
+Make sure to first install `xcode-select` CLI on macOS.
 
-```sh
-chmod u+x <path_to_install.sh>
+```bash
+# On macOS only
+xcode-select --install
 ```
+
+Make sure `install.sh` is executable:
 
 Then execute the `install.sh` script to install everything you need. You may need `sudo` permissions.
 

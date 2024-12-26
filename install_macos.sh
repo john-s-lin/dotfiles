@@ -5,9 +5,6 @@ if [[ "${PLATFORM}" != "Darwin" ]]; then
 	exit 1
 fi
 
-# Install Xcode CLT
-xcode-select --install
-
 # Install Homebrew
 echo "Checking for Homebrew..."
 if test ! "$(which brew)"; then
