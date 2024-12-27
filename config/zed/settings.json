@@ -12,9 +12,6 @@
   },
   "terminal": {
     "line_height": "standard",
-    "shell": {
-      "program": "zsh"
-    }
   },
   "theme": "One Dark",
   "ui_font_family": "Geist",
