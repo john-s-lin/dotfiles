@@ -10,6 +10,12 @@
     "diagnostics": false,
     "metrics": false
   },
+  "terminal": {
+    "line_height": "standard",
+    "shell": {
+      "program": "zsh"
+    }
+  },
   "theme": "One Dark",
   "ui_font_family": "Geist",
   "ui_font_size": 14,
