@@ -6,12 +6,13 @@
   "base_keymap": "VSCode",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 12,
+  "relative_line_numbers": true,
   "telemetry": {
     "diagnostics": false,
     "metrics": false
   },
   "terminal": {
-    "line_height": "standard",
+    "line_height": "standard"
   },
   "theme": "One Dark Pro",
   "ui_font_family": "Geist",
