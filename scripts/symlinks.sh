@@ -21,17 +21,13 @@ ln -sfn "${DOTFILES_ROOT}/.gitconfig" "${HOME}/.gitconfig"
 # Symlink config settings
 mkdir -p "${HOME}/.config"
 
-ln -sfn "${DOTFILES_ROOT}/config/nvim" "${HOME}/.config/nvim"
-ln -sfn "${DOTFILES_ROOT}/config/tmux" "${HOME}/.config/tmux"
 ln -sfn "${DOTFILES_ROOT}/config/alacritty" "${HOME}/.config/alacritty"
-ln -sfn "${DOTFILES_ROOT}/config/zed" "${HOME}/.config/zed"
 ln -sfn "${DOTFILES_ROOT}/config/bat" "${HOME}/.config/bat"
+ln -sfn "${DOTFILES_ROOT}/config/bottom" "${HOME}/.config/bottom"
 ln -sfn "${DOTFILES_ROOT}/config/ghostty" "${HOME}/.config/ghostty"
+ln -sfn "${DOTFILES_ROOT}/config/nvim" "${HOME}/.config/nvim"
 ln -sfn "${DOTFILES_ROOT}/config/starship" "${HOME}/.config/starship"
-
-# If bottom exists, symlink bottom.toml config
-if command -v btm >/dev/null 2>&1; then
-	ln -sfn "${DOTFILES_ROOT}/config/bottom" "${HOME}/.config/bottom"
-fi
+ln -sfn "${DOTFILES_ROOT}/config/tmux" "${HOME}/.config/tmux"
+ln -sfn "${DOTFILES_ROOT}/config/zed" "${HOME}/.config/zed"
 
 exit 0
