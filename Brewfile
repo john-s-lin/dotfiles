@@ -4,6 +4,8 @@ tap "homebrew/services"
 tap "oven-sh/bun"
 
 # List
+# A better cat(1)
+brew "bat"
 # TUI System Metrics
 brew "bottom"
 # Bun
