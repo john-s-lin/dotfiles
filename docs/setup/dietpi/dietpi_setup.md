@@ -14,18 +14,39 @@ Note this is for a headless installation and access through `ssh`. Not for deskt
    5. `pihole`
    6. `Docker`
    7. `Docker-Compose`
-   8. (Optional) `Tailscale`
+   8. (Optional) `Tailscale` for `actual-budget`. See [Actual Budget Setup](../actual_budget_setup.md).
 5. Clone `.dotfiles` with `https`
 6. Run `install.sh` as `dietpi`
 7. `chsh -s $(which zsh)` to set the default `$SHELL=zsh`
 8. `cp .gitconfig.local` from a different computer
+9. Setup `.ssh` for GitHub
+10. Replace `.dotfiles` remote url with the `ssh` version
 
-# Installed packages
+```bash
+git remote set-url origin <URL>
+```
+
+# Installing packages from source
 
 - `neovim` (built from `GitHub` using binary since `apt` doesn't have 0.8+)
-- `oh-my-zsh`
-  - `zsh-autosuggestions`
-  - `zsh-syntax-highlighting`
+  - Ref: https://luther.io/articles/how-to-install-neovim-on-raspberry-pi/
+  - Requires:
+    - `git`
+    - `clang`
+      > Note: Do not use `gcc`, because the linker doesn't work on `arm`
+    - `file`
+    - `gettext`
+    - `make`
+    - `cmake`
+
+```bash
+git clone <NEOVIM_REPO>
+cd neovim
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+cd build
+cpack -G DEB
+sudo dpkg -i nvim-linux64.deb
+```
 
 # Roadmap
 
