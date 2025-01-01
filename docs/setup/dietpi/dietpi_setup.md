@@ -28,25 +28,18 @@ git remote set-url origin <URL>
 
 # Installing packages from source
 
+> Note: In the future, just install neovim from source using the build instructions in the wiki and don't do it this way.
+
 - `neovim` (built from `GitHub` using binary since `apt` doesn't have 0.8+)
   - Ref: https://luther.io/articles/how-to-install-neovim-on-raspberry-pi/
   - Requires:
-    - `git`
-    - `clang`
-      > Note: Do not use `gcc`, because the linker doesn't work on `arm`
-    - `file`
-    - `gettext`
-    - `make`
-    - `cmake`
-
-```bash
-git clone <NEOVIM_REPO>
-cd neovim
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-cd build
-cpack -G DEB
-sudo dpkg -i nvim-linux64.deb
-```
+  - `git`
+  - `clang`
+    > Note: Do not use `gcc`, because the linker doesn't work on `arm`
+  - `file`
+  - `gettext`
+  - `make`
+  - `cmake`
 
 # Roadmap
 
