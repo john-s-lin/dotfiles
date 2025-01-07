@@ -1,0 +1,26 @@
+# Follow the instructions on the Arch Wiki
+# Create the config file (cp or symlink) to /etc/evremap.toml
+# Then start the service by using
+# sudo systemctl daemon-reload
+# sudo systemctl enable evremap.service
+# sudo systemctl start evremap.service
+# Ref: https://wiki.archlinux.org/title/Input_remap_utilities
+device_name = "AT Translated Set 2 keyboard"
+
+[[dual_role]]
+input = "KEY_CAPSLOCK"
+hold = ["KEY_LEFTCTRL"]
+tap = ["KEY_ESC"]
+
+# Swap ALT and META keys
+[[remap]]
+input = ["KEY_LEFTALT"]
+output = ["KEY_LEFTMETA"]
+
+[[remap]]
+input = ["KEY_RIGHTALT"]
+output = ["KEY_RIGHTMETA"]
+
+[[remap]]
+input = ["KEY_LEFTMETA"]
+output = ["KEY_LEFTALT"]
