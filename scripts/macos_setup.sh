@@ -2,20 +2,26 @@
 
 # NOTE: this script must be run with sudo privileges
 
-# Set computer hostname and confirm
-read -r -p "Set a new hostname: " hostname
-echo "Setting hostname to: ${hostname}"
+read -r -p "Do you want to change the hostname? (y/n): " confirm_change_hostname
 
-scutil --set HostName "${hostname}"
-scutil --set LocalHostName "${hostname}"
-scutil --set ComputerName "${hostname}"
+if [[ "$confirm_change_hostname" =~ ^[Yy](es)?$ ]]; then
+	# Set computer hostname and confirm
+	read -r -p "Set a new hostname: " hostname
+	echo "Setting hostname to: ${hostname}"
 
-# Flush cache
-dscacheutil -flushcache
+	scutil --set HostName "${hostname}"
+	scutil --set LocalHostName "${hostname}"
+	scutil --set ComputerName "${hostname}"
 
-echo "Hostname: $(scutil --get HostName)"
-echo "LocalHostName $(scutil --get LocalHostName)"
-echo "ComputerName $(scutil --get ComputerName)"
+	# Flush cache
+	dscacheutil -flushcache
+
+	echo "Hostname: $(scutil --get HostName)"
+	echo "LocalHostName $(scutil --get LocalHostName)"
+	echo "ComputerName $(scutil --get ComputerName)"
+else
+	echo "Skipping hostname change."
+fi
 
 # Enable remote login
 printf "\nSetting remote login to 'on'...\n"
