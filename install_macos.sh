@@ -9,7 +9,7 @@ fi
 echo "Checking for Homebrew..."
 if test ! "$(which brew)"; then
 	echo "Installing Homebrew..."
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	echo "Homebrew installed!"
 else
 	echo "$(brew --version) already installed."
