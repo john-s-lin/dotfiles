@@ -8,6 +8,10 @@ else
 	echo "Oh My Zsh already installed."
 fi
 
+if [[ -z "${ZSH_CUSTOM}" ]]; then
+	ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+fi
+
 # Symlink modified themes to ZSH_CUSTOM
 echo "Creating symlinks for custom themes..."
 ln -sf "${HOME}/.dotfiles/config/zsh/themes/passion.zsh-theme" "${ZSH_CUSTOM}/themes/passion.zsh-theme"
