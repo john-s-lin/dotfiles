@@ -4,10 +4,6 @@
 if [[ -z "${ZSH}" || ! -d "${ZSH}" ]]; then
 	echo "Oh My Zsh not found. Installing..."
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-	# Reload Zsh environment
-	echo "Reloading Zsh environment..."
-	exec zsh
 else
 	echo "Oh My Zsh already installed."
 fi
