@@ -28,8 +28,9 @@ if command -v fzf &>/dev/null; then
 fi
 
 # Setup macOS default config
-chmod u+x "${DOTFILES_ROOT}/scripts/macos_setup.sh"
+chmod 755 "${DOTFILES_ROOT}/scripts/macos_setup.sh"
 sh -c "${DOTFILES_ROOT}/scripts/macos_setup.sh"
+chmod 644 "${DOTFILES_ROOT}/scripts/macos_setup.sh"
 
 # Disable Microsoft AutoUpdate
 launchctl disable gui/"$(id -u)"/com.microsoft.update.agent
