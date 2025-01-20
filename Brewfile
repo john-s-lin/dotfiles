@@ -85,6 +85,8 @@ cask "spotify"
 cask "visual-studio-code"
 # VLC
 cask "vlc"
+# Zed
+cask "zed"
 
 # Mac App Store
 # Microsoft Office
