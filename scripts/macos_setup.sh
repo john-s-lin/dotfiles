@@ -47,6 +47,10 @@ defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv" &&
 	defaults write com.apple.finder "ShowStatusBar" -bool "true" &&
 	killall Finder
 
+if command -v code &>/dev/null; then
+	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+fi
+
 # Mouse defaults
 defaults write NSGlobalDomain com.apple.mouse.linear -bool "true" &&
 	defaults write NSGlobalDomain com.apple.mouse.scaling -float "2.5"
