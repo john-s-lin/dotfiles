@@ -12,6 +12,8 @@ brew "bottom"
 brew "oven-sh/bun/bun"
 # Cmake
 brew "cmake"
+# fd File Search
+brew "fd"
 # fnm - Fast Node Manager
 brew "fnm"
 # Fuzzy finder
