@@ -7,12 +7,12 @@ shell-integration-features = "no-cursor"
 background-opacity = 1.0
 background-blur-radius = 0
 
-font-family = "JetBrainsMono NFM Light"
+font-family = "JetBrainsMono NFM Regular"
 font-family-bold = "JetBrainsMono NFM Bold"
 font-family-italic = "JetBrainsMono NFM Light Italic"
 font-family-bold-italic = "JetBrainsMono NFM Bold Italic"
 
-font-size = 12
+font-size = 13
 font-thicken = true
 
 macos-titlebar-style = "hidden"
