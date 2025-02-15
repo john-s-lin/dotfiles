@@ -69,8 +69,6 @@ cask "ghostty"
 cask "google-chrome"
 # Linear
 cask "linear-linear"
-# Conda for python
-cask "miniconda"
 # Obsidian
 cask "obsidian"
 # Keymap for window snap-to-grid
