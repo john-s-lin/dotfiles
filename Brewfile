@@ -42,8 +42,6 @@ brew "starship"
 brew "tmux"
 # tree
 brew "tree"
-# Universal-ctags for nvim tagbar
-brew "universal-ctags"
 # uv
 brew "uv"
 # zoxide
