@@ -5,17 +5,14 @@ if [ -z "$DOTFILES_ROOT" ]; then
 	DOTFILES_ROOT="${HOME}/.dotfiles"
 fi
 
-# Enable symlinks for .zshrc, .bashrc, .condarc
+# Enable symlinks for .zshrc, .bashrc
 ln -sfn "${DOTFILES_ROOT}/.zshrc" "${HOME}/.zshrc"
 ln -sfn "${DOTFILES_ROOT}/.bashrc" "${HOME}/.bashrc"
 
-if [ $(uname -s) == "Darwin" ]; then
-	ln -sfn "${DOTFILES_ROOT}/.condarc" "${HOME}/.condarc"
-elif [ $(uname -s) == "Linux" ]; then
-	ln -sfn "${DOTFILES_ROOT}/.condarc.linux" "${HOME}/.condarc"
-fi
-
+# Aliases
 ln -sfn "${DOTFILES_ROOT}/.bash_aliases" "${HOME}/.bash_aliases"
+
+# Gitconfig
 ln -sfn "${DOTFILES_ROOT}/.gitconfig" "${HOME}/.gitconfig"
 
 # Symlink config settings

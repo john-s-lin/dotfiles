@@ -47,12 +47,6 @@ function login_info() {
     echo "${color}[%n@${ip}]${color_reset}";
 }
 
-# conda environment
-# REF setting a custom color: https://dev.to/yujinyuz/custom-colors-in-oh-my-zsh-themes-4h13
-function conda_info() {
-    echo "%{$FG[221]%}(${CONDA_DEFAULT_ENV})%{$reset_color%}"
-}
-
 # directory
 function directory() {
     local color="%{$fg_no_bold[cyan]%}";
@@ -215,11 +209,7 @@ TRAPALRM() { # cspell:disable-line
 
 # prompt
 function _passion_prompt() {
-    if [ -v CONDA_DEFAULT_ENV ]; then
-      echo "$(real_time) $(conda_info) $(directory) $(git_status)$(command_status) "
-    else
-      echo "$(real_time) $(directory) $(git_status)$(command_status) "
-    fi
+  echo "$(real_time) $(directory) $(git_status)$(command_status) "
 }
 
 # PROMPT='$(real_time) $(login_info) $(directory) $(git_status)$(command_status) ';
