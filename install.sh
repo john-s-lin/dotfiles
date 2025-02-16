@@ -3,20 +3,6 @@
 DOTFILES_ROOT="$(pwd)"
 export DOTFILES_ROOT
 
-# Ensure you are running as root
-# if [[ ${EUID} = 0 ]]; then
-# 	echo "(1) Running as superuser already."
-# else
-# 	# Reset user as superuser
-# 	sudo -k
-# 	if sudo true; then
-# 		echo "(2) User changed to sudo."
-# 	else
-# 		echo "(3) Wrong password."
-# 		exit 1
-# 	fi
-# fi
-
 PLATFORM="$(uname -s)"
 export PLATFORM
 
