@@ -18,9 +18,6 @@ brew "fd"
 brew "fnm"
 # Fuzzy finder
 brew "fzf"
-# Ghostscript for PDF compression
-# NOTE: this  has too many dependencies installed via brew
-# brew "ghostscript"
 # Go
 brew "go"
 # hyperfine
