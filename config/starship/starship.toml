@@ -3,6 +3,8 @@ format = """\
 $time\
 $directory\
 $python\
+$rust\
+$zig\
 $git_branch\
 $git_commit\
 $git_state\
@@ -32,6 +34,14 @@ style = "yellow"
 [python]
 format = '[\((${version})( ${virtualenv})\)]($style) '
 style = "green"
+
+[rust]
+format = '[\((${version})\)]($style) '
+style = "red"
+
+[zig]
+format = '[\((${version})\)]($style) '
+style = "yellow"
 
 [git_branch]
 format = '[\[$branch(:$remote_branch)\]]($style) '
