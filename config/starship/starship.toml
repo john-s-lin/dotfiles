@@ -2,7 +2,6 @@
 format = """\
 $time\
 $directory\
-$conda\
 $python\
 $git_branch\
 $git_commit\
@@ -24,11 +23,6 @@ format = '[\[$path\]]($style) '
 style = "cyan"
 truncation_symbol = '.../'
 truncate_to_repo = false
-
-[conda]
-format = '[\($environment\)]($style) '
-style = "yellow"
-ignore_base = false
 
 [cmd_duration]
 min_time = 50

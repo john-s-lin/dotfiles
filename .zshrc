@@ -17,17 +17,9 @@ if [[ "$platform" == "Darwin" ]]; then
   if [[ "$arch" =~ "arm"* ]]; then
     brew_path="/opt/homebrew/bin"
     brew_opt_path="/opt/homebrew/opt"
-    conda_path="/opt/homebrew/Caskroom/miniconda/base"
   elif [[ "$arch" =~ "x86"* ]]; then
     brew_path="/usr/local/bin"
     brew_opt_path="/usr/local/opt"
-    conda_path="/usr/local/Caskroom/miniconda/base"
-  fi
-elif [[ "$platform" =~ "Linux" ]]; then
-  if [[ -d "${HOME}/.miniconda3" ]]; then
-    conda_path="${HOME}/.miniconda3"
-  elif [[ -d "${HOME}/.miniforge3" ]]; then
-    conda_path="${HOME}/.miniforge3"
   fi
 fi
 
@@ -73,13 +65,6 @@ export ZSH="${HOME}/.oh-my-zsh"
 # because it shows you the hostname in the prompt
 ZSH_THEME="robbyrussell"
 
-# If you have conda and are using starship, set prompt to none since starship will
-# take care of it.
-# If you aren't using starship, set prompt to true for conda envs
-if [[ -x "$(command -v conda)" ]]; then
-  conda config --set changeps1 True
-fi
-
 # fnm
 if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd)"
@@ -111,21 +96,5 @@ if command -v starship >/dev/null 2>&1; then
   export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
   export STARSHIP_CACHE="${HOME}/.starship/cache"
   ZSH_THEME=""
-  conda config --set changeps1 False
   eval "$(starship init zsh)"
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$(${conda_path}/bin/conda 'shell.zsh' 'hook' 2>/dev/null)"
-if [ $? -eq 0 ]; then
-  eval "$__conda_setup"
-else
-  if [ -f "${conda_path}/etc/profile.d/conda.sh" ]; then
-    . "${conda_path}/etc/profile.d/conda.sh"
-  else
-    export PATH="${conda_path}/bin:$PATH"
-  fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<

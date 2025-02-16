@@ -46,5 +46,4 @@ git remote set-url origin <URL>
 - [x] Configure a `.zshrc` for Linux
 - [x] Configure a `.bashrc` for Linux
 - [x] `pi.hole` install
-- [x] `miniconda`
 - [x] Write a `install.sh` for Linux in `.dotfiles`
