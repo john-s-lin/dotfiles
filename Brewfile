@@ -52,8 +52,6 @@ brew "zoxide"
 cask "discord"
 # Docker
 cask "docker"
-# Firefox
-cask "firefox"
 # Interface and NerdFonts
 cask "font-geist"
 cask "font-geist-mono-nerd-font"
@@ -80,6 +78,8 @@ cask "visual-studio-code"
 cask "vlc"
 # Zed
 cask "zed"
+# Zen Browser
+cask "zen-browser"
 
 # Mac App Store
 # Microsoft Office
