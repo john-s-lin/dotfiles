@@ -1,6 +1,4 @@
 # Taps
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "oven-sh/bun"
 
 # List
