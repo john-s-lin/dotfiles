@@ -2,7 +2,7 @@
 import = ["~/.config/alacritty/themes/tokyo_night.toml"]
 
 [window]
-decorations = "Buttonless"
+decorations = "None"
 opacity = 1.0
 blur = false
 dynamic_padding = true
