@@ -79,7 +79,7 @@ cask "vlc"
 # Zed
 cask "zed"
 # Zen Browser
-cask "zen-browser"
+cask "zen"
 
 # Mac App Store
 # Microsoft Office
