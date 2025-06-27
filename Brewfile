@@ -49,7 +49,7 @@ brew "zoxide"
 # Discord
 cask "discord"
 # Docker
-cask "docker"
+cask "docker-desktop"
 # Interface and NerdFonts
 cask "font-geist"
 cask "font-geist-mono-nerd-font"
