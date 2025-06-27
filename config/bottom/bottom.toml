@@ -2,6 +2,7 @@
 [flags]
 battery = true
 enable_gpu = true
+tree = true
 
 # Layout
 [[row]]
