@@ -71,7 +71,7 @@ cask "signal"
 # Spotify
 cask "spotify"
 # Tailscale
-cask "tailscale"
+cask "tailscale-app"
 # VSCode
 cask "visual-studio-code"
 # VLC
