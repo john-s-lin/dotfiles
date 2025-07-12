@@ -36,12 +36,12 @@ brew "rename"
 brew "ripgrep"
 # Starship.rs
 brew "starship"
-# tmux
-brew "tmux"
 # tree
 brew "tree"
 # uv
 brew "uv"
+# zellij
+brew "zellij"
 # zoxide
 brew "zoxide"
 

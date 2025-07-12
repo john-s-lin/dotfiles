@@ -26,5 +26,6 @@ ln -sfn "${DOTFILES_ROOT}/config/nvim" "${HOME}/.config/nvim"
 ln -sfn "${DOTFILES_ROOT}/config/starship" "${HOME}/.config/starship"
 ln -sfn "${DOTFILES_ROOT}/config/tmux" "${HOME}/.config/tmux"
 ln -sfn "${DOTFILES_ROOT}/config/zed" "${HOME}/.config/zed"
+ln -sfn "${DOTFILES_ROOT}/config/zellij" "${HOME}/.config/zellij"
 
 exit 0
