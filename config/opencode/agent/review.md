@@ -1,7 +1,7 @@
 ---
 description: Review agent
 mode: subagent
-model: openrouter/sonoma-sky-alpha
+model: openrouter/openrouter/sonoma-sky-alpha
 temperature: 0.5
 tools:
   write: false
