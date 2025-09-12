@@ -13,7 +13,7 @@ tools:
 
 You have access to the following tools:
 
-- GitHub CLI (i.e. `gh`)Ï
+- GitHub CLI (i.e. `gh`)
 
 # Guidelines
 
