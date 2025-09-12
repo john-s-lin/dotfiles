@@ -1,7 +1,7 @@
 ---
 description: Plan agent
 mode: primary
-model: openrouter/sonoma-sky-alpha
+model: openrouter/openrouter/sonoma-sky-alpha
 temperature: 0.7
 tools:
   write: false
