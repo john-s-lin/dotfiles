@@ -1,7 +1,7 @@
 ---
 description: Plan agent
 mode: primary
-model: openrouter/openrouter/sonoma-sky-alpha
+model: openrouter/x-ai/grok-4-fast:free
 temperature: 0.7
 tools:
   write: false
