@@ -1,7 +1,7 @@
 ---
 description: Review agent
 mode: subagent
-model: openrouter/openrouter/sonoma-sky-alpha
+model: openrouter/x-ai/grok-4-fast:free
 temperature: 0.5
 tools:
   write: false
