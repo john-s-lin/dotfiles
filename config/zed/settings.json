@@ -25,5 +25,18 @@
   "theme": "One Dark Pro",
   "ui_font_family": "Geist",
   "ui_font_size": 16,
-  "vim_mode": true
+  "vim_mode": true,
+  "languages": {
+    "Nix": {
+      "language_servers": ["nil", "!nixd"],
+      "formatter": {
+        "external": {
+          "command": "nixfmt"
+        }
+      }
+    },
+    "Python": {
+      "language_servers": ["ty", "!basedpyright", "ruff"]
+    }
+  }
 }
