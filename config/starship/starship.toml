@@ -1,6 +1,5 @@
 # This is a Starship port of my favourite omz prompt
 format = """\
-$time\
 $directory\
 $python\
 $rust\
@@ -14,11 +13,6 @@ $character\
 """
 
 add_newline = false
-
-[time]
-format = '[\[$time\]]($style) '
-style = "cyan"
-disabled = false
 
 [directory]
 format = '[\[$path\]]($style) '
