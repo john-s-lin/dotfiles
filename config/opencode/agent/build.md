@@ -1,7 +1,7 @@
 ---
 description: Build agent
 mode: primary
-model: opencode/code-supernova
+model: opencode/grok-code
 temperature: 0.2
 tools:
   write: true
