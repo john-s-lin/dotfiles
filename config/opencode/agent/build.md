@@ -1,7 +1,7 @@
 ---
 description: Build agent
 mode: primary
-model: openrouter/x-ai/grok-4-fast:free
+model: opencode/code-supernova
 temperature: 0.2
 tools:
   write: true
