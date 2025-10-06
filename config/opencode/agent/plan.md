@@ -1,7 +1,7 @@
 ---
 description: Plan agent
 mode: primary
-model: openrouter/x-ai/grok-4-fast:free
+model: openrouter/deepseek/deepseek-r1-0528-qwen3-8b:free
 temperature: 0.7
 tools:
   write: false
