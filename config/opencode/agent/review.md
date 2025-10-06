@@ -1,7 +1,7 @@
 ---
 description: Review agent
 mode: subagent
-model: openrouter/x-ai/grok-4-fast:free
+model: openrouter/deepseek/deepseek-r1-0528-qwen3-8b:free
 temperature: 0.5
 tools:
   write: false
