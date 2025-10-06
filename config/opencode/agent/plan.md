@@ -1,7 +1,7 @@
 ---
 description: Plan agent
 mode: primary
-model: openrouter/deepseek/deepseek-r1-0528-qwen3-8b:free
+model: google/gemini-2.5-flash
 temperature: 0.7
 tools:
   write: false
