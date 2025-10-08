@@ -1,7 +1,7 @@
 ---
 description: Review agent
 mode: subagent
-model: google/gemini-2.5-flash
+model: google/gemini-flash-latest
 temperature: 0.5
 tools:
   write: false
