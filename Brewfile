@@ -60,6 +60,8 @@ cask "ghostty"
 cask "google-chrome"
 # Linear
 cask "linear-linear"
+# Localsend
+cask "localsend"
 # Obsidian
 cask "obsidian"
 # Keymap for window snap-to-grid
