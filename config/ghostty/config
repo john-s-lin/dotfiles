@@ -2,7 +2,7 @@ auto-update = "off"
 
 # theme = "tokyonight"
 cursor-style = "block"
-shell-integration-features = "no-cursor","ssh-terminfo","ssh-env"
+shell-integration-features = no-cursor,ssh-terminfo,ssh-env
 
 background-opacity = 1.0
 background-blur-radius = 0
