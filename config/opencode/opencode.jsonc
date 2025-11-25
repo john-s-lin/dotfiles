@@ -1,6 +1,6 @@
 {
 	"$schema": "https://opencode.ai/config.json",
-	"theme": "system",
+	"theme": "tokyonight",
 	"keybinds": {
 		"session_child_cycle": "ctrl+alt+n",
 		"session_child_cycle_reverse": "ctrl+alt+p"
