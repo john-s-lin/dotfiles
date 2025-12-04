@@ -14,7 +14,7 @@
   "git_panel": { "dock": "right" },
   "preferred_line_length": 120,
   "project_panel": { "dock": "left" },
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "telemetry": {
     "diagnostics": false,
     "metrics": false
