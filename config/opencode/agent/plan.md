@@ -1,7 +1,7 @@
 ---
 description: Plan agent
 mode: primary
-model: google/gemini-2.5-flash
+model: google/gemini-3-flash-preview
 temperature: 0.7
 tools:
   write: false
