@@ -1,7 +1,7 @@
 ---
 description: Build agent
 mode: primary
-model: opencode/grok-code
+model: opencode/kimi-k2.5-free
 temperature: 0.2
 tools:
   write: true
