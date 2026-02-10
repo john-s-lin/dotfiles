@@ -1,0 +1,9 @@
+theme "tokyo-night-dark"
+
+pane_frames true
+
+copy_command "pbcopy"
+
+show_startup_tips false
+
+scroll_buffer_size 100000
