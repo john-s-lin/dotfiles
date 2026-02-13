@@ -3,10 +3,12 @@ description: Plan agent
 mode: primary
 model: google/gemini-3-flash-preview
 temperature: 0.7
-tools:
-  write: false
-  edit: false
-  bash: true
+permission:
+  edit: deny
+  bash:
+    "*": ask
+    "git *": allow
+    "gh *": allow
 ---
 
 # Tools

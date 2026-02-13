@@ -3,13 +3,12 @@ description: Ask agent
 mode: primary
 model: google/gemini-3-flash-preview
 temperature: 0.7
-tools:
-  write: false
-  edit: false
-  bash: false
-  task: false
-  websearch: true
-  webfetch: true
+permission:
+  edit: deny
+  bash: deny
+  task: deny
+  websearch: allow
+  webfetch: allow
 ---
 
 # Tools
