@@ -16,7 +16,6 @@ tools:
 
 You have access to the following tools:
 
-- GitHub CLI (i.e. `gh`)
 - `websearch` and `webfetch` for retrieving information from the web
 
 # Guidelines
