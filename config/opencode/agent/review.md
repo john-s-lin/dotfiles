@@ -1,19 +1,18 @@
 ---
 description: Review agent
 mode: subagent
-model: google/gemini-2.5-flash
+model: google/gemini-3-flash-preview
 temperature: 0.5
-tools:
-  write: false
-  edit: false
-  bash: false
+permission:
+  edit: deny
+  bash:
+    "*": deny
+    "gh *": allow
+    "git diff *": allow
+    "git log *": allow
+    "git show *": allow
+  task: deny
 ---
-
-# Tools
-
-You have access to the following tools:
-
-- GitHub CLI (i.e. `gh`)
 
 # Guidelines
 

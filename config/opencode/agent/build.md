@@ -3,10 +3,9 @@ description: Build agent
 mode: primary
 model: opencode/kimi-k2.5-free
 temperature: 0.2
-tools:
-  write: true
-  edit: true
-  bash: true
+permission:
+  edit: allow
+  bash: allow
 ---
 
 # Guidelines
