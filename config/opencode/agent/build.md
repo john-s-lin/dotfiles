@@ -1,11 +1,13 @@
 ---
 description: Build agent
 mode: primary
-model: opencode/kimi-k2.5-free
+model: opencode/minimax-m2.5-free
 temperature: 0.2
 permission:
   edit: allow
   bash: allow
+  websearch: allow
+  webfetch: allow
 ---
 
 # Guidelines

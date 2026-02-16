@@ -9,6 +9,8 @@ permission:
     "*": ask
     "git *": allow
     "gh *": allow
+  websearch: allow
+  webfetch: allow
 ---
 
 # Tools
