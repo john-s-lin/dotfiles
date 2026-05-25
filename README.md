@@ -136,7 +136,7 @@ Refer to [docs/cloud-storage.md](./docs/cloud-storage.md) for more info.
 
 ### gmailctl
 
-`gmailctl` is installed declaratively, but its `~/.gmailctl/config.jsonnet` filter config is sourced from Bitwarden Secrets Manager.
+`gmailctl` and its `~/.gmailctl/config.jsonnet` filter config are managed declaratively with Home Manager.
 Refer to [docs/gmailctl.md](./docs/gmailctl.md) for setup and operational details.
 
 ## Troubleshooting

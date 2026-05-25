@@ -1,16 +1,15 @@
 # gmailctl
 
-`gmailctl` uses `~/.gmailctl` as its default config directory. This repo installs the `gmailctl` package, but does not manage `~/.gmailctl/config.jsonnet`.
+`gmailctl` uses `~/.gmailctl` as its default config directory. This repo installs the `gmailctl` package and manages `~/.gmailctl/config.jsonnet` with Home Manager.
 
-The filter configuration is stored in Bitwarden Secrets Manager and must be materialized locally on each workstation.
+The filter configuration is stored in this repository at `modules/home/gmailctl/config.jsonnet` and materialized to `~/.gmailctl/config.jsonnet` on each personal workstation.
 
 ## First-Time Setup
 
 After applying the host configuration on a personal workstation:
 
-1. Retrieve `config.jsonnet` from Bitwarden Secrets Manager.
-2. Write it to `~/.gmailctl/config.jsonnet`.
-3. Initialize Gmail access:
+1. Apply the host configuration to materialize `~/.gmailctl/config.jsonnet`.
+2. Initialize Gmail access:
 
 ```bash
 gmailctl init
@@ -20,11 +19,10 @@ This does not require the `gcloud` CLI. The setup flow uses Google's web-based O
 
 ## Managed vs Local Files
 
-- Repo-managed: `gmailctl` package installation only
-- Bitwarden-managed: `~/.gmailctl/config.jsonnet`
+- Repo-managed: `gmailctl` package installation and `~/.gmailctl/config.jsonnet`
 - Local-only: OAuth credentials, tokens, and any other files created by `gmailctl init`
 
-Do not commit `config.jsonnet` or generated auth files into this repository.
+Do not commit generated auth files into this repository.
 
 ## Usage
 
