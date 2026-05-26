@@ -39,7 +39,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    configType = "lua";
+    configType = "hyprlang";
     settings = {
       "$mainMod" = "SUPER";
       "$shiftMod" = "$mainMod + SHIFT";
