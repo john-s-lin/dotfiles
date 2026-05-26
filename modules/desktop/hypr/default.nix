@@ -139,7 +139,6 @@ in
       };
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -186,7 +185,7 @@ in
         "$mainMod, C, sendshortcut, ctrl, c"
         "$mainMod, V, sendshortcut, ctrl, v"
         "$mainMod, P, pseudo,"
-        "$mainMod, G, togglesplit,"
+        "$mainMod, G, layoutmsg, togglesplit,"
         "$mainMod, H, movefocus, l"
         "$mainMod, L, movefocus, r"
         "$mainMod, K, movefocus, u"
