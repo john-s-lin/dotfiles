@@ -40,7 +40,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
+    settings."*" = {
       # This is to forward the hardware key
       forwardAgent = true;
       addKeysToAgent = "no";
