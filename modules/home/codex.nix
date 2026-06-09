@@ -23,6 +23,8 @@ let
     tui.model_availability_nux = {
       "gpt-5.5" = 2;
     };
+
+    features.skills = true;
   };
 in
 {
