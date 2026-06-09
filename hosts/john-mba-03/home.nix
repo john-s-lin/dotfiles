@@ -16,7 +16,6 @@
     # Additional config
     ../../modules/home/agents.nix
     ../../modules/home/bash.nix
-    ../../modules/home/codex.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/gmailctl.nix
     ../../modules/home/helix.nix
