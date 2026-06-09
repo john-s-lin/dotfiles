@@ -29,6 +29,8 @@
 
     # Host-specific config
     ../../modules/home/alacritty.nix
+    ../../modules/home/agents.nix
+    ../../modules/home/codex.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/gmailctl.nix
     ../../modules/home/helix.nix

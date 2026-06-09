@@ -1,0 +1,7 @@
+interface:
+  display_name: "Deep Teacher"
+  short_description: "Teach concepts with checks for understanding"
+  default_prompt: "Use $deep-teacher to teach me this topic step by step and check my understanding."
+
+policy:
+  allow_implicit_invocation: true
