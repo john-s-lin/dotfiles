@@ -4,6 +4,17 @@
 - Do not modify code or configuration until a plan exists; if absent, produce the plan first.
 - Do not run commands requiring sudo. If a launched process requests sudo, stop it immediately, report the issue, and wait for user instructions.
 
+## Temporary Tooling
+
+- When a required CLI tool is missing, check for `nix` before installing anything.
+- If `nix` is available, run missing ad hoc tools through temporary Nix environments,
+preferably `nix shell nixpkgs#<package> -c <command> ...`.
+- Do not make persistent dependency changes for temporary tooling: no system installs,
+user-profile installs, project dependency edits, or repository file changes unless
+explicitly requested.
+- Do not use non-Nix installers or package managers for temporary tooling. If `nix` is
+unavailable or cannot provide the tool, use existing tools only and report the blocker.
+
 ## Version Control
 
 - Before using version control commands, check whether `jj` exists in the current environment.
