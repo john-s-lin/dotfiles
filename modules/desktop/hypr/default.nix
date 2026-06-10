@@ -6,7 +6,9 @@ let
   terminal = "ghostty";
   fileManager = "cosmic-files";
   menu = "rofi -show drun";
-  secondMonitor = "DP-2";
+  laptopMonitor = "eDP-1";
+  homeMonitor = "DP-2";
+  workMonitor = "DP-1";
 in
 {
   home.packages = with pkgs; [
@@ -48,18 +50,23 @@ in
       "$menu" = menu;
 
       monitor = [
-        "eDP-1,1920x1080@60.05,0x0,1"
-        "${secondMonitor},1920x1080@75,0x-1080,1"
+        "${laptopMonitor},1920x1080@60.05,0x0,1"
+        "${homeMonitor},1920x1080@75,0x-1080,1"
+        "${workMonitor},2560x1440@59.95,1920x-360,1"
       ];
 
       # Assign workspaces to monitors
       workspace = [
-        "1, monitor:eDP-1"
-        "2, monitor:eDP-1"
-        "3, monitor:eDP-1"
-        "4, monitor:${secondMonitor}"
-        "5, monitor:${secondMonitor}"
-        "6, monitor:${secondMonitor}"
+        "1, monitor:${laptopMonitor}"
+        "2, monitor:${laptopMonitor}"
+        "3, monitor:${laptopMonitor}"
+        "4, monitor:${homeMonitor}"
+        "5, monitor:${homeMonitor}"
+        "6, monitor:${homeMonitor}"
+        "7, monitor:${workMonitor}"
+        "8, monitor:${workMonitor}"
+        "9, monitor:${workMonitor}"
+        "10, monitor:${workMonitor}"
       ];
 
       exec-once = [
