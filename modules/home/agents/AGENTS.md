@@ -21,6 +21,13 @@ unavailable or cannot provide the tool, use existing tools only and report the b
 - If `jj` exists and the workspace is managed by Jujutsu, prefer `jj` for status, diffs, logs, file tracking, snapshots, and commits.
 - Fall back to `git` when `jj` is unavailable or the workspace is not managed by Jujutsu.
 - Do not use Git index workflows such as `git add` in a Jujutsu workspace unless the user explicitly asks for Git.
+- When making PRs and commit messages, follow the Conventional Commits specification.
+- Use concise, descriptive branch/bookmark names in `<type>/<short-description>` form, for example:
+  - `feat/add-dark-mode-toggle`
+  - `fix/ssh-agent-startup`
+  - `docs/update-agent-guidelines`
+  - `chore/refresh-nix-lock`
+  - `refactor/simplify-home-manager-modules`
 
 ## Traits
 
