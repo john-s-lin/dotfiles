@@ -4,16 +4,6 @@
 // changes, check that no diff is detected with the remote filters by
 // using the 'diff' command.
 
-// Uncomment if you want to use the standard library.
-// local lib = import 'gmailctl.libsonnet';
-local me = {
-  or: [
-    { to: 'lin.john1227@gmail.com' },
-    { to: 'john.s.lin@outlook.com' },
-    { to: 'j.lin1227@live.ca' },
-  ],
-};
-
 local colors = {
   green: {
     background: "#16a765",
@@ -57,6 +47,43 @@ local colors = {
   },
 };
 
+local me = {
+  or: [
+    { to: 'lin.john1227@gmail.com' },
+    { to: 'john.s.lin@outlook.com' },
+    { to: 'j.lin1227@live.ca' },
+  ],
+};
+
+local label(name, color) = {
+  name: name,
+  color: color,
+};
+
+local rule(filter, actions) = {
+  filter: filter,
+  actions: actions,
+};
+
+local labelActions(name) = {
+  labels: [name],
+};
+
+local archiveRead = {
+  archive: true,
+  markRead: true,
+};
+
+local neverSpam = {
+  markSpam: false,
+};
+
+local fromRule(sender, actions) =
+  rule({ from: sender }, actions);
+
+local fromLabelRule(sender, labelName, extraActions={}) =
+  fromRule(sender, extraActions + labelActions(labelName));
+
 {
   version: "v1alpha3",
   author: {
@@ -67,126 +94,37 @@ local colors = {
   // GMail interface to add and remove labels, you can safely remove
   // this section of the config.
   labels: [
-    {
-      name: "investments/vanguard",
-      color: colors.green,
-    },
-    {
-      name: "church",
-      color: colors.yellow,
-    },
-    {
-      name: "immigration/bal",
-      color: colors.mint,
-    },
-    {
-      name: "newsletters",
-      color: colors.purple,
-    },
-    {
-      name: "immigration",
-      color: colors.mint,
-    },
-    {
-      name: "alerts/jobs",
-      color: colors.red,
-    },
-    {
-      name: "alerts/science",
-      color: colors.red,
-    },
-    {
-      name: "banking/cibc",
-      color: colors.orange,
-    },
-    {
-      name: "alerts/github",
-      color: colors.red,
-    },
-    {
-      name: "banking/chase",
-      color: colors.orange,
-    },
-    {
-      name: "banking/paypal",
-      color: colors.orange,
-    },
-    {
-      name: "alerts/charging",
-      color: colors.red,
-    },
-    {
-      name: "purchases",
-      color: colors.lightRed,
-    },
-    {
-      name: "purchases/camelcamelcamel",
-      color: colors.lightRed,
-    },
-    {
-      name: "church/cbc",
-      color: colors.yellow,
-    },
-    {
-      name: "church/gfc",
-      color: colors.yellow,
-    },
-    {
-      name: "church/stjohns",
-      color: colors.yellow,
-    },
-    {
-      name: "alerts/bitwarden",
-      color: colors.red,
-    },
-    {
-      name: "investments",
-      color: colors.green,
-    },
-    {
-      name: "investments/ibkr",
-      color: colors.green,
-    },
-    {
-      name: "alerts/flights",
-      color: colors.red,
-    },
-    {
-      name: "investments/questrade",
-      color: colors.green,
-    },
-    {
-      name: "alerts",
-      color: colors.red,
-    },
-    {
-      name: "banking",
-      color: colors.orange,
-    },
-    {
-      name: "meetings",
-      color: colors.blue,
-    },
-    {
-      name: "subscriptions",
-      color: colors.lightOrange,
-    },
-    {
-      name: "alerts/openrouter",
-      color: colors.red,
-    },
-    {
-      name: "insurance",
-      color: colors.darkBlue,
-    },
-    {
-      name: "insurance/fsa",
-      color: colors.darkBlue,
-    },
-    {
-      name: "purchases/car-rental",
-      color: colors.lightRed,
-    }
+    label("investments/vanguard", colors.green),
+    label("church", colors.yellow),
+    label("immigration/bal", colors.mint),
+    label("newsletters", colors.purple),
+    label("immigration", colors.mint),
+    label("alerts/jobs", colors.red),
+    label("alerts/science", colors.red),
+    label("banking/cibc", colors.orange),
+    label("alerts/github", colors.red),
+    label("banking/chase", colors.orange),
+    label("banking/paypal", colors.orange),
+    label("alerts/charging", colors.red),
+    label("purchases", colors.lightRed),
+    label("purchases/camelcamelcamel", colors.lightRed),
+    label("church/cbc", colors.yellow),
+    label("church/gfc", colors.yellow),
+    label("church/stjohns", colors.yellow),
+    label("alerts/bitwarden", colors.red),
+    label("investments", colors.green),
+    label("investments/ibkr", colors.green),
+    label("alerts/flights", colors.red),
+    label("investments/questrade", colors.green),
+    label("alerts", colors.red),
+    label("alerts/delivery", colors.red),
+    label("banking", colors.orange),
+    label("meetings", colors.blue),
+    label("subscriptions", colors.lightOrange),
+    label("alerts/openrouter", colors.red),
+    label("insurance", colors.darkBlue),
+    label("insurance/fsa", colors.darkBlue),
+    label("purchases/car-rental", colors.lightRed),
   ],
   rules: [
     {
@@ -328,8 +266,11 @@ local colors = {
     },
     {
       filter: {
-        from: "jobalerts-noreply@linkedin.com OR jobs-listings@linkedin.com",
-        isEscaped: true
+        or: [
+          { from: "jobalerts-noreply@linkedin.com" },
+          { from: "jobs-listings@linkedin.com" },
+          { from: "jobs-noreply@linkedin.com" },
+        ]
       },
       actions: {
         markImportant: false,
@@ -349,6 +290,7 @@ local colors = {
         ]
       }
     },
+    fromLabelRule("getclera.com", "alerts/jobs", archiveRead + neverSpam),
     {
       filter: {
         from: "cibc.com"
@@ -436,11 +378,17 @@ local colors = {
         ]
       }
     },
+    fromLabelRule("hello@aaronfrancis.com", "newsletters", neverSpam),
+    fromRule("aaronfrancis.com", neverSpam),
     {
       filter: {
         or: [
+          { from: "aersf" },
+          { from: "aliexpress.com" },
           { from: "amazon.ca" },
-          { from: "amazon.com" }
+          { from: "amazon.com" },
+          { from: "rei.com" },
+          { from: "stockx.com" },
         ]
       },
       actions: {
@@ -769,6 +717,8 @@ local colors = {
         ]
       }
     },
+    fromLabelRule("publicmobile.ca", "subscriptions", neverSpam),
+    fromLabelRule("strava.com", "subscriptions", archiveRead),
     {
       filter: {
         list: "fysk.substack.com"
@@ -792,16 +742,16 @@ local colors = {
         ]
       }
     },
-    {
-      filter: {
-        from: "jetblue.com"
+    rule(
+      {
+        or: [
+          { from: "flyporter.com" },
+          { from: "jetblue.com" },
+          { from: "united.com" },
+        ],
       },
-      actions: {
-        labels: [
-          "alerts/flights"
-        ]
-      }
-    },
+      labelActions("alerts/flights")
+    ),
     {
       filter: {
         from: "marketing.jetblue.com"
@@ -863,8 +813,10 @@ local colors = {
     },
     {
       filter: {
-        from: "getbrick.com OR getbrick.app",
-        isEscaped: true
+        or: [
+          { from: "getbrick.com" },
+          { from: "getbrick.app" },
+        ]
       },
       actions: {
         markImportant: false,
@@ -934,15 +886,15 @@ local colors = {
         ]
       }
     },
-    {
-      filter: {
-        from: "rei.com"
+    rule(
+      {
+        and: [
+          { from: "aliexpress.com" },
+          { query: "delivery ship" },
+        ],
       },
-      actions: {
-        labels: [
-          "purchases"
-        ]
-      }
-    }
+      labelActions("alerts/delivery")
+    ),
+    fromLabelRule("ups.com", "alerts/delivery")
   ]
 }
