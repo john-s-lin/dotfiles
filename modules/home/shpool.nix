@@ -15,7 +15,7 @@ let
       fi
 
       echo "🚀 Connecting to $host (shpool session: $session) via roadwarrior..."
-      rw -r -S --reconnect_loop --ensure_cloudtop_on --shpool_session "$session" "$host"
+      rw -r -S --reconnect_loop --check_remaining --shpool_session "$session" "$host"
     }
   '';
 in
