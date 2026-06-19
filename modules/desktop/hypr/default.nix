@@ -218,6 +218,8 @@ in
           kb_model = "";
           kb_options = "";
           kb_rules = "";
+          repeat_rate = 40;
+          repeat_delay = 250;
           follow_mouse = 1;
           natural_scroll = true;
           sensitivity = 0;
