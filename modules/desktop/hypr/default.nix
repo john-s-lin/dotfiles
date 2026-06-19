@@ -427,16 +427,13 @@ in
 
       bind = [
         (bind (lua ''mainMod .. " + Q"'') "hl.dsp.window.close()")
-        (bind (lua ''mainMod .. " + W"'') "hl.dsp.window.close()")
+        (bind "ALT + Q" "hl.dsp.window.close()")
         (bind (lua ''mainMod .. " + CTRL + Q"'') ''hl.dsp.exec_cmd("loginctl lock-session")'')
         (bind (lua ''mainMod .. " + ALT + L"'') ''hl.dsp.exec_cmd("loginctl lock-session")'')
         (bind (lua ''shiftMod .. " + Q"'') "hl.dsp.exit()")
         (bind (lua ''mainMod .. " + E"'') "hl.dsp.exec_cmd(fileManager)")
         (bind (lua ''mainMod .. " + M"'') ''hl.dsp.window.float({ action = "toggle" })'')
         (bind (lua ''mainMod .. " + SPACE"'') "hl.dsp.exec_cmd(menu)")
-        (bind (lua ''mainMod .. " + X"'') ''hl.dsp.send_shortcut({ mods = "CTRL", key = "X", window = "activewindow" })'')
-        (bind (lua ''mainMod .. " + C"'') ''hl.dsp.send_shortcut({ mods = "CTRL", key = "C", window = "activewindow" })'')
-        (bind (lua ''mainMod .. " + V"'') ''hl.dsp.send_shortcut({ mods = "CTRL", key = "V", window = "activewindow" })'')
         (bind (lua ''mainMod .. " + P"'') "hl.dsp.window.pseudo()")
         (bind (lua ''mainMod .. " + G"'') ''hl.dsp.layout("togglesplit")'')
         (bind (lua ''mainMod .. " + H"'') ''hl.dsp.focus({ direction = "left" })'')
