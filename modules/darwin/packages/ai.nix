@@ -6,8 +6,5 @@
     brews = [
       "anomalyco/tap/opencode"
     ];
-    casks = [
-      "codex"
-    ];
   };
 }
