@@ -105,6 +105,7 @@ local fromLabelRule(sender, labelName, extraActions={}) =
     label("alerts/github", colors.red),
     label("banking/chase", colors.orange),
     label("banking/paypal", colors.orange),
+    label("banking/venmo", colors.orange),
     label("alerts/charging", colors.red),
     label("purchases", colors.lightRed),
     label("purchases/camelcamelcamel", colors.lightRed),
@@ -357,6 +358,7 @@ local fromLabelRule(sender, labelName, extraActions={}) =
         ]
       }
     },
+    fromLabelRule("venmo.com", "banking/venmo"),
     {
       filter: {
         from: "bitwarden.com"
@@ -397,6 +399,7 @@ local fromLabelRule(sender, labelName, extraActions={}) =
         ]
       }
     },
+    fromLabelRule("quince.com", "purchases"),
     {
       filter: {
         from: "stjohntoronto@gmail.com"
@@ -719,6 +722,7 @@ local fromLabelRule(sender, labelName, extraActions={}) =
     },
     fromLabelRule("publicmobile.ca", "subscriptions", neverSpam),
     fromLabelRule("strava.com", "subscriptions", archiveRead),
+    fromLabelRule("namecheap.com", "subscriptions"),
     {
       filter: {
         list: "fysk.substack.com"
@@ -895,6 +899,7 @@ local fromLabelRule(sender, labelName, extraActions={}) =
       },
       labelActions("alerts/delivery")
     ),
-    fromLabelRule("ups.com", "alerts/delivery")
+    fromLabelRule("ups.com", "alerts/delivery"),
+    fromRule("no-reply@login.gov", neverSpam)
   ]
 }
