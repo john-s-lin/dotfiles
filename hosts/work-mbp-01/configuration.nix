@@ -32,7 +32,8 @@
 
   # Disable HTML documentation build due to build failure
   # https://github.com/nix-darwin/nix-darwin/issues/1817
-  documentation.doc.enable = false;
+  documentation.enable = false;
+  system.tools.darwin-uninstaller.enable = false;
 
   system.primaryUser = username;
   system.stateVersion = 6;
