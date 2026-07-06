@@ -2,13 +2,9 @@
 {
   imports = [
     ../../modules/fonts.nix
-
     ../../modules/packages/default.nix
-
     ../../modules/darwin/defaults.nix
-
     ../../modules/darwin/packages/common.nix
-
     ../../modules/gc/darwin.nix
   ];
 
@@ -33,6 +29,10 @@
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };
+
+  # Disable HTML documentation build due to build failure
+  # https://github.com/nix-darwin/nix-darwin/issues/1817
+  documentation.doc.enable = false;
 
   system.primaryUser = username;
   system.stateVersion = 6;
