@@ -20,7 +20,7 @@ let
       options
     ];
 
-  terminal = "ghostty";
+  terminal = "alacritty";
   fileManager = "cosmic-files";
   menu = "rofi -show drun";
   laptopMonitor = "eDP-1";
@@ -511,7 +511,7 @@ in
         # Assign applications to specific workspaces
         {
           workspace = 1;
-          match.class = "com.mitchellh.ghostty";
+          match.class = "Alacritty";
         }
 
         # Thunderbird Main Window - only workspace assignment
