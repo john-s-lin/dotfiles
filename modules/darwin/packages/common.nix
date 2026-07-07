@@ -10,10 +10,7 @@
     global.autoUpdate = false;
     onActivation = {
       autoUpdate = true;
-      extraFlags = [
-        "--force-cleanup"
-        "--zap"
-      ];
+      cleanup = "zap";
       upgrade = true;
     };
   };
