@@ -13,6 +13,7 @@
 
     # AI/development packages
     ../../../modules/packages/ai.nix
+    ../../../modules/home/agents.nix
     ../../../modules/home/opencode.nix
 
     # Terminal packages

@@ -1,7 +1,7 @@
 interface:
   display_name: "Socrates"
   short_description: "Strict tutoring without revealing solutions"
-  default_prompt: "Use $socrates for this entire session. Make me reason through and implement the solution myself without providing or modifying it for me."
+  default_prompt: "Use $socrates for this entire session. Make me reason through and implement the solution myself without providing, modifying, or completing it for me."
 
 policy:
   allow_implicit_invocation: false
