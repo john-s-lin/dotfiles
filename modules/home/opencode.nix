@@ -1,7 +1,7 @@
 { ... }:
 {
-  xdg.configFile."opencode/agent" = {
-    source = ./opencode/agent;
+  xdg.configFile."opencode/agents" = {
+    source = ./opencode/agents;
     recursive = true;
   };
 

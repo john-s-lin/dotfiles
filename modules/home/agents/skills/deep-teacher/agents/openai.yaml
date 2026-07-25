@@ -1,7 +1,0 @@
-interface:
-  display_name: "Deep Teacher"
-  short_description: "Collaborative teaching with understanding checks"
-  default_prompt: "Use $deep-teacher for this topic. Teach it step by step, provide direct help when useful, and check my understanding."
-
-policy:
-  allow_implicit_invocation: true
