@@ -4,11 +4,12 @@
     enable = true;
 
     settings = {
-
-      # Flags
       flags = {
         battery = true;
-        processes.default_tree = true;
+      };
+      
+      processes = {
+        default_tree = true;
       };
 
       # Layout
