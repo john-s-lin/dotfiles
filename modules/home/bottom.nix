@@ -8,7 +8,7 @@
       # Flags
       flags = {
         battery = true;
-        tree = true;
+        processes.default_tree = true;
       };
 
       # Layout
