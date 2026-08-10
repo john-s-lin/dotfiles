@@ -37,6 +37,8 @@
     "/etc/profiles/per-user/${username}/bin"
   ];
 
+  programs.zellij.enableZshIntegration = true;
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
