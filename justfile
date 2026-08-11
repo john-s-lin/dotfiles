@@ -10,7 +10,7 @@ nr host=nixos_host:
 
 # Run darwin-rebuild switch
 dr host=darwin_host:
-    sudo $(which nix) run nix-darwin -- switch --flake .#{{host}}
+    sudo $(which darwin-rebuild) switch --flake .#{{host}}
 
 # Run garbage-collect (default 30 days)
 gc days="30":

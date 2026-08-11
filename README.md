@@ -6,25 +6,25 @@ Everything is computer
 
 Since `just` is installed via this Nix configuration, it won't be available on the first run. Use one of these methods to bootstrap:
 
-### Option 1: Use `nix run` (Recommended)
+### Option 1: Use `nix run` with `just`
 
 Run `just` directly from nixpkgs without installing it:
 
 ```bash
-# On macOS
-nix run nixpkgs#just -- dr <hostname>
-
 # On NixOS
 nix run nixpkgs#just -- nr <hostname>
+
+# On Linux with Home Manager (standalone)
+nix run nixpkgs#just -- hm <username>@<hostname>
 ```
 
 ### Option 2: Use raw Nix commands
 
-Bypass `just` entirely for the first rebuild:
+Bypass `just` entirely for the first rebuild (required on macOS before `darwin-rebuild` is installed):
 
 ```bash
-# On macOS
-sudo nix run nix-darwin -- switch --flake .#<hostname>
+# On macOS (bootstrap)
+nix run nix-darwin/master -- switch --flake .#<hostname>
 
 # On NixOS
 sudo nixos-rebuild switch --flake .#<hostname>
@@ -33,7 +33,7 @@ sudo nixos-rebuild switch --flake .#<hostname>
 nix run home-manager -- switch --flake .#<username>@<hostname>
 ```
 
-After the first successful rebuild, `just` will be installed and available for all subsequent commands.
+After the first successful rebuild, `just` (and `darwin-rebuild` on macOS) will be installed and available for all subsequent commands.
 
 ## NixOS
 
