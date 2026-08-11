@@ -9,7 +9,6 @@
     ../../modules/home/jujutsu.nix
 
     # Workstation tools (previously in workstation.nix)
-    ../../modules/home/herdr.nix
     ../../modules/home/starship.nix
     ../../modules/home/zellij.nix
     ../../modules/home/zoxide.nix
