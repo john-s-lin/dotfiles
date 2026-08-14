@@ -32,7 +32,7 @@
     # Conditional configuration for Darwin on aarch64
     # Ensures Nix profile paths take precedence over Homebrew
     initContent =
-      if pkgs.stdenv.isDarwin then
+      if pkgs.stdenv.hostPlatform.isDarwin then
         ''
           # Enable unique path tracking to prevent duplicates
           typeset -U path

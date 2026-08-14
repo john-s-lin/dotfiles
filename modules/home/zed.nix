@@ -343,7 +343,7 @@ let
   };
 in
 {
-  programs.zed-editor = lib.optionalAttrs pkgs.stdenv.isLinux {
+  programs.zed-editor = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     userSettings = zedSettings;
     themes = {
@@ -351,7 +351,7 @@ in
     };
   };
 
-  home.file = lib.optionalAttrs pkgs.stdenv.isDarwin {
+  home.file = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
     ".config/zed/settings.json".text = builtins.toJSON zedSettings;
     ".config/zed/themes/One_Dark_Pro.json".text = builtins.toJSON zedTheme;
   };

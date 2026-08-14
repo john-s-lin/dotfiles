@@ -8,7 +8,7 @@
   programs = {
     ghostty = {
       enable = true;
-      package = if pkgs.stdenv.isDarwin then null else pkgs.ghostty;
+      package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.ghostty;
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableBashIntegration = true;
@@ -28,7 +28,7 @@
         clipboard-read = "allow";
         clipboard-write = "allow";
       }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
         macos-titlebar-style = "hidden";
         font-family = "JetBrainsMono NFM Regular";
         font-family-bold = "JetBrainsMono NFM Bold";

@@ -14,5 +14,5 @@ let
   ];
 in
 {
-  fonts.packages = if pkgs.stdenv.isLinux then commonFonts ++ linuxFonts else commonFonts;
+  fonts.packages = if pkgs.stdenv.hostPlatform.isLinux then commonFonts ++ linuxFonts else commonFonts;
 }
