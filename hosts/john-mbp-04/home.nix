@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   imports = [
     # Common terminal tools (previously in common.nix)
@@ -27,11 +27,6 @@
     ../../modules/packages/gmailctl.nix
     ../../modules/packages/terminal.nix
     ../../modules/packages/workstation.nix
-  ];
-
-  # Make sure vim is installed for your user.
-  home.packages = [
-    pkgs.helix
   ];
 
   home.shellAliases = {

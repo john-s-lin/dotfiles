@@ -1,15 +1,11 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # Terminal emulators and editors
-    alacritty
+    # Development tools
     bun
     fnm
-    ghostty
     gnumake
-    helix
     parallel
     vscode
-    zed-editor
   ];
 }
