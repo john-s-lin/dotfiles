@@ -15,5 +15,5 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  systemd.user.services.orca.enable = false;
+  services.orca.enable = false;
 }
