@@ -1,4 +1,4 @@
-{ username, home, ... }:
+{ ... }:
 {
   imports = [
     ../../modules/home/bash.nix
@@ -25,7 +25,5 @@
     fi
   '';
 
-  home.username = username;
-  home.homeDirectory = home;
   home.stateVersion = "25.05";
 }

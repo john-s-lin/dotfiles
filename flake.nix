@@ -108,7 +108,13 @@
         }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
-          modules = [ homeModule ];
+          modules = [
+            homeModule
+            {
+              home.username = username;
+              home.homeDirectory = home;
+            }
+          ];
           extraSpecialArgs = {
             inherit
               inputs
