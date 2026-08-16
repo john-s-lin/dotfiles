@@ -137,8 +137,6 @@ in
             hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
             hl.exec_cmd(terminal)
             hl.exec_cmd("waybar")
-            hl.exec_cmd("hyprpaper")
-            hl.exec_cmd("hypridle")
             hl.exec_cmd("thunderbird")
           end
         '')
