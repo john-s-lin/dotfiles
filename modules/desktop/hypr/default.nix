@@ -29,8 +29,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    rofi
-    waybar
     hyprshot
     brightnessctl
     playerctl
