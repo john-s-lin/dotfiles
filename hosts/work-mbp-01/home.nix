@@ -1,4 +1,4 @@
-{ username, ... }:
+{ config, ... }:
 {
   imports = [
     # Common terminal tools (previously in common.nix)
@@ -34,7 +34,7 @@
   home.sessionPath = [
     "/run/current-system/sw/bin"
     "$HOME/.nix-profile/bin"
-    "/etc/profiles/per-user/${username}/bin"
+    "/etc/profiles/per-user/${config.home.username}/bin"
   ];
 
   programs.zellij.enableZshIntegration = true;
@@ -66,9 +66,6 @@
       . ~/.bash_aliases
     fi
   '';
-
-  home.username = username;
-  home.homeDirectory = "/Users/${username}";
 
   home.stateVersion = "26.05";
 }
