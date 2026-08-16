@@ -20,7 +20,6 @@
     ../../modules/fonts.nix
 
     ../../modules/packages/default.nix
-    ../../modules/packages/localsend.nix
 
     ../../modules/services/keyd.nix
     ../../modules/services/networking.nix
@@ -31,10 +30,13 @@
     ../../modules/gc/default.nix
   ];
 
-  # Firewall
-  networking.firewall.allowedTCPPorts = [ 53317 ];
-
-  # Bootloader.
+  # Localsend
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
+  
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
