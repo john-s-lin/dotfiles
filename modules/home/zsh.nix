@@ -25,6 +25,7 @@
         "git"
         "vi-mode"
       ]
+      # Nimbus uses a host-provided jj environment with incompatible shell aliases.
       ++ lib.optional (hostKey != "nimbus") "jj";
       theme = "robbyrussell";
     };
