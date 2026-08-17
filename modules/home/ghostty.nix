@@ -1,42 +1,51 @@
-{ lib, pkgs, ... }:
 {
-  xdg.configFile."ghostty/themes" = {
-    source = ./ghostty/themes;
-    recursive = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  validate = lib.optionalString isLinux "${lib.getExe pkgs.ghostty} +validate-config --config-file=${config.xdg.configHome}/ghostty/config.ghostty";
+in
+{
+  xdg.configFile = {
+    "ghostty/config.ghostty" = {
+      source = if isDarwin then ./ghostty/darwin.ghostty else ./ghostty/linux.ghostty;
+      onChange = validate;
+    };
+    "ghostty/common.ghostty" = {
+      source = ./ghostty/common.ghostty;
+      onChange = validate;
+    };
+    "ghostty/themes" = {
+      source = ./ghostty/themes;
+      recursive = true;
+      onChange = validate;
+    };
+  }
+  // lib.optionalAttrs isLinux {
+    "systemd/user/app-com.mitchellh.ghostty.service.d/overrides.conf".text = lib.mkForce ''
+      [Unit]
+      X-SwitchMethod=keep-old
+      X-Reload-Triggers=${
+        toString [
+          config.xdg.configFile."ghostty/config.ghostty".source
+          config.xdg.configFile."ghostty/common.ghostty".source
+          config.xdg.configFile."ghostty/themes".source
+        ]
+      }
+    '';
   };
 
   programs = {
     ghostty = {
       enable = true;
-      package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.ghostty;
+      package = if isDarwin then null else pkgs.ghostty;
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableBashIntegration = true;
-      settings = {
-        theme = "tokyo-passion.ghostty";
-        auto-update = "off";
-        cursor-style = "block";
-        shell-integration-features = "no-cursor,ssh-terminfo,ssh-env";
-        background-opacity = 1.0;
-        font-family = "JetBrainsMono Nerd Font";
-        font-size = 12;
-        font-thicken = false;
-        window-padding-x = 5;
-        window-padding-y = 5;
-        quit-after-last-window-closed = true;
-        confirm-close-surface = false;
-        clipboard-read = "allow";
-        clipboard-write = "allow";
-      }
-      // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-        macos-titlebar-style = "hidden";
-        font-family = "JetBrainsMono NFM Regular";
-        font-family-bold = "JetBrainsMono NFM Bold";
-        font-family-italic = "JetBrainsMono NFM Light Italic";
-        font-family-bold-italic = "JetBrainsMono NFM Bold Italic";
-        font-size = 13;
-        font-thicken = true;
-      };
     };
   };
 }

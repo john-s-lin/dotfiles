@@ -1,0 +1,5 @@
+config-file = common.ghostty
+
+font-family = JetBrainsMono Nerd Font
+font-size = 12
+font-thicken = false
