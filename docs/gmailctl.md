@@ -2,7 +2,7 @@
 
 The Gmail Home Manager module installs `gmailctl` and manages `~/.gmailctl/config.jsonnet`.
 
-Remote Gmail filters are the source of truth because filters are primarily edited remotely. `modules/home/gmailctl/config.jsonnet` is a versioned snapshot that is occasionally refreshed from remote and consolidated in the checkout. Home Manager materializes that snapshot as a working projection at `~/.gmailctl/config.jsonnet` on each personal workstation.
+Remote Gmail filters are normally the source of truth because filters are primarily edited remotely. `modules/home/gmailctl/config.jsonnet` is a versioned snapshot that is occasionally refreshed from remote and consolidated in the checkout. A reviewed snapshot may also be staged for manual application back to Gmail. Home Manager materializes the snapshot as a working projection at `~/.gmailctl/config.jsonnet` on each personal workstation.
 
 ## First-Time Setup
 
@@ -45,14 +45,28 @@ gmailctl download --output "$tmpdir/config.jsonnet"
 diff -u "$checkout_root/modules/home/gmailctl/config.jsonnet" "$tmpdir/config.jsonnet"
 ```
 
-Deliberately reconcile `modules/home/gmailctl/config.jsonnet` with the downloaded remote state while preserving useful Jsonnet consolidation. Then validate the checkpoint without changing Gmail:
+Deliberately reconcile `modules/home/gmailctl/config.jsonnet` with the downloaded remote state while preserving useful Jsonnet consolidation. An agent may perform this cleanup. Then validate the checkpoint without changing Gmail:
 
 ```bash
 gmailctl --config "$checkout_root/modules/home/gmailctl" debug
 rm -r "$tmpdir"
 ```
 
-Activate Home Manager to update the working projection after consolidating the checkpoint. Never run `gmailctl apply`; it is not validation and would overwrite authoritative remote filters from the checkpoint.
+If the goal is only to preserve remote state, commit the checkpoint and activate Home Manager to update the working projection.
+
+If the consolidated checkpoint should replace the remote filters, activate Home Manager and inspect the exact proposed change:
+
+```bash
+gmailctl diff
+```
+
+After reviewing that diff, the user may manually run:
+
+```bash
+gmailctl apply
+```
+
+`gmailctl apply` is irreversible. Agents must never run it; they may only prepare the checkpoint, validate it, and present the diff for the user.
 
 ## Upstream Notes
 

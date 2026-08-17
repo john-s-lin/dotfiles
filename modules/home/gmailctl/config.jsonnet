@@ -1,7 +1,7 @@
 // Versioned snapshot of remote Gmail filters.
 //
-// Remote Gmail is authoritative. Capture downloads outside ~/.gmailctl, then
-// consolidate the remote state into this checkpoint before deployment.
+// Remote Gmail is normally authoritative. Capture downloads outside ~/.gmailctl,
+// then consolidate this checkpoint for preservation or manual application.
 
 local colors = {
   green: {
