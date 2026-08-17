@@ -1,7 +1,16 @@
 { pkgs, config, ... }:
 let
-  username = "john";
-  homeDir = config.users.users.${username}.home;
+  homeDir = config.users.users.${config.system.primaryUser}.home;
+  mounts = {
+    rclone-onedrive = {
+      remote = "OneDrive:";
+      path = "${homeDir}/OneDrive";
+    };
+    rclone-gdrive = {
+      remote = "GDrive:";
+      path = "${homeDir}/GDrive";
+    };
+  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -12,38 +21,20 @@ in
     casks = [ "macfuse" ];
   };
 
-  launchd.user.agents = {
-    rclone-onedrive = {
-      serviceConfig = {
-        ProgramArguments = [
-          "/bin/sh"
-          "-c"
-          "mkdir -p ${homeDir}/OneDrive && ${pkgs.rclone}/bin/rclone --vfs-cache-mode writes --noappledouble --noapplexattr --config=${homeDir}/.config/rclone/rclone.conf --ignore-checksum mount OneDrive: ${homeDir}/OneDrive"
-        ];
-        RunAtLoad = true;
-        KeepAlive = {
-          Crashed = true;
-          SuccessfulExit = false;
-        };
-        StandardOutPath = "${homeDir}/Library/Logs/rclone-onedrive.log";
-        StandardErrorPath = "${homeDir}/Library/Logs/rclone-onedrive.err.log";
+  launchd.user.agents = builtins.mapAttrs (name: mount: {
+    serviceConfig = {
+      ProgramArguments = [
+        "/bin/sh"
+        "-c"
+        "mkdir -p ${mount.path} && ${pkgs.rclone}/bin/rclone --vfs-cache-mode writes --noappledouble --noapplexattr --config=${homeDir}/.config/rclone/rclone.conf --ignore-checksum mount ${mount.remote} ${mount.path}"
+      ];
+      RunAtLoad = true;
+      KeepAlive = {
+        Crashed = true;
+        SuccessfulExit = false;
       };
+      StandardOutPath = "${homeDir}/Library/Logs/${name}.log";
+      StandardErrorPath = "${homeDir}/Library/Logs/${name}.err.log";
     };
-    rclone-gdrive = {
-      serviceConfig = {
-        ProgramArguments = [
-          "/bin/sh"
-          "-c"
-          "mkdir -p ${homeDir}/GDrive && ${pkgs.rclone}/bin/rclone --vfs-cache-mode writes --noappledouble --noapplexattr --config=${homeDir}/.config/rclone/rclone.conf --ignore-checksum mount GDrive: ${homeDir}/GDrive"
-        ];
-        RunAtLoad = true;
-        KeepAlive = {
-          Crashed = true;
-          SuccessfulExit = false;
-        };
-        StandardOutPath = "${homeDir}/Library/Logs/rclone-gdrive.log";
-        StandardErrorPath = "${homeDir}/Library/Logs/rclone-gdrive.err.log";
-      };
-    };
-  };
+  }) mounts;
 }
