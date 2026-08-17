@@ -1,8 +1,7 @@
-// Auto-imported filters by 'gmailctl download'.
+// Versioned snapshot of remote Gmail filters.
 //
-// WARNING: This functionality is experimental. Before making any
-// changes, check that no diff is detected with the remote filters by
-// using the 'diff' command.
+// Remote Gmail is authoritative. Capture downloads outside ~/.gmailctl, then
+// consolidate the remote state into this checkpoint before deployment.
 
 local colors = {
   green: {
