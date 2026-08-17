@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  programs.zsh.oh-my-zsh.theme = "robbyrussell";
+
   programs.zsh.initContent = ''
     if [ -f ~/.bash_aliases ]; then
       . ~/.bash_aliases

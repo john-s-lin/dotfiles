@@ -27,7 +27,6 @@
       ]
       # Nimbus uses a host-provided jj environment with incompatible shell aliases.
       ++ lib.optional (hostKey != "nimbus") "jj";
-      theme = "robbyrussell";
     };
 
     # Conditional configuration for Darwin on aarch64
