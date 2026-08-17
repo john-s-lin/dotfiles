@@ -26,6 +26,26 @@ let
   laptopMonitor = "eDP-1";
   homeMonitor = "DP-2";
   workMonitor = "DP-1";
+
+  workspaces = map (number: {
+    inherit number;
+    key = if number == 10 then "0" else toString number;
+    monitor =
+      if number <= 3 then
+        laptopMonitor
+      else if number <= 6 then
+        homeMonitor
+      else
+        workMonitor;
+  }) (lib.range 1 10);
+  workspaceFocusBindings = map (
+    { number, key, ... }:
+    bind (lua ''mainMod .. " + ${key}"'') "hl.dsp.focus({ workspace = ${toString number} })"
+  ) workspaces;
+  workspaceMoveBindings = map (
+    { number, key, ... }:
+    bind (lua ''mainMod .. " + CTRL + ${key}"'') "hl.dsp.window.move({ workspace = ${toString number} })"
+  ) workspaces;
 in
 {
   home.packages = with pkgs; [
@@ -85,48 +105,10 @@ in
         }
       ];
 
-      workspace_rule = [
-        {
-          workspace = "1";
-          monitor = laptopMonitor;
-        }
-        {
-          workspace = "2";
-          monitor = laptopMonitor;
-        }
-        {
-          workspace = "3";
-          monitor = laptopMonitor;
-        }
-        {
-          workspace = "4";
-          monitor = homeMonitor;
-        }
-        {
-          workspace = "5";
-          monitor = homeMonitor;
-        }
-        {
-          workspace = "6";
-          monitor = homeMonitor;
-        }
-        {
-          workspace = "7";
-          monitor = workMonitor;
-        }
-        {
-          workspace = "8";
-          monitor = workMonitor;
-        }
-        {
-          workspace = "9";
-          monitor = workMonitor;
-        }
-        {
-          workspace = "10";
-          monitor = workMonitor;
-        }
-      ];
+      workspace_rule = map (workspace: {
+        workspace = toString workspace.number;
+        inherit (workspace) monitor;
+      }) workspaces;
 
       on = call [
         "hyprland.start"
@@ -438,26 +420,10 @@ in
         (bind (lua ''mainMod .. " + L"'') ''hl.dsp.focus({ direction = "right" })'')
         (bind (lua ''mainMod .. " + K"'') ''hl.dsp.focus({ direction = "up" })'')
         (bind (lua ''mainMod .. " + J"'') ''hl.dsp.focus({ direction = "down" })'')
-        (bind (lua ''mainMod .. " + 1"'') "hl.dsp.focus({ workspace = 1 })")
-        (bind (lua ''mainMod .. " + 2"'') "hl.dsp.focus({ workspace = 2 })")
-        (bind (lua ''mainMod .. " + 3"'') "hl.dsp.focus({ workspace = 3 })")
-        (bind (lua ''mainMod .. " + 4"'') "hl.dsp.focus({ workspace = 4 })")
-        (bind (lua ''mainMod .. " + 5"'') "hl.dsp.focus({ workspace = 5 })")
-        (bind (lua ''mainMod .. " + 6"'') "hl.dsp.focus({ workspace = 6 })")
-        (bind (lua ''mainMod .. " + 7"'') "hl.dsp.focus({ workspace = 7 })")
-        (bind (lua ''mainMod .. " + 8"'') "hl.dsp.focus({ workspace = 8 })")
-        (bind (lua ''mainMod .. " + 9"'') "hl.dsp.focus({ workspace = 9 })")
-        (bind (lua ''mainMod .. " + 0"'') "hl.dsp.focus({ workspace = 10 })")
-        (bind (lua ''mainMod .. " + CTRL + 1"'') "hl.dsp.window.move({ workspace = 1 })")
-        (bind (lua ''mainMod .. " + CTRL + 2"'') "hl.dsp.window.move({ workspace = 2 })")
-        (bind (lua ''mainMod .. " + CTRL + 3"'') "hl.dsp.window.move({ workspace = 3 })")
-        (bind (lua ''mainMod .. " + CTRL + 4"'') "hl.dsp.window.move({ workspace = 4 })")
-        (bind (lua ''mainMod .. " + CTRL + 5"'') "hl.dsp.window.move({ workspace = 5 })")
-        (bind (lua ''mainMod .. " + CTRL + 6"'') "hl.dsp.window.move({ workspace = 6 })")
-        (bind (lua ''mainMod .. " + CTRL + 7"'') "hl.dsp.window.move({ workspace = 7 })")
-        (bind (lua ''mainMod .. " + CTRL + 8"'') "hl.dsp.window.move({ workspace = 8 })")
-        (bind (lua ''mainMod .. " + CTRL + 9"'') "hl.dsp.window.move({ workspace = 9 })")
-        (bind (lua ''mainMod .. " + CTRL + 0"'') "hl.dsp.window.move({ workspace = 10 })")
+      ]
+      ++ workspaceFocusBindings
+      ++ workspaceMoveBindings
+      ++ [
         (bind (lua ''mainMod .. " + Left"'') ''hl.dsp.focus({ workspace = "e-1" })'')
         (bind (lua ''mainMod .. " + Right"'') ''hl.dsp.focus({ workspace = "e+1" })'')
         (bind (lua ''mainMod .. " + S"'') ''hl.dsp.workspace.toggle_special("magic")'')
