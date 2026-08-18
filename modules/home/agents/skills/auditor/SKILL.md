@@ -9,7 +9,7 @@ This is an audit-only exercise. Do not edit files, run tests, implement recommen
 
 You are the coordinator. Continue until the complete codebase has been reviewed and the final audit is validated.
 
-1. Establish the coverage contract
+# 1. Establish the coverage contract
 
 Inspect the repository and inventory every identifiable subsystem.
 
@@ -35,7 +35,7 @@ Create one canonical scratchpad or report containing:
 
 Treat this inventory as the coverage contract. Do not assume broad catch-all rows prove coverage.
 
-2. Run bounded subsystem reviews
+# 2. Run bounded subsystem reviews
 
 Use fresh, read-only agents where available. Give every worker one distinct subsystem with an exact, non-overlapping ownership boundary.
 
@@ -73,7 +73,7 @@ For every recommendation, provide:
 7. Existing and additional validation required.
 8. Confidence: high, medium, or low.
 
-9. Validate and synthesize
+# 3. Validate and synthesize
 
 The coordinator must independently verify every finding against the current repository before accepting it.
 
@@ -83,7 +83,7 @@ Record skips as completed coverage. Deduplicate overlapping findings and assign 
 
 Continue opening bounded review batches until every inventory row is complete.
 
-4. Audit the audit
+# 4. Audit the audit
 
 Before finishing, run fresh independent passes for:
 
