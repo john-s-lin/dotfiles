@@ -23,6 +23,9 @@
     if [ -e /etc/bash_completion.d/jjd ]; then
       source /etc/bash_completion.d/jjd
     fi
+
+    # Unalias jjd since ohmyzsh jj diff alias clashes against workspace function
+    unalias jjd 2>/dev/null
   '';
 
   home.stateVersion = "25.05";
