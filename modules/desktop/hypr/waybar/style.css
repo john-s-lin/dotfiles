@@ -36,6 +36,12 @@
   opacity: 0.5;
 }
 
+#workspaces button:hover {
+  background: alpha(currentColor, 0.18);
+  box-shadow: none;
+  opacity: 1;
+}
+
 #workspaces button.active {
   color: #ffffff;
   border-bottom: 3px solid white;
