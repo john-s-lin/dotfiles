@@ -6,6 +6,7 @@ let
     geist-font
   ];
   linuxFonts = with pkgs; [
+    ioskeley-mono.normal-NF
     noto-fonts-cjk-sans
     noto-fonts
     noto-fonts-color-emoji
@@ -14,5 +15,6 @@ let
   ];
 in
 {
-  fonts.packages = if pkgs.stdenv.hostPlatform.isLinux then commonFonts ++ linuxFonts else commonFonts;
+  fonts.packages =
+    if pkgs.stdenv.hostPlatform.isLinux then commonFonts ++ linuxFonts else commonFonts;
 }
