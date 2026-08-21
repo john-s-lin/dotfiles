@@ -25,11 +25,11 @@
 }
 
 #workspaces button {
+  all: initial;
   padding: 0 6px;
   margin: 0 1.5px;
   min-width: 9px;
   color: #888888;
-  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 #workspaces button.empty {
@@ -37,8 +37,7 @@
 }
 
 #workspaces button:hover {
-  background: alpha(currentColor, 0.18);
-  box-shadow: none;
+  background-color: alpha(currentColor, 0.18);
   opacity: 1;
 }
 
@@ -52,8 +51,7 @@
 }
 
 #workspaces button.urgent {
-  background: rgba(255, 200, 0, 0.35);
-  border-bottom: 3px dashed #ffaa00;
+  border-bottom: 3px solid #ffaa00;
   color: #ffaa00;
 }
 
