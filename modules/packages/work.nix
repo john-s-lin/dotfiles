@@ -4,6 +4,6 @@
     naps2 # Document scanner
     obsidian
     thunderbird
-    libreoffice-qt-fresh
+    libreoffice-qt-stable
   ];
 }
