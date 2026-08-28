@@ -1,4 +1,7 @@
+{ lib, pkgs, ... }:
 {
+  home.packages = [ pkgs.pamixer ];
+
   programs.waybar = {
     enable = true;
     systemd.enable = false;
@@ -39,7 +42,7 @@
           };
           format-plugged = "  ";
           interval = 5;
-          on-click = "omarchy-menu power";
+          on-click = lib.getExe pkgs.wlogout;
           states = {
             critical = 10;
             warning = 20;
@@ -52,7 +55,7 @@
           format = "  ";
           format-connected = "  ";
           format-disabled = "";
-          on-click = "overskride";
+          on-click = lib.getExe pkgs.overskride;
           tooltip-format = "Devices connected: {num_connections}";
         };
 
@@ -60,7 +63,7 @@
           format = "{:%Y-%m-%d %H:%M:%S}";
           format-alt = "{:%A, %b %d, %Y}";
           interval = 1;
-          on-click-right = "thunderbird";
+          on-click-right = lib.getExe pkgs.thunderbird;
           tooltip = false;
         };
 
@@ -81,7 +84,7 @@
 
         "custom/power" = {
           format = "⏻ ";
-          on-click = "wlogout";
+          on-click = lib.getExe pkgs.wlogout;
           tooltip = "Power Menu";
         };
 
@@ -125,7 +128,7 @@
           format-ethernet = "󰈀  ";
           format-wifi = "󰤢  ";
           interval = 5;
-          on-click = "networkmanager_dmenu";
+          on-click = lib.getExe pkgs.networkmanager_dmenu;
           tooltip-format-disconnected = "Disconnected";
           tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
           tooltip-format-wifi = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
@@ -141,8 +144,8 @@
             " "
           ];
           format-muted = "  ";
-          on-click = "pavucontrol";
-          on-click-right = "pamixer -t";
+          on-click = lib.getExe pkgs.pavucontrol;
+          on-click-right = "${lib.getExe pkgs.pamixer} -t";
           scroll-step = 5;
           tooltip-format = "Playing at {volume}%";
         };
