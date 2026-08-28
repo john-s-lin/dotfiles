@@ -30,6 +30,15 @@ The projection uses `force = true`. Home Manager activation reclaims the path if
 
 ## Workflow
 
+The workflow has four explicit, one-way transitions:
+
+1. Remote Gmail export -> checkout checkpoint
+2. Checkout checkpoint -> Home Manager working projection
+3. Deployed projection -> comparison against remote Gmail
+4. Reviewed checkpoint -> optional user-only application to remote Gmail
+
+### Remote Export To Checkpoint
+
 Inspect differences between the remote source of truth and the currently deployed snapshot:
 
 ```bash
@@ -45,22 +54,26 @@ gmailctl download --output "$tmpdir/config.jsonnet"
 diff -u "$checkout_root/modules/home/gmailctl/config.jsonnet" "$tmpdir/config.jsonnet"
 ```
 
-Deliberately reconcile `modules/home/gmailctl/config.jsonnet` with the downloaded remote state while preserving useful Jsonnet consolidation. An agent may perform this cleanup. Then validate the checkpoint without changing Gmail:
+Deliberately reconcile `modules/home/gmailctl/config.jsonnet` with the downloaded remote state while preserving useful Jsonnet consolidation. This is the only transition that changes the checkout checkpoint. An agent may perform this cleanup. Then validate the checkpoint without changing Gmail:
 
 ```bash
 gmailctl --config "$checkout_root/modules/home/gmailctl" debug
 rm -r "$tmpdir"
 ```
 
-If the goal is only to preserve remote state, commit the checkpoint and activate Home Manager to update the working projection.
+### Checkpoint To Projection
 
-If the consolidated checkpoint should replace the remote filters, activate Home Manager and inspect the exact proposed change:
+If the goal is only to preserve remote state, commit the checkpoint and activate Home Manager to update the working projection. Home Manager is the only owner of `~/.gmailctl/config.jsonnet`.
+
+### Projection Diff
+
+After activation, compare the deployed projection with remote Gmail:
 
 ```bash
 gmailctl diff
 ```
 
-After reviewing that diff, the user may manually run:
+If the consolidated checkpoint should replace the remote filters, inspect this diff after activation. After reviewing it, the user may manually run:
 
 ```bash
 gmailctl apply
