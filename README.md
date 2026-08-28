@@ -67,12 +67,12 @@ For example, to apply the configuration for `john@ajax`:
 just hm john@ajax
 ```
 
-The `hm` command in the `justfile` accepts `host`, `backup`, and `impure` parameters. It defaults to `host=dietpi@atlas`, `backup=backup`, and `impure=""`.
+The `hm` command in the `justfile` accepts a host followed by native Home Manager options. It always uses `-b bak` for the normal backup behavior and defaults to `dietpi@atlas`.
 
-To apply the configuration for `johnslin@nimbus` (which requires impure mode), you can pass the arguments in order:
+To apply the configuration for `johnslin@nimbus` (which requires impure mode), pass `--impure` directly:
 
 ```bash
-just hm johnslin@nimbus backup impure
+just hm johnslin@nimbus --impure
 ```
 
 For other hosts that don't need impure mode, you can just pass the host name:
