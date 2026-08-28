@@ -1,9 +1,66 @@
 { pkgs, ... }:
 {
-  programs.zed-editor.enable = pkgs.stdenv.hostPlatform.isLinux;
-
-  xdg.configFile = {
-    "zed/settings.json".source = ./zed/settings.json;
-    "zed/themes/One_Dark_Pro.json".source = ./zed/themes/One_Dark_Pro.json;
+  programs.zed-editor = {
+    enable = true;
+    package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.zed-editor;
+    mutableUserSettings = false;
+    userSettings = {
+      auto_install_extensions = {
+        html = false;
+      };
+      auto_update = false;
+      base_keymap = "VSCode";
+      buffer_font_family = "JetBrainsMono Nerd Font Mono";
+      buffer_font_size = 13;
+      colorize_brackets = true;
+      disable_ai = true;
+      edit_predictions = {
+        provider = "none";
+      };
+      format_on_save = "on";
+      git_panel = {
+        dock = "right";
+      };
+      preferred_line_length = 120;
+      project_panel = {
+        dock = "left";
+      };
+      relative_line_numbers = "enabled";
+      telemetry = {
+        diagnostics = false;
+        metrics = false;
+      };
+      terminal = {
+        line_height = "standard";
+      };
+      theme = "One Dark Pro";
+      ui_font_family = "Geist";
+      ui_font_size = 16;
+      vim_mode = true;
+      helix_mode = true;
+      languages = {
+        Nix = {
+          language_servers = [
+            "nil"
+            "!nixd"
+          ];
+          formatter = {
+            external = {
+              command = "nixfmt";
+            };
+          };
+        };
+        Python = {
+          language_servers = [
+            "!ty"
+            "basedpyright"
+            "ruff"
+          ];
+        };
+      };
+    };
+    themes = {
+      One_Dark_Pro = ./zed/themes/One_Dark_Pro.json;
+    };
   };
 }
