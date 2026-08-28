@@ -1,22 +1,167 @@
-{ pkgs, ... }:
 {
   programs.waybar = {
     enable = true;
     systemd.enable = false;
-  };
+    style = ./waybar/style.css;
+    settings = [
+      {
+        battery = {
+          bat = "BAT0";
+          format = "{capacity}% {icon}  ";
+          format-charging = "{capacity}% {icon}  ";
+          format-discharging = "{capacity}% {icon}  ";
+          format-full = "󰂅  ";
+          format-icons = {
+            charging = [
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
+            default = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
+          };
+          format-plugged = "  ";
+          interval = 5;
+          on-click = "omarchy-menu power";
+          states = {
+            critical = 10;
+            warning = 20;
+          };
+          tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%";
+          tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%";
+        };
 
-  xdg.configFile = {
-    "waybar/config" = {
-      source = ./waybar/config.json;
-      onChange = ''
-        ${pkgs.procps}/bin/pkill -u $USER -USR2 waybar || true
-      '';
-    };
-    "waybar/style.css" = {
-      source = ./waybar/style.css;
-      onChange = ''
-        ${pkgs.procps}/bin/pkill -u $USER -USR2 waybar || true
-      '';
-    };
+        bluetooth = {
+          format = "  ";
+          format-connected = "  ";
+          format-disabled = "";
+          on-click = "overskride";
+          tooltip-format = "Devices connected: {num_connections}";
+        };
+
+        clock = {
+          format = "{:%Y-%m-%d %H:%M:%S}";
+          format-alt = "{:%A, %b %d, %Y}";
+          interval = 1;
+          on-click-right = "thunderbird";
+          tooltip = false;
+        };
+
+        cpu = {
+          format = "  {icon0}{icon1}{icon2}{icon3} {usage:>2}% ";
+          format-icons = [
+            "▁"
+            "▂"
+            "▃"
+            "▄"
+            "▅"
+            "▆"
+            "▇"
+            "█"
+          ];
+          interval = 1;
+        };
+
+        "custom/power" = {
+          format = "⏻ ";
+          on-click = "wlogout";
+          tooltip = "Power Menu";
+        };
+
+        height = 30;
+
+        "hyprland/workspaces" = {
+          format = "{name}";
+          on-click = "activate";
+          persistent-workspaces = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+            "6" = [ ];
+          };
+        };
+
+        layer = "top";
+
+        memory = {
+          format = "  {used:0.1f}G/{total:0.1f}G  ";
+          interval = 30;
+        };
+
+        modules-center = [ "clock" ];
+        modules-left = [ "hyprland/workspaces" ];
+        modules-right = [
+          "bluetooth"
+          "pulseaudio"
+          "network"
+          "temperature"
+          "cpu"
+          "memory"
+          "battery"
+          "custom/power"
+        ];
+
+        network = {
+          format-disconnected = "󰤠  ";
+          format-ethernet = "󰈀  ";
+          format-wifi = "󰤢  ";
+          interval = 5;
+          on-click = "networkmanager_dmenu";
+          tooltip-format-disconnected = "Disconnected";
+          tooltip-format-ethernet = "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+          tooltip-format-wifi = "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
+        };
+
+        position = "top";
+
+        pulseaudio = {
+          format = "{icon}  ";
+          format-icons.default = [
+            " "
+            " "
+            " "
+          ];
+          format-muted = "  ";
+          on-click = "pavucontrol";
+          on-click-right = "pamixer -t";
+          scroll-step = 5;
+          tooltip-format = "Playing at {volume}%";
+        };
+
+        reload_style_on_change = true;
+        spacing = 0;
+
+        temperature = {
+          critical-threshold = 80;
+          format = "{temperatureC}°C ";
+          interval = 5;
+        };
+
+        tray = {
+          icon-size = 12;
+          reverse-direction = true;
+          spacing = 12;
+        };
+      }
+    ];
   };
 }
