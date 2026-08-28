@@ -2,12 +2,10 @@
 let
   nixDeveloperPackages = with pkgs; [
     nil
-    nixfmt
   ];
   defaultPackages = with pkgs; [
     gh
     git
-    just
     vim
     wget
   ];
@@ -22,5 +20,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages =
-    defaultPackages ++ nixDeveloperPackages ++ (if pkgs.stdenv.hostPlatform.isLinux then linuxPackages else [ ]);
+    defaultPackages
+    ++ nixDeveloperPackages
+    ++ (if pkgs.stdenv.hostPlatform.isLinux then linuxPackages else [ ]);
 }
