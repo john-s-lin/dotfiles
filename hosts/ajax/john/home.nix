@@ -11,8 +11,7 @@
     ../../../modules/home/server.nix
     ../../../modules/home/zsh.nix
 
-    # AI/development packages
-    ../../../modules/packages/ai.nix
+    # AI/development configuration
     ../../../modules/home/agents.nix
     ../../../modules/home/opencode.nix
 

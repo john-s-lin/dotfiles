@@ -4,5 +4,4 @@
   home.file.".agents/skills".source = ./agents/skills;
   home.file.".codex/AGENTS.md".source = ./agents/AGENTS.md;
 
-  xdg.configFile."opencode/AGENTS.md".source = ./agents/AGENTS.md;
 }
