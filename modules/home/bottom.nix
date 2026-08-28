@@ -1,4 +1,31 @@
-{ ... }:
+{ lib, pkgs, ... }:
+let
+  darwinDiskSettings = lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+    disk = {
+      name_filter = {
+        is_list_ignored = true;
+        list = [
+          "/dev/disk1s2"
+          "/dev/disk1s4"
+          "/dev/disk1s5"
+          "/dev/disk1s6"
+        ];
+      };
+
+      mount_filter = {
+        is_list_ignored = true;
+        list = [
+          "/System/Volumes/iSCPreboot"
+          "/System/Volumes/Hardware"
+          "/System/Volumes/Data"
+          "/System/Volumes/Update"
+          "/System/Volumes/Preboot"
+          "/System/Volumes/VM"
+        ];
+      };
+    };
+  };
+in
 {
   programs.bottom = {
     enable = true;
@@ -7,7 +34,7 @@
       flags = {
         battery = true;
       };
-      
+
       processes = {
         default_tree = true;
       };
@@ -49,29 +76,7 @@
         }
       ];
 
-      # Disk Filter
-      diskFilter = {
-        isListIgnored = true;
-        list = [
-          "/dev/disk1s2"
-          "/dev/disk1s4"
-          "/dev/disk1s5"
-          "/dev/disk1s6"
-        ];
-      };
-
-      # Mount Filter
-      mountFilter = {
-        isListIgnored = true;
-        list = [
-          "/System/Volumes/iSCPreboot"
-          "/System/Volumes/Hardware"
-          "/System/Volumes/Data"
-          "/System/Volumes/Update"
-          "/System/Volumes/Preboot"
-          "/System/Volumes/VM"
-        ];
-      };
-    };
+    }
+    // darwinDiskSettings;
   };
 }
