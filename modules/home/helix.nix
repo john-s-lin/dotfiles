@@ -1,16 +1,23 @@
-{ pkgs, ... }:
 {
   programs.helix = {
     enable = true;
     defaultEditor = true;
-  };
+    settings = {
+      theme = "tokyonight";
 
-  xdg.configFile."helix/config.toml" = {
-    source = ./helix/config.toml;
-    onChange =
-      let
-        pkill = if pkgs.stdenv.hostPlatform.isDarwin then "/usr/bin/pkill" else "${pkgs.procps}/bin/pkill";
-      in
-      "${pkill} -USR1 -u $USER -x '(hx|\\.hx-wrapped)' || true";
+      editor = {
+        line-number = "relative";
+        mouse = true;
+
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
+
+        file-picker.hidden = false;
+        soft-wrap.enable = true;
+      };
+    };
   };
 }
