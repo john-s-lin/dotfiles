@@ -1,6 +1,6 @@
 ---
 name: simd
-description: Guide for practical SIMD vectorization. Use when the user asks for performance refactoring using SIMD.
+description: Evaluate and refactor scalar loops over contiguous memory for SIMD vectorization. Applies a structured 5-step recipe (broadcast, chunked loop, parallel lanes, reduction/early-exit extraction, and scalar tail fallback) to maximize throughput. Use when the user asks for performance optimization, loop vectorization, or hardware-accelerated scanning.
 ---
 
 ## 1. Vectorization Qualification Checklist

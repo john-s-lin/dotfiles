@@ -1,6 +1,6 @@
 ---
 name: perfect
-description: Review recent implementation work for functions that can be rewritten with the principles of function honesty, caller empathy and single-level of abstraction. Use after exploratory coding or when the user asks for a function "shape" cleanup.
+description: Refactor functions to enforce function honesty (pure, deterministic logic), caller empathy (strong types and flexible contracts), and a single level of abstraction (SLAP). Use after exploratory coding or when the user requests function "shape" cleanup, signature refactoring, or side-effect isolation.
 ---
 
 # 1. Core Principles
