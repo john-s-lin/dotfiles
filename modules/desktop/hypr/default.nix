@@ -10,7 +10,7 @@ let
     (
       XDG_RUNTIME_DIR=''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
       if [[ -d "/tmp/hypr" || -d "$XDG_RUNTIME_DIR/hypr" ]]; then
-        for i in $(${hyprland.finalPackage}/bin/hyprctl instances -j | jq ".[].instance" -r); do
+        for i in $(${hyprland.finalPackage}/bin/hyprctl instances -j | ${lib.getExe pkgs.jq} ".[].instance" -r); do
           ${hyprland.finalPackage}/bin/hyprctl -i "$i" reload config-only
         done
       fi
