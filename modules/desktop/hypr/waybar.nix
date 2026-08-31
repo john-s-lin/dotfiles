@@ -1,4 +1,19 @@
 { lib, pkgs, ... }:
+let
+  powerProfileMenu = pkgs.writeShellApplication {
+    name = "power-profile-menu";
+    text = ''
+      current=$(${lib.getExe' pkgs.power-profiles-daemon "powerprofilesctl"} get)
+      profile=$(printf '%s\n' performance balanced power-saver | ${lib.getExe pkgs.rofi} -dmenu -p "Power profile" -select "$current")
+
+      case "$profile" in
+        performance|balanced|power-saver)
+          ${lib.getExe' pkgs.power-profiles-daemon "powerprofilesctl"} set "$profile"
+          ;;
+      esac
+    '';
+  };
+in
 {
   home.packages = [ pkgs.pamixer ];
 
@@ -42,13 +57,14 @@
           };
           format-plugged = "  ";
           interval = 5;
-          on-click = lib.getExe pkgs.wlogout;
+          on-click = lib.getExe powerProfileMenu;
           states = {
             critical = 10;
             warning = 20;
           };
-          tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%";
-          tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%";
+          tooltip-format = "{capacity}%\nClick to change power profile";
+          tooltip-format-charging = "{power:>1.0f}W↑ {capacity}%\nClick to change power profile";
+          tooltip-format-discharging = "{power:>1.0f}W↓ {capacity}%\nClick to change power profile";
         };
 
         bluetooth = {
