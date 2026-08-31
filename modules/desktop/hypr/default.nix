@@ -36,6 +36,7 @@ in
   ];
 
   imports = [
+    ./power-profile.nix
     ./rofi.nix
     ./waybar.nix
     ./hyprlock.nix
