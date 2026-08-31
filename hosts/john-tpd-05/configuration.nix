@@ -51,6 +51,10 @@
     allowUnfree = true;
   };
 
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+  ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
