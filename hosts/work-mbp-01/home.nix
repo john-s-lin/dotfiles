@@ -47,13 +47,13 @@
       forwardAgent = true;
       addKeysToAgent = "no";
       compression = false;
-      serverAliveInterval = 0;
+      serverAliveInterval = 15;
       serverAliveCountMax = 3;
       hashKnownHosts = false;
       userKnownHostsFile = "~/.ssh/known_hosts";
-      controlMaster = "no";
-      controlPath = "~/.ssh/master-%r@%n:%p";
-      controlPersist = "no";
+      controlMaster = "auto";
+      controlPath = "~/.ssh/master-%C";
+      controlPersist = "4h";
     };
   };
 
