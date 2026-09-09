@@ -7,6 +7,7 @@
     ../../modules/home/git.nix
     ../../modules/home/jujutsu.nix
 
+    ../../modules/home/herdr.nix
     ../../modules/home/starship.nix
     ../../modules/home/zellij.nix
     ../../modules/home/zoxide.nix

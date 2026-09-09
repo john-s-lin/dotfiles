@@ -9,6 +9,7 @@
     ../../modules/home/jujutsu.nix
 
     # Workstation tools (previously in workstation.nix)
+    ../../modules/home/herdr.nix
     ../../modules/home/starship.nix
     ../../modules/home/zellij.nix
     ../../modules/home/zoxide.nix
@@ -36,8 +37,6 @@
     "$HOME/.nix-profile/bin"
     "/etc/profiles/per-user/${config.home.username}/bin"
   ];
-
-  programs.zellij.enableZshIntegration = true;
 
   programs.ssh = {
     enable = true;
