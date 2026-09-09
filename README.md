@@ -16,11 +16,14 @@ nix run nixpkgs#just -- nr <hostname>
 
 # On Linux with Home Manager (standalone)
 nix run nixpkgs#just -- hm <username>@<hostname>
+
+# For hosts requiring impure evaluation (e.g., johnslin@nimbus)
+nix run nixpkgs#just -- hm johnslin@nimbus --impure
 ```
 
 ### Option 2: Use raw Nix commands
 
-Bypass `just` entirely for the first rebuild (required on macOS before `darwin-rebuild` is installed):
+Bypass `just` entirely for the first rebuild (required on macOS before `darwin-rebuild` is installed, or before `home-manager` is available):
 
 ```bash
 # On macOS (bootstrap)
@@ -30,8 +33,14 @@ nix run nix-darwin/master -- switch --flake .#<hostname>
 sudo nixos-rebuild switch --flake .#<hostname>
 
 # On Linux with Home Manager (standalone, non-NixOS)
-nix run home-manager -- switch --flake .#<username>@<hostname>
+nix run home-manager -- switch --flake .#<username>@<hostname> -b bak
+
+# For hosts requiring impure evaluation (e.g., johnslin@nimbus)
+nix run home-manager -- switch --flake .#johnslin@nimbus --impure -b bak
 ```
+
+> [!NOTE]
+> If your Nix installation doesn't have flakes enabled globally yet, add `--extra-experimental-features "nix-command flakes"` to any `nix` command.
 
 After the first successful rebuild, `just` (and `darwin-rebuild` on macOS) will be installed and available for all subsequent commands.
 
