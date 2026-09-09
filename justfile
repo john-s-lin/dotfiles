@@ -2,6 +2,7 @@
 darwin_host := "john-mba-03"
 nixos_host  := "john-tpd-05"
 home_host   := "dietpi@atlas"
+work_host   := "work-mbp-01"
 
 # Run nixos-rebuild switch
 nr host=nixos_host:
@@ -10,6 +11,9 @@ nr host=nixos_host:
 # Run darwin-rebuild switch
 dr host=darwin_host:
     sudo $(which darwin-rebuild) switch --flake .#{{host}}
+
+# For the work computer
+work: (dr work_host)
 
 # Run garbage-collect (default 30 days)
 gc days="30":
