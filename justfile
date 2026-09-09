@@ -3,6 +3,7 @@ darwin_host := "john-mba-03"
 nixos_host  := "john-tpd-05"
 home_host   := "dietpi@atlas"
 work_host   := "work-mbp-01"
+nimbus_host := "johnslin@nimbus"
 
 # Run nixos-rebuild switch
 nr host=nixos_host:
@@ -14,6 +15,9 @@ dr host=darwin_host:
 
 # For the work computer
 work: (dr work_host)
+
+# For the nimbus server
+nimbus: (hm nimbus_host "--impure") 
 
 # Run garbage-collect (default 30 days)
 gc days="30":
