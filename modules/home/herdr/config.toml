@@ -1,7 +1,7 @@
 onboarding = false
 
 [theme]
-name = "tokyo-passion"
+name = "tokyo-night"
 
 [theme.custom]
 accent = "#7aa2f7"
