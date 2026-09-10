@@ -14,8 +14,11 @@ let
         host="''${host}.c.googlers.com"
       fi
 
-      echo "🚀 Connecting to $host (herdr session: $session) via roadwarrior..."
-      rw -r -S --reconnect_loop --check_remaining "$host" -- herdr --session "$session"
+      echo "🚀 Ensuring credentials and waking $host..."
+      rw -r --only_ensure_cloudtop_on "$host"
+
+      echo "🚀 Connecting to $host (herdr session: $session) via herdr remote..."
+      ${lib.getExe pkgs.herdr} --remote "$host" --session "$session"
     }
   '';
 in
