@@ -33,9 +33,5 @@ in
 
   programs.zsh.initContent = lib.mkOrder 200 ''
     ${herwFunc}
-
-    if [[ -z "$HERDR_ENV" && -z "$ZELLIJ" && -z "$SSH_CONNECTION" && "$TERM" != "dumb" ]]; then
-      ${lib.getExe pkgs.herdr}
-    fi
   '';
 }

@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ../../modules/home/bash.nix
@@ -7,6 +7,7 @@
     ../../modules/home/direnv.nix
     ../../modules/home/git.nix
     ../../modules/home/helix.nix
+    ../../modules/home/herdr.nix
     ../../modules/home/server.nix
     ../../modules/home/shpool.nix
     ../../modules/home/zoxide.nix
@@ -14,6 +15,13 @@
 
     # Terminal packages
     ../../modules/packages/terminal.nix
+  ];
+
+  home.sessionPath = [
+    "/run/current-system/sw/bin"
+    "$HOME/.nix-profile/bin"
+    "$HOME/.local/bin"
+    "/etc/profiles/per-user/${config.home.username}/bin"
   ];
 
   programs.zsh.initContent = ''
