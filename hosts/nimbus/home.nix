@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   imports = [
     ../../modules/home/bash.nix
@@ -17,11 +17,10 @@
     ../../modules/packages/terminal.nix
   ];
 
+  targets.genericLinux.enable = true;
+
   home.sessionPath = [
-    "/run/current-system/sw/bin"
-    "$HOME/.nix-profile/bin"
     "$HOME/.local/bin"
-    "/etc/profiles/per-user/${config.home.username}/bin"
   ];
 
   programs.zsh.initContent = ''
