@@ -18,6 +18,7 @@
     ../../modules/home/gmailctl.nix
     ../../modules/home/helix.nix
     ../../modules/home/opencode.nix
+    ../../modules/home/pi.nix
     ../../modules/home/zed.nix
     ../../modules/home/zsh.nix
 

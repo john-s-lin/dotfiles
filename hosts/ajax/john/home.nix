@@ -14,6 +14,7 @@
     # AI/development configuration
     ../../../modules/home/agents.nix
     ../../../modules/home/opencode.nix
+    ../../../modules/home/pi.nix
 
     # Terminal packages
     ../../../modules/packages/terminal.nix
