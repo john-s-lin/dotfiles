@@ -276,7 +276,7 @@ hl.window_rule({
 })
 hl.window_rule({
 	match = {
-		class = "zen-twilight",
+		class = "zen-beta",
 	},
 	workspace = 4,
 })

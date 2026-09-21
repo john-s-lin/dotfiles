@@ -73,10 +73,10 @@
       "application/vnd.pdf" = [ "okularApplication_pdf.desktop" ];
       "text/pdf" = [ "okularApplication_pdf.desktop" ];
 
-      "text/html" = [ "zen-twilight.desktop" ];
-      "application/xhtml+xml" = [ "zen-twilight.desktop" ];
-      "x-scheme-handler/http" = [ "zen-twilight.desktop" ];
-      "x-scheme-handler/https" = [ "zen-twilight.desktop" ];
+      "text/html" = [ "zen-beta.desktop" ];
+      "application/xhtml+xml" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/http" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/https" = [ "zen-beta.desktop" ];
     };
   };
 
