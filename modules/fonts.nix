@@ -4,7 +4,7 @@ let
     nerd-fonts.jetbrains-mono
     nerd-fonts.geist-mono
     geist-font
-    ioskeley-mono.normal-NF
+    ioskeley-mono.nf
   ];
   linuxFonts = with pkgs; [
     noto-fonts-cjk-sans
