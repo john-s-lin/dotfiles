@@ -20,5 +20,12 @@
     config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/modules/home/pi/models.json";
 
+  # Custom theme matching the terminal palette (tokyo-passion in ghostty.nix /
+  # alacritty.nix). Out-of-store symlink so editing the repo file hot-reloads
+  # in a running pi.
+  home.file.".pi/agent/themes/tokyo-passion.json".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/.dotfiles/modules/home/pi/themes/tokyo-passion.json";
+
   # Not managed (pi-owned cache/state): models-store.json, sessions/, auth.json
 }

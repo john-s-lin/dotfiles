@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.86.1",
-  "theme": "dark",
+  "theme": "tokyo-passion",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.3-flash"
 }
