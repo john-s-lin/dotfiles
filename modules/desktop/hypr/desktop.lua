@@ -276,6 +276,12 @@ hl.window_rule({
 })
 hl.window_rule({
 	match = {
+		class = "brave-browser",
+	},
+	workspace = 3,
+})
+hl.window_rule({
+	match = {
 		class = "zen-beta",
 	},
 	workspace = 4,
