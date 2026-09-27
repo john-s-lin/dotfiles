@@ -20,7 +20,7 @@ work: (dr work_host)
 nimbus: (hm nimbus_host "--impure") 
 
 # Run garbage-collect (default 30 days)
-gc days="30":
+clean days="30":
     sudo $(which nix-collect-garbage) --delete-older-than {{days}}d
 
 # Update nix flake
