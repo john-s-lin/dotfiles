@@ -7,15 +7,9 @@ local terminal = "alacritty"
 local laptopMonitor = "eDP-1"
 local homeMonitor = "DP-2"
 local workMonitor = "DP-1"
+local dellMonitor = "HDMI-A-2"
 
-local workspaces = {}
-for number = 1, 10 do
-	table.insert(workspaces, {
-		number = number,
-		key = number == 10 and "0" or tostring(number),
-		monitor = number <= 3 and laptopMonitor or number <= 6 and homeMonitor or workMonitor,
-	})
-end
+local lastWorkspace = 10
 
 hl.curve("easeOutQuint", {
 	type = "bezier",
@@ -91,12 +85,10 @@ hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
 
-for _, workspace in ipairs(workspaces) do
-	hl.bind(mainMod .. " + " .. workspace.key, hl.dsp.focus({ workspace = workspace.number }))
-end
-
-for _, workspace in ipairs(workspaces) do
-	hl.bind(mainMod .. " + CTRL + " .. workspace.key, hl.dsp.window.move({ workspace = workspace.number }))
+for number = 1, lastWorkspace do
+	local key = number == 10 and "0" or tostring(number)
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = number }))
+	hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.window.move({ workspace = number }))
 end
 
 hl.bind(mainMod .. " + Left", hl.dsp.focus({ workspace = "e-1" }))
@@ -244,6 +236,13 @@ hl.monitor({
 	scale = 1,
 })
 
+hl.monitor({
+	mode = "1920x1080@60",
+	output = dellMonitor,
+	position = "1920x0",
+	scale = 1,
+})
+
 hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd(terminal)
@@ -316,9 +315,13 @@ hl.window_rule({
 	no_focus = true,
 })
 
-for _, workspace in ipairs(workspaces) do
-	hl.workspace_rule({
-		monitor = workspace.monitor,
-		workspace = tostring(workspace.number),
-	})
+-- Laptop: 1-2. Every secondary monitor claims 3+; only one secondary is
+-- connected at a time, so the shared range never conflicts.
+for number = 1, 2 do
+	hl.workspace_rule({ monitor = laptopMonitor, workspace = tostring(number) })
+end
+for _, monitor in ipairs({ dellMonitor, homeMonitor, workMonitor }) do
+	for number = 3, lastWorkspace do
+		hl.workspace_rule({ monitor = monitor, workspace = tostring(number) })
+	end
 end
