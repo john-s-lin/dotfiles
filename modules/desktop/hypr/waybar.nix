@@ -5,6 +5,14 @@
   programs.waybar = {
     enable = true;
     systemd.enable = false;
+    # Waybar <= 0.15.0 sends legacy dispatcher syntax over Hyprland IPC, which
+    # Hyprland >= 0.55 with the Lua config manager rejects, so workspace
+    # clicks do nothing. DEPRECATED once nixpkgs ships waybar > 0.15.0: delete
+    # this override and waybar/lua-dispatch.patch.
+    # https://github.com/john-s-lin/dotfiles/issues/93
+    package = pkgs.waybar.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./waybar/lua-dispatch.patch ];
+    });
     style = ./waybar/style.css;
     settings = [
       {
