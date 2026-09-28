@@ -243,12 +243,37 @@ hl.monitor({
 	scale = 1,
 })
 
+local secondaryMonitors = { [dellMonitor] = true, [homeMonitor] = true, [workMonitor] = true }
+
+local function syncSecondaryWorkspaces()
+	local secondary = nil
+	for _, monitor in ipairs(hl.get_monitors()) do
+		if secondaryMonitors[monitor.name] then
+			secondary = monitor.name
+		end
+	end
+	if secondary == nil then
+		return
+	end
+	for number = 3, lastWorkspace do
+		if hl.get_workspace(tostring(number)) ~= nil then
+			hl.dispatch(hl.dsp.workspace.move({ workspace = number, monitor = secondary }))
+		else
+			hl.workspace_rule({ monitor = secondary, workspace = tostring(number) })
+		end
+	end
+end
+
 hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd(terminal)
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("thunderbird")
+	syncSecondaryWorkspaces()
 end)
+
+hl.on("monitor.added", syncSecondaryWorkspaces)
+hl.on("config.reloaded", syncSecondaryWorkspaces)
 
 hl.window_rule({
 	match = {
@@ -315,13 +340,8 @@ hl.window_rule({
 	no_focus = true,
 })
 
--- Laptop: 1-2. Every secondary monitor claims 3+; only one secondary is
--- connected at a time, so the shared range never conflicts.
+-- Laptop: 1-2. 3+ go to whichever secondary monitor is connected; only one
+-- secondary is connected at a time, so the shared range never conflicts.
 for number = 1, 2 do
 	hl.workspace_rule({ monitor = laptopMonitor, workspace = tostring(number) })
-end
-for _, monitor in ipairs({ dellMonitor, homeMonitor, workMonitor }) do
-	for number = 3, lastWorkspace do
-		hl.workspace_rule({ monitor = monitor, workspace = tostring(number) })
-	end
 end
