@@ -2,7 +2,7 @@ local fileManager = "cosmic-files"
 local mainMod = "SUPER"
 local menu = "rofi -show drun"
 local shiftMod = mainMod .. " + SHIFT"
-local terminal = "alacritty"
+local terminal = "ghostty"
 
 local laptopMonitor = "eDP-1"
 local homeMonitor = "DP-2"
@@ -277,7 +277,7 @@ hl.on("config.reloaded", syncSecondaryWorkspaces)
 
 hl.window_rule({
 	match = {
-		class = "Alacritty",
+		class = "com.mitchellh.ghostty",
 	},
 	workspace = 1,
 })
