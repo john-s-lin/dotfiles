@@ -43,6 +43,7 @@ in
     ./hyprpaper.nix
     ./hypridle.nix
     ./mako.nix
+    ./wlogout.nix
   ];
 
   wayland.windowManager.hyprland = {
