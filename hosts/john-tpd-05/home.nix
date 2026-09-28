@@ -77,10 +77,10 @@
       "application/xhtml+xml" = [ "zen-beta.desktop" ];
       "x-scheme-handler/http" = [ "zen-beta.desktop" ];
       "x-scheme-handler/https" = [ "zen-beta.desktop" ];
-      # Okular for images (mimeapps.list doesn't support wildcards like image/*)
+      # swayimg for images (mimeapps.list doesn't support wildcards like image/*)
     } // lib.genAttrs
       [ "image/jpeg" "image/png" "image/gif" "image/webp" ]
-      (_: [ "okularApplication_kimgio.desktop" ]);
+      (_: [ "swayimg.desktop" ]);
   };
 
   # Let Home Manager install and manage itself.
