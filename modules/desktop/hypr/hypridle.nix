@@ -6,7 +6,7 @@
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
+        before_sleep_cmd = "pidof hyprlock || hyprlock";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
 
@@ -18,7 +18,7 @@
         }
         {
           timeout = 300;
-          on-timeout = "loginctl lock-session";
+          on-timeout = "pidof hyprlock || hyprlock";
         }
         {
           timeout = 330;

@@ -72,8 +72,8 @@ end
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind("ALT + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("loginctl lock-session"))
-hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
 hl.bind(shiftMod .. " + Q", hl.dsp.exit())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + M", hl.dsp.window.float({ action = "toggle" }))
