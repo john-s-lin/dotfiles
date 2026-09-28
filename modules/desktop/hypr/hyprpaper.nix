@@ -12,7 +12,7 @@ let
   wallpaperPrimary = scaled ../wallpapers/new-zealand-01.jpg 1920 1080;
   wallpaperHome = scaled ../wallpapers/tokyo-01.jpg 1920 1080;
   wallpaperWork = scaled ../wallpapers/cypress-01.jpg 2560 1440;
-  wallpaperDell = scaled ../wallpapers/tokyo-03.jpg 1920 1080;
+  wallpaperDell = scaled ../wallpapers/fuji-01.jpg 1920 1080;
 in
 {
   services.hyprpaper = {
