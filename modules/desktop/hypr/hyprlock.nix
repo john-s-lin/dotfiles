@@ -1,5 +1,12 @@
+{
+  pkgs,
+  lib,
+  ...
+}:
+
 let
-  wallpaperPrimary = ../wallpapers/tiantan-01.jpg;
+  scaled = (import ../wallpapers/scaled.nix { inherit pkgs lib; }).scaledWallpaper;
+  wallpaperPrimary = scaled ../wallpapers/tiantan-01.jpg 1920 1080;
 in
 {
   programs.hyprlock = {
