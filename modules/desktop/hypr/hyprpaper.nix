@@ -6,7 +6,7 @@ let
   wallpaperPrimary = ../wallpapers/new-zealand-01.jpg;
   wallpaperHome = ../wallpapers/tokyo-01.jpg;
   wallpaperWork = ../wallpapers/cypress-01.jpg;
-  wallpaperDell = ../wallpapers/tokyo-02.jpg;
+  wallpaperDell = ../wallpapers/tokyo-03.jpg;
 in
 {
   services.hyprpaper = {
