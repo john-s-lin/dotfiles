@@ -1,20 +1,12 @@
 { ... }:
 {
   imports = [
-    ../../modules/home/bash.nix
-    ../../modules/home/bat.nix
-    ../../modules/home/bottom.nix
-    ../../modules/home/direnv.nix
-    ../../modules/home/git.nix
-    ../../modules/home/helix.nix
-    ../../modules/home/herdr.nix
-    ../../modules/home/server.nix
-    ../../modules/home/shpool.nix
-    ../../modules/home/zoxide.nix
-    ../../modules/home/zsh.nix
+    ../../modules/home/profiles/server.nix
 
-    # Terminal packages
-    ../../modules/packages/terminal.nix
+    # Nimbus-specific
+    ../../modules/home/bash.nix
+    ../../modules/home/herdr.nix
+    ../../modules/home/shpool.nix
   ];
 
   targets.genericLinux.enable = true;
@@ -34,6 +26,4 @@
     # Unalias jjd since ohmyzsh jj diff alias clashes against workspace function
     unalias jjd 2>/dev/null
   '';
-
-  home.stateVersion = "25.05";
 }

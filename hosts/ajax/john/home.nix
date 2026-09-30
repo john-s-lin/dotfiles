@@ -1,25 +1,12 @@
 { ... }:
 {
   imports = [
-    # Server tools (previously in server.nix)
-    ../../../modules/home/bat.nix
-    ../../../modules/home/bottom.nix
-    ../../../modules/home/direnv.nix
-    ../../../modules/home/git.nix
-    ../../../modules/home/helix.nix
+    ../../../modules/home/profiles/server.nix
     ../../../modules/home/jujutsu.nix
-    ../../../modules/home/server.nix
-    ../../../modules/home/zoxide.nix
-    ../../../modules/home/zsh.nix
 
     # AI/development configuration
     ../../../modules/home/agents.nix
     ../../../modules/home/opencode.nix
     ../../../modules/home/pi.nix
-
-    # Terminal packages
-    ../../../modules/packages/terminal.nix
   ];
-
-  home.stateVersion = "25.05";
 }

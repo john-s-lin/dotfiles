@@ -114,6 +114,7 @@
             {
               home.username = username;
               home.homeDirectory = home;
+              home.stateVersion = nixpkgs.lib.mkDefault "25.05";
             }
           ];
           extraSpecialArgs = {
@@ -179,14 +180,14 @@
 
         # Raspberry Pi - DietPi Home-Manager only
         "dietpi@apollo" = mkStandaloneHome {
-          homeModule = ./hosts/apollo/dietpi/home.nix;
+          homeModule = ./hosts/dietpi/home.nix;
           hostKey = "apollo";
           hostname = "apollo";
           username = "dietpi";
           system = "aarch64-linux";
         };
         "dietpi@atlas" = mkStandaloneHome {
-          homeModule = ./hosts/atlas/dietpi/home.nix;
+          homeModule = ./hosts/dietpi/home.nix;
           hostKey = "atlas";
           hostname = "atlas";
           username = "dietpi";
