@@ -39,6 +39,12 @@
           r = C-S-r
           t = C-S-t
           z = C-S-z
+
+          [meta+control]
+          q = M-C-q
+
+          [meta+alt]
+          l = M-A-l
         '';
       };
     };
