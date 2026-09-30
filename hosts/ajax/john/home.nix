@@ -9,6 +9,7 @@
     ../../../modules/home/helix.nix
     ../../../modules/home/jujutsu.nix
     ../../../modules/home/server.nix
+    ../../../modules/home/zoxide.nix
     ../../../modules/home/zsh.nix
 
     # AI/development configuration

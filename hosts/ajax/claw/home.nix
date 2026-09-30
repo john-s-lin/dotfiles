@@ -6,6 +6,10 @@
     ../../../modules/home/jujutsu.nix
     ../../../modules/home/direnv.nix
 
+    # Shell
+    ../../../modules/home/bash.nix
+    ../../../modules/home/zoxide.nix
+
     # Terminal packages
     ../../../modules/packages/terminal.nix
   ];
