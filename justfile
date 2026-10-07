@@ -27,6 +27,12 @@ clean days="30":
 update:
     nix flake update
 
+# Update flake, describe, move main, and push with jj
+upgrade message="chore: update flake": update
+    jj describe --message {{quote(message)}}
+    jj bookmark move main
+    jj git push
+
 # Run nix flake check
 check:
     nix flake check
