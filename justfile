@@ -27,14 +27,21 @@ clean days="30":
 update:
     nix flake update
 
-# Fetch and rebase onto main, update flake, describe, move main, and push with jj
+# Fetch and rebase onto main, update flake, commit flake.lock (if changed), move main, and push with jj
 upgrade message="chore: update flake":
+    #!/usr/bin/env bash
+    set -euxo pipefail
     jj git fetch
     jj rebase --destination main@origin
     nix flake update
-    jj describe --message {{quote(message)}}
-    jj bookmark move main
-    jj git push
+    if [ -z "$(jj diff --name-only flake.lock)" ]; then
+        { set +x; } 2>/dev/null
+        echo "flake.lock unchanged; nothing to commit or push."
+        exit 0
+    fi
+    jj commit --message {{quote(message)}} flake.lock
+    jj bookmark move main --to @-
+    jj git push --bookmark main
 
 # Run nix flake check
 check:
