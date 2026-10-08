@@ -27,8 +27,11 @@ clean days="30":
 update:
     nix flake update
 
-# Update flake, describe, move main, and push with jj
-upgrade message="chore: update flake": update
+# Fetch and rebase onto main, update flake, describe, move main, and push with jj
+upgrade message="chore: update flake":
+    jj git fetch
+    jj rebase --destination main@origin
+    nix flake update
     jj describe --message {{quote(message)}}
     jj bookmark move main
     jj git push
