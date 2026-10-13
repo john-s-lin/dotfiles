@@ -6,6 +6,13 @@
   # Local models (Ollama/LM Studio/vLLM): see pi/models.json in pi docs.
   home.packages = [ pkgs.pi-coding-agent ];
 
+  # NOTE: adding a package with `pi install ...` (e.g. npm:pi-subagents)
+  # requires a node/npm on PATH at install time. The bundled pi runtime is
+  # enough to *run* packages, but `pi install` shells out to node. Run it
+  # transiently without persisting a dependency:
+  #   nix shell nixpkgs#nodejs -c pi install npm:<package>
+  # The new entry lands in the settings.json "packages" array below; commit it.
+  #
   # Both files are out-of-store symlinks into the dotfiles working tree:
   # - settings.json is written by pi itself (theme, Ctrl+S-saved default model,
   #   lastChangelogVersion), so it must stay writable. Writes show up as repo
