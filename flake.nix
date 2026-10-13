@@ -164,17 +164,10 @@
       # VPS Home-Manager only
       homeConfigurations = {
         "john@ajax" = mkStandaloneHome {
-          homeModule = ./hosts/ajax/john/home.nix;
+          homeModule = ./hosts/ajax/home.nix;
           hostKey = "ajax";
           hostname = "ajax";
           username = "john";
-          system = "aarch64-linux";
-        };
-        "claw@ajax" = mkStandaloneHome {
-          homeModule = ./hosts/ajax/claw/home.nix;
-          hostKey = "ajax";
-          hostname = "ajax";
-          username = "claw";
           system = "aarch64-linux";
         };
 
