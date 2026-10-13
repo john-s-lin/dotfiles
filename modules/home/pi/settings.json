@@ -2,5 +2,10 @@
   "lastChangelogVersion": "1.1.0",
   "theme": "tokyo-passion",
   "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.3-flash"
+  "defaultModel": "z-ai/glm-5.3-flash",
+  "packages": [
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "git:github.com/obra/superpowers"
+  ]
 }
