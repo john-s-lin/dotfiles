@@ -4,7 +4,12 @@
     enable = true;
     package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.opencode;
     settings = {
-      small_model = "openrouter/deepseek/deepseek-v4-flash";
+      # Workhorse: cheapest Pareto-frontier model by cost-per-task vs AA
+      # Intelligence (dominates glm-5.3-flash on both axes, 2026-10 data).
+      model = "openrouter/anthropic/claude-haiku-5.5";
+      # Small/title model: cheapest 2026 pick from the small-model scan
+      # (5x cheaper output than deepseek-v4-flash).
+      small_model = "openrouter/nex-agi/nex-n2.5-mini";
       permission.bash = {
         sudo = "deny";
         "sudo *" = lib.hm.dag.entryAfter [ "sudo" ] "deny";
