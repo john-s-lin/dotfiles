@@ -2,7 +2,7 @@
   "lastChangelogVersion": "1.2.0",
   "theme": "tokyo-passion",
   "defaultProvider": "openrouter",
-  "defaultModel": "anthropic/claude-haiku-5.5",
+  "defaultModel": "deepseek/deepseek-v4.1-flash-1017",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
