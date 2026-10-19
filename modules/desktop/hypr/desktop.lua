@@ -1,4 +1,4 @@
-local fileManager = "cosmic-files"
+local fileManager = "thunar"
 local mainMod = "SUPER"
 local menu = "rofi -show drun"
 local shiftMod = mainMod .. " + SHIFT"

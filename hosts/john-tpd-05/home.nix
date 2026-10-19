@@ -67,6 +67,10 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      # Thunar as the default file manager (directories + trash)
+      "inode/directory" = [ "thunar.desktop" ];
+      "x-scheme-handler/trash" = [ "thunar.desktop" ];
+
       "application/pdf" = [ "okularApplication_pdf.desktop" ];
       "application/x-pdf" = [ "okularApplication_pdf.desktop" ];
       "application/acrobat" = [ "okularApplication_pdf.desktop" ];

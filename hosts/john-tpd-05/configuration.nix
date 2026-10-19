@@ -55,6 +55,10 @@
     intel-media-driver
   ];
 
+  # libgphoto2 udev rules: sets ID_GPHOTO2 on PTP cameras so the gvfs
+  # gphoto2 volume monitor (used by COSMIC Files and Thunar) detects them.
+  services.udev.packages = [ pkgs.libgphoto2 ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
