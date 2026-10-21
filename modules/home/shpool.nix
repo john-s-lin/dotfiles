@@ -1,4 +1,9 @@
-{ lib, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   shprwFunc = ''
     shprw() {
@@ -20,9 +25,16 @@ let
   '';
 in
 {
-  programs.bash.initExtra = lib.mkAfter shprwFunc;
-  programs.zsh.initContent = lib.mkAfter shprwFunc;
-  xdg.configFile."shpool/config.toml".text = ''
-    prompt_prefix = ""
-  '';
+  options.shpool.personal.enable = lib.mkEnableOption "shpool on personal servers";
+
+  config = {
+    programs.bash.initExtra = lib.mkAfter shprwFunc;
+    programs.zsh.initContent = lib.mkAfter shprwFunc;
+    xdg.configFile."shpool/config.toml".text = ''
+      prompt_prefix = ""
+    '';
+  }
+  // lib.mkIf config.shpool.personal.enable {
+    home.packages = [ pkgs.shpool ];
+  };
 }
