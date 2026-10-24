@@ -24,10 +24,10 @@ let
     }
   '';
 
-  shpsshFunc = ''
-    shpssh() {
+  sshpFunc = ''
+    sshp() {
       if [ $# -ne 2 ]; then
-        echo "Usage: shpssh <hostname> <session-name>" >&2
+        echo "Usage: sshp <hostname> <session-name>" >&2
         return 1
       fi
 
@@ -39,7 +39,7 @@ let
     }
   '';
 
-  shellFuncs = shprwFunc + "\n" + shpsshFunc;
+  shellFuncs = shprwFunc + "\n" + sshpFunc;
 in
 {
   options.shpool.personal.enable = lib.mkEnableOption "shpool on personal servers";
