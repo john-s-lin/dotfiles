@@ -70,6 +70,7 @@
               ;
           };
           modules = [
+            ./modules/cache.nix
             ./hosts/${hostKey}/configuration.nix
             home-manager.nixosModules.home-manager
             (mkUserConfig { inherit hostKey system username; })
@@ -89,6 +90,7 @@
             inherit inputs system username;
           };
           modules = [
+            ./modules/cache.nix
             ./hosts/${hostKey}/configuration.nix
             home-manager.darwinModules.home-manager
             (mkUserConfig { inherit hostKey system username; })
@@ -110,8 +112,10 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
+            ./modules/cache.nix
             homeModule
             {
+              nix.package = nixpkgs.lib.mkDefault nixpkgs.legacyPackages.${system}.nix;
               home.username = username;
               home.homeDirectory = home;
               home.stateVersion = nixpkgs.lib.mkDefault "25.05";
