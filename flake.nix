@@ -17,6 +17,10 @@
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/cachix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -25,6 +29,7 @@
       home-manager,
       zen-browser,
       nix-darwin,
+      noctalia,
       ...
     }@inputs:
     let
