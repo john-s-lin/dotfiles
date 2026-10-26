@@ -10,6 +10,13 @@
   ];
 
   targets.genericLinux.enable = true;
+  # Headless cloudtop: skip the non-NixOS GPU driver check/nag.
+  targets.genericLinux.gpu.enable = false;
+
+  # Work-managed nix-daemon, we are not in trusted-users.
+  dotfiles.nix.extraCaches.enable = false;
+
+  news.display = "silent";
 
   home.sessionPath = [
     "$HOME/.local/bin"
