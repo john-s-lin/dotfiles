@@ -36,14 +36,6 @@ in
   ];
 
   imports = [
-    ./power-profile.nix
-    ./rofi.nix
-    ./waybar.nix
-    ./hyprlock.nix
-    ./hyprpaper.nix
-    ./hypridle.nix
-    ./mako.nix
-    ./wlogout.nix
     ../noctalia.nix
   ];
 

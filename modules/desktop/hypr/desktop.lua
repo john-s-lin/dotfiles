@@ -1,6 +1,6 @@
 local fileManager = "thunar"
 local mainMod = "SUPER"
-local menu = "rofi -show drun"
+local menu = "noctalia msg panel-toggle launcher"
 local shiftMod = mainMod .. " + SHIFT"
 local terminal = "ghostty"
 
@@ -72,8 +72,8 @@ end
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind("ALT + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
-hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
+hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind(mainMod .. " + ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 hl.bind(shiftMod .. " + Q", hl.dsp.exit())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + M", hl.dsp.window.float({ action = "toggle" }))
@@ -103,7 +103,7 @@ hl.bind(shiftMod .. " + 5", hl.dsp.exec_cmd("hyprshot -m window"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + TAB", hl.dsp.window.cycle_next())
 hl.bind(shiftMod .. " + Tab", hl.dsp.window.cycle_next({ next = false }))
-hl.bind(shiftMod .. " + E", hl.dsp.exec_cmd("wlogout"))
+hl.bind(shiftMod .. " + E", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), {
 	locked = true,
 	repeating = true,
@@ -268,7 +268,6 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
 	hl.exec_cmd(terminal)
 	hl.exec_cmd("noctalia")
-	hl.exec_cmd("waybar")
 	hl.exec_cmd("thunderbird")
 	syncSecondaryWorkspaces()
 end)
