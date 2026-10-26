@@ -44,6 +44,7 @@ in
     ./hypridle.nix
     ./mako.nix
     ./wlogout.nix
+    ../noctalia.nix
   ];
 
   wayland.windowManager.hyprland = {
