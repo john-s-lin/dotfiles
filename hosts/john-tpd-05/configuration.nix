@@ -40,6 +40,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kill user processes on logout so lingering sessions don't block shutdown.
+  # NOTE: this also kills detached multiplexer sessions (zellij/shpool/herdr).
+  services.logind.settings.Login.KillUserProcesses = true;
+
   # Flakes
   nix.settings.experimental-features = [
     "nix-command"
