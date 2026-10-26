@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
 
     ../../modules/desktop/cosmic.nix
+    ../../modules/desktop/greeter.nix
     ../../modules/desktop/hyprland.nix
 
     ../../modules/fonts.nix
