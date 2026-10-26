@@ -22,17 +22,7 @@ in
     hyprshot
     brightnessctl
     playerctl
-    overskride
-    bluetui
-    impala
-    pavucontrol
     apple-cursor
-    lm_sensors
-    wlogout
-    networkmanagerapplet
-    networkmanager_dmenu
-    psmisc
-    libnotify # For notify-send testing
   ];
 
   imports = [
