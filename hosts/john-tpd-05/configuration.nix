@@ -45,12 +45,6 @@
   # NOTE: this also kills detached multiplexer sessions (zellij/shpool/herdr).
   services.logind.settings.Login.KillUserProcesses = true;
 
-  # Flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   # Allow unfree
   nixpkgs.config = {
     allowUnfree = true;

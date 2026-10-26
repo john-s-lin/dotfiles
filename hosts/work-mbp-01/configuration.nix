@@ -17,12 +17,6 @@
   programs.bash.enable = false;
   programs.zsh.enable = false;
 
-  # Flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   users.users.${username} = {
     name = username;
     home = "/Users/${username}";

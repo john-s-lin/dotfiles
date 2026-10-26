@@ -6,6 +6,10 @@
 { ... }:
 {
   nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     extra-substituters = [
       "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"

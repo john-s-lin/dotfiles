@@ -17,11 +17,6 @@
     ../../modules/gc/darwin.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   users.users.${username} = {
     name = username;
     home = "/Users/${username}";
