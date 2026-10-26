@@ -103,11 +103,13 @@
       shell = {
         font_family = "IoskeleyMono Nerd Font Mono";
         launcher.search_position = "top";
+        greeter_sync.auto_sync = true;
       };
 
       theme = {
         builtin = "Catppuccin";
         source = "wallpaper";
+        wallpaper_scheme = "m3-content";
       };
 
       wallpaper = {
