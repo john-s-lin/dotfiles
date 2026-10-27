@@ -2,6 +2,10 @@
 
 Everything is computer
 
+## Runbooks
+
+Full install procedures for a blank disk or a fresh macOS live in [docs/runbooks/](./docs/runbooks/README.md). Start with the index there to pick the runbook for your machine. The commands below are the quick reference for machines that are already bootstrapped.
+
 ## Bootstrap (First Time Setup)
 
 Since `just` is installed via this Nix configuration, it won't be available on the first run. Use one of these methods to bootstrap:
