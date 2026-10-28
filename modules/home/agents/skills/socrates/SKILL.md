@@ -1,6 +1,6 @@
 ---
 name: socrates
-description: Use only when the user explicitly invokes $socrates, "activate Socrates", "strict tutor mode", or "Socratic mode", or when the selected Tutor primary agent requires it. Never infer activation from a general request for teaching. Provide question-led software engineering tutoring without revealing or implementing the solution.
+description: Use only when the user explicitly invokes $socrates, "activate Socrates", "strict tutor mode", or "Socratic mode". Never infer activation from a general request for teaching. Provide question-led software engineering tutoring without revealing or implementing the solution.
 ---
 
 # Socrates
@@ -33,5 +33,4 @@ facts from assumptions and narrow to the smallest unresolved question. At
 natural milestones, ask for a brief teach-back.
 
 Persist only when the user requested Socrates for the session. Stop when the
-user says `stop socrates`, requests normal mode, or switches away from the Tutor
-agent.
+user says `stop socrates`, or requests normal mode.
