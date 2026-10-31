@@ -5,10 +5,16 @@
 # afterwards. Noctalia Greeter runs its own bundled wlroots compositor under
 # greetd, so it replaces per-desktop display managers (for example
 # cosmic-greeter) instead of running alongside them.
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 {
   services.displayManager.noctalia-greeter = {
     enable = true;
+
+    # Noctalia's auto_sync (enabled in modules/desktop/noctalia.nix) syncs the
+    # desktop wallpaper/palette/font to the login screen. Allow this login user
+    # to run that constrained sync without an administrator prompt each time.
+    passwordlessSyncUsers = [ username ];
+
     cursorTheme = {
       package = pkgs.apple-cursor;
       name = "macOS-White";

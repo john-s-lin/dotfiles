@@ -82,6 +82,12 @@
   # Path
   environment.localBinInPath = true;
 
+  # Polkit/pkexec only accepts login shells listed in /etc/shells. The user's
+  # shell is set to zsh below, so register zsh here too. Without this, Noctalia's
+  # Greeter appearance sync fails with:
+  # "The value for the SHELL variable was not found in the /etc/shells file"
+  environment.shells = [ pkgs.zsh ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
