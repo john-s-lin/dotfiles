@@ -5,6 +5,7 @@
 
     # Nimbus-specific
     ../../modules/home/bash.nix
+    ../../modules/home/grep.nix
     ../../modules/home/herdr.nix
     ../../modules/home/shpool.nix
   ];

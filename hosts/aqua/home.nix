@@ -5,6 +5,7 @@
     ../../modules/home/bottom.nix
     ../../modules/home/direnv.nix
     ../../modules/home/git.nix
+    ../../modules/home/grep.nix
     ../../modules/home/jujutsu.nix
 
     ../../modules/home/herdr.nix

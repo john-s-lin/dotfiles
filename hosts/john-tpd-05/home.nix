@@ -6,6 +6,7 @@
     ../../modules/home/bottom.nix
     ../../modules/home/direnv.nix
     ../../modules/home/git.nix
+    ../../modules/home/grep.nix
     ../../modules/home/jujutsu.nix
 
     # Workstation tools (previously in workstation.nix)
@@ -82,9 +83,8 @@
       "x-scheme-handler/http" = [ "zen-beta.desktop" ];
       "x-scheme-handler/https" = [ "zen-beta.desktop" ];
       # swayimg for images (mimeapps.list doesn't support wildcards like image/*)
-    } // lib.genAttrs
-      [ "image/jpeg" "image/png" "image/gif" "image/webp" ]
-      (_: [ "swayimg.desktop" ]);
+    }
+    // lib.genAttrs [ "image/jpeg" "image/png" "image/gif" "image/webp" ] (_: [ "swayimg.desktop" ]);
   };
 
   # Let Home Manager install and manage itself.

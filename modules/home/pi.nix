@@ -21,18 +21,15 @@
   #   manual edits (custom headers, provider overrides) take effect without a
   #   rebuild.
   home.file.".pi/agent/settings.json".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/modules/home/pi/settings.json";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/pi/settings.json";
   home.file.".pi/agent/models.json".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/modules/home/pi/models.json";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/pi/models.json";
 
   # Custom theme matching the terminal palette (tokyo-passion in ghostty.nix /
   # alacritty.nix). Out-of-store symlink so editing the repo file hot-reloads
   # in a running pi.
   home.file.".pi/agent/themes/tokyo-passion.json".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/modules/home/pi/themes/tokyo-passion.json";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/pi/themes/tokyo-passion.json";
 
   # Not managed (pi-owned cache/state): models-store.json, sessions/, auth.json
 }

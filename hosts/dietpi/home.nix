@@ -2,6 +2,7 @@
 {
   imports = [
     ../../modules/home/profiles/server.nix
+    ../../modules/home/grep.nix
     ../../modules/home/jujutsu.nix
     ../../modules/home/shpool.nix
   ];

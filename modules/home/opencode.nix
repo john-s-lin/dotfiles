@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.opencode = {
     enable = true;
@@ -10,10 +15,26 @@
       # (5x cheaper output than deepseek-v4-flash).
       agents.title.model = "openrouter/nex-agi/nex-n2.5-mini";
       permissions = [
-        { action = "shell"; resource = "sudo"; effect = "deny"; }
-        { action = "shell"; resource = "sudo *"; effect = "deny"; }
-        { action = "shell"; resource = "gmailctl apply"; effect = "deny"; }
-        { action = "shell"; resource = "gmailctl apply *"; effect = "deny"; }
+        {
+          action = "shell";
+          resource = "sudo";
+          effect = "deny";
+        }
+        {
+          action = "shell";
+          resource = "sudo *";
+          effect = "deny";
+        }
+        {
+          action = "shell";
+          resource = "gmailctl apply";
+          effect = "deny";
+        }
+        {
+          action = "shell";
+          resource = "gmailctl apply *";
+          effect = "deny";
+        }
       ];
     };
     agents = ./opencode/agents;
@@ -23,8 +44,7 @@
   # OpenCode 2 writes terminal state (theme overrides, panes, etc.) to cli.json.
   # Keep that file mutable in the dotfiles tree so app changes persist across hosts.
   xdg.configFile."opencode/cli.json".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/.dotfiles/modules/home/opencode/cli.json";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/opencode/cli.json";
 
   home.sessionVariables = {
     OPENCODE_ENABLE_EXA = 1;

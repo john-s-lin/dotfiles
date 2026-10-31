@@ -6,6 +6,7 @@
     ../../modules/home/bottom.nix
     ../../modules/home/direnv.nix
     ../../modules/home/git.nix
+    ../../modules/home/grep.nix
     ../../modules/home/jujutsu.nix
 
     # Workstation tools (previously in workstation.nix)
