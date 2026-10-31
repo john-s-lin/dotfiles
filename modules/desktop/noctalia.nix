@@ -137,31 +137,24 @@
         tooltip_format = "{:%A} {:%Y-%m-%d} ";
       };
 
+      # Noctalia restores monitor power (and runs a behavior's resume_command)
+      # only when the compositor reports idle activity. The key press that wakes
+      # this laptop from s2idle is discarded by the kernel's atkbd driver, so the
+      # compositor never sees it and a DPMS-off screen stays dark until a second
+      # key press. Leaving the monitors on means the kernel's own suspend/resume
+      # brings the lock screen back immediately. Same reason the dim behavior is
+      # gone: its brightnessctl save/restore also waits for activity.
       idle = {
         pre_action_fade_seconds = 0;
         behavior_order = [
-          "dim"
           "lock"
-          "screen-off"
           "suspend"
         ];
         behavior = {
-          dim = {
-            enabled = true;
-            timeout = 120;
-            action = "command";
-            command = "brightnessctl -s set 5%";
-            resume_command = "brightnessctl -r";
-          };
           lock = {
             enabled = true;
             timeout = 300;
             action = "lock";
-          };
-          "screen-off" = {
-            enabled = true;
-            timeout = 330;
-            action = "screen_off";
           };
           suspend = {
             enabled = true;
