@@ -9,6 +9,10 @@
     settings = {
       accessibility.ui_scale = 1.2;
 
+      # auto_sync only fires when wallpaper/colors/theme/font change. Run one
+      # sync at startup so the greeter also catches up after a reboot or login.
+      hooks.started = "noctalia msg greeter-sync";
+
       bar.default = {
         end = [
           "notifications"
