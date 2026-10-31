@@ -1,5 +1,8 @@
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
 
   # Noctalia's lock screen authenticates against the standard login PAM stack,
   # which programs.shadow already provides by default.
