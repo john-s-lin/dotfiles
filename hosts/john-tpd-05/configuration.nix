@@ -89,6 +89,17 @@
   # gphoto2 volume monitor (used by COSMIC Files and Thunar) detects them.
   services.udev.packages = [ pkgs.libgphoto2 ];
 
+  # iPhone/iOS file access over USB. usbmuxd is the userspace daemon that
+  # multiplexes the USB connection (it owns the udev rule for Apple's vendor id
+  # 05ac), and ifuse/afcclient talk to the phone's AFC service through it.
+  # Note that gvfs has no AFC backend, so the phone does not appear in COSMIC
+  # Files or Thunar; mount it with ifuse instead.
+  services.usbmuxd.enable = true;
+  environment.systemPackages = with pkgs; [
+    libimobiledevice
+    ifuse
+  ];
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
