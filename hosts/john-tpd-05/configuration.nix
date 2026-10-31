@@ -45,6 +45,37 @@
   # NOTE: this also kills detached multiplexer sessions (zellij/shpool/herdr).
   services.logind.settings.Login.KillUserProcesses = true;
 
+  # Power button: a short press should only wake the machine, never power it
+  # off. Two things are needed for that.
+  #
+  # 1. The ACPI "tiny power button" driver is built as a module
+  #    (CONFIG_ACPI_TINY_POWER_BUTTON=m) and udev autoloads it via its ACPI
+  #    modalias. It binds the fixed ACPI power button and converts every notify
+  #    -- including the one that wakes us from s2idle -- into SIGRTMIN+4 to
+  #    PID 1, i.e. an immediate poweroff. That is why pressing the flashing
+  #    power button to wake the laptop shut it down instead. The regular
+  #    `button` driver handles the power button fine, so keep this one out.
+  #    Ref: https://github.com/NixOS/nixpkgs/issues/577729
+  boot.blacklistedKernelModules = [ "tiny_power_button" ];
+
+  # 2. With `button` back in charge, the press reaches userspace as a power key
+  #    event, so make a short press a no-op instead of logind's default
+  #    "poweroff". A long press still hard-powers-off in the EC firmware, and
+  #    shutdowns requested from the OS (session menu, `systemctl poweroff`)
+  #    work as usual. Use "suspend" or "lock" instead if you want a short
+  #    press to do something while awake.
+  services.logind.settings.Login.HandlePowerKey = "ignore";
+
+  # Wake from suspend by pressing a key on the built-in keyboard. serio0 is the
+  # i8042 KBD port; arming its power/wakeup lets a key press resume the machine
+  # from s2idle. This costs no extra battery (unlike arming the Bluetooth
+  # controller), but note that bumping keys with the lid closed also wakes it.
+  # If you also want a paired BT keyboard to wake it, add a udev rule setting
+  # power/wakeup to "enabled" on the BT controller's USB device.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="serio", ATTR{description}=="i8042 KBD port", ATTR{power/wakeup}="enabled"
+  '';
+
   # Allow unfree
   nixpkgs.config = {
     allowUnfree = true;
