@@ -10,7 +10,7 @@
     package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.opencode;
     settings = {
       # Workhorse: default coding model.
-      model = "openrouter/deepseek/deepseek-v4.1-flash-1017";
+      model = "openrouter/z-ai/glm-5.3-flash";
       # Small/title model: cheapest 2026 pick from the small-model scan
       # (5x cheaper output than deepseek-v4-flash).
       agents.title.model = "openrouter/nex-agi/nex-n2.5-mini";

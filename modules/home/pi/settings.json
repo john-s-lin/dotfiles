@@ -2,7 +2,7 @@
   "lastChangelogVersion": "1.4.0",
   "theme": "tokyo-passion",
   "defaultProvider": "openrouter",
-  "defaultModel": "deepseek/deepseek-v4.1-flash-1017",
+  "defaultModel": "z-ai/glm-5.3-flash",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-subagents",
