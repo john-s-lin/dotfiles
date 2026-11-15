@@ -37,6 +37,7 @@
     ../../modules/home/opencode.nix
     ../../modules/home/pi.nix
     ../../modules/home/rclone.nix
+    ../../modules/home/shpool.nix
     ../../modules/home/zed.nix
     ../../modules/home/zsh.nix
   ];
