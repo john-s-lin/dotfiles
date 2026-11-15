@@ -11,6 +11,11 @@ let
   ];
   linuxPackages = with pkgs; [
     wl-clipboard
+
+    # GUI for fingerprint enrollment via fprintd (cosmic-utils/enroll).
+    # COSMIC Settings has no fingerprint page yet; enrollment data lives in
+    # /var/lib/fprintd either way, so it works for every consumer.
+    pkgs.enroll
   ];
 in
 {
