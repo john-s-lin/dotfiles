@@ -22,6 +22,7 @@
 
     ../../modules/packages/default.nix
 
+    ../../modules/services/fingerprint.nix
     ../../modules/services/keyd.nix
     ../../modules/services/networking.nix
     ../../modules/services/printing.nix
@@ -38,11 +39,6 @@
   # gated on WAYLAND_DISPLAY, so it works in any compositor session.
   systemd.packages = [ pkgs.hyprpolkitagent ];
   systemd.user.services.hyprpolkitagent.wantedBy = [ "graphical-session.target" ];
-
-  # Fingerprint reader (Synaptics Prometheus 06cb:00bd, supported by the
-  # mainline libfprint "synaptics" driver). fprintd also wires itself into PAM
-  # (fprintAuth defaults on) so greetd, sudo, and polkit can all use it.
-  services.fprintd.enable = true;
 
   # Localsend
   programs.localsend = {

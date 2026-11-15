@@ -10,12 +10,6 @@
   services.displayManager.noctalia-greeter = {
     enable = true;
 
-    # Fingerprint login: PAM is serialized, so submitting an empty password
-    # field is what starts pam_fprintd; a successful scan then logs in
-    # without typing anything. The default 60s request_timeout already
-    # exceeds fprintd's 30s per-attempt timeout.
-    settings.auth.allow_empty_password = true;
-
     # Noctalia's auto_sync (enabled in modules/desktop/noctalia.nix) syncs the
     # desktop wallpaper/palette/font to the login screen. Allow this login user
     # to run that constrained sync without an administrator prompt each time.
