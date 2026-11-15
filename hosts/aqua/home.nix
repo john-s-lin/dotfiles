@@ -14,6 +14,7 @@
     ../../modules/home/zoxide.nix
 
     ../../modules/home/agents.nix
+    ../../modules/home/antigravity.nix
     ../../modules/home/bash.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/gmailctl.nix
