@@ -210,11 +210,11 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and that the SSH agent is not required. If the key was added to the wrong account or not saved, remove it in GitHub settings and repeat. Retry `ssh -T git@github.com`.
 
-Clone the repository into the home directory:
+Clone the repository into `~/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`):
 
 ```bash
-git clone git@github.com:john-s-lin/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+git clone git@github.com:john-s-lin/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
 Flakes should already be enabled from P2. If they are not, export the experimental features as shown there.
@@ -222,7 +222,7 @@ Flakes should already be enabled from P2. If they are not, export the experiment
 **Checkpoint:** the clone succeeds and the working tree is clean.
 
 ```bash
-git -C ~/dotfiles status --short
+git -C ~/.dotfiles status --short
 ```
 
 Expected output: no output (clean tree).
