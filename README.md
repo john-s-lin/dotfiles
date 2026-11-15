@@ -97,7 +97,7 @@ just hm john@ajax
 If you need to run it manually without `just` (e.g., for bootstrapping):
 
 ```bash
-nix run home-manager -- switch --flake .#<username>@<hostname>
+nix run home-manager -- switch --flake .#<username>@<hostname> -b bak
 ```
 
 And for `nimbus` specifically:
@@ -111,13 +111,13 @@ nix run home-manager -- switch --flake .#johnslin@nimbus --impure -b bak
 To collect garbage, run
 
 ```bash
-just gc
+just clean
 ```
 
 Default is 30 days. To specify a different number of days:
 
 ```bash
-just gc <days>
+just clean <days>
 ```
 
 ## Updating Packages

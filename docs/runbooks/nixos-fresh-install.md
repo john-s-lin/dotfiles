@@ -10,7 +10,7 @@ Use this runbook when installing NixOS on a fresh or wiped x86_64 machine. Do no
 
 The installation is done when all of the following are true:
 
-- The machine boots to the COSMIC greeter.
+- The machine boots to the Noctalia greeter.
 - You can log in as `john`.
 - `nix --version` runs successfully.
 - `just --list` works from the dotfiles checkout.
@@ -158,11 +158,11 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and that the SSH agent is not required. Retry `ssh -T git@github.com`.
 
-Clone the repository into the target home directory:
+Clone the repository into `/mnt/home/john/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`):
 
 ```bash
 mkdir -p /mnt/home/john
-git clone git@github.com:john-s-lin/dotfiles.git /mnt/home/john/dotfiles
+git clone git@github.com:john-s-lin/dotfiles.git /mnt/home/john/.dotfiles
 ```
 
 If the ISO lacks `git`, enter a temporary shell first:
@@ -174,8 +174,8 @@ nix shell nixpkgs#git
 Copy the generated hardware configuration into the host directory and stage it:
 
 ```bash
-cp /mnt/etc/nixos/hardware-configuration.nix /mnt/home/john/dotfiles/hosts/john-tpd-05/hardware-configuration.nix
-cd /mnt/home/john/dotfiles
+cp /mnt/etc/nixos/hardware-configuration.nix /mnt/home/john/.dotfiles/hosts/john-tpd-05/hardware-configuration.nix
+cd /mnt/home/john/.dotfiles
 git add hosts/john-tpd-05/hardware-configuration.nix
 ```
 
@@ -194,7 +194,7 @@ Expected output is the path itself, `hosts/john-tpd-05/hardware-configuration.ni
 Enable flakes for the installer and run `nixos-install` against the flake output:
 
 ```bash
-cd /mnt/home/john/dotfiles
+cd /mnt/home/john/.dotfiles
 nixos-install --flake .#john-tpd-05 --root /mnt --option experimental-features "nix-command flakes"
 ```
 
@@ -212,7 +212,7 @@ The key you generated in P4 lives in the installer's `/root/.ssh`. Copy it into 
 install -d -m 700 -o 1000 -g 100 /mnt/home/john/.ssh
 cp /root/.ssh/id_ed25519 /root/.ssh/id_ed25519.pub /mnt/home/john/.ssh/
 ssh-keyscan github.com >> /mnt/home/john/.ssh/known_hosts
-chown -R 1000:100 /mnt/home/john/.ssh /mnt/home/john/dotfiles
+chown -R 1000:100 /mnt/home/john/.ssh /mnt/home/john/.dotfiles
 chmod 700 /mnt/home/john/.ssh
 chmod 600 /mnt/home/john/.ssh/id_ed25519
 chmod 644 /mnt/home/john/.ssh/id_ed25519.pub
@@ -230,7 +230,7 @@ Reboot into the installed system:
 reboot
 ```
 
-Log in as `john` at the COSMIC greeter, open a terminal, and run the verification commands.
+Log in as `john` at the Noctalia greeter, open a terminal, and run the verification commands.
 
 **Checkpoint:** `passwd -S john` shows `P` in the second field.
 
@@ -247,7 +247,7 @@ nix --version
 **Checkpoint:** `just --list` runs and lists the repository's targets.
 
 ```bash
-cd ~/dotfiles
+cd ~/.dotfiles
 just --list
 ```
 

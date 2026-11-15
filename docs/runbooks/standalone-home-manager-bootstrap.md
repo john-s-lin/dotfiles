@@ -159,11 +159,11 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and saved. If the key was added to the wrong account or not saved, remove it in GitHub settings and repeat. Confirm the phone has network access to GitHub. Retry `ssh -T git@github.com`.
 
-Clone the repository into the home directory and enter it:
+Clone the repository into `~/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`) and enter it:
 
 ```bash
-git clone git@github.com:john-s-lin/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+git clone git@github.com:john-s-lin/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
 Flakes should already be enabled from P1. If they are not, export the experimental features as shown there.
@@ -171,7 +171,7 @@ Flakes should already be enabled from P1. If they are not, export the experiment
 Confirm the working tree is clean and the chosen flake output evaluates:
 
 ```bash
-git -C ~/dotfiles status --short
+git -C ~/.dotfiles status --short
 nix eval .#homeConfigurations."john@ajax".activationPackage.drvPath
 ```
 

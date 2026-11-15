@@ -34,18 +34,13 @@ For servers managed by home-manager (e.g., `ajax`), the terminfo is provided dec
 
 ### Implementation
 
-In the host's `home.nix`:
+In `modules/home/server.nix` (imported via `modules/home/profiles/server.nix` by server hosts such as `ajax`, `dietpi`, and `nimbus`):
 
 ```nix
-{ pkgs, ... }:
-{
-  # Ghostty terminfo: system ncurses may compile a corrupted entry;
-  # use the Nix-built terminfo (ncurses 6.6+) to ensure correct terminal capabilities
   home.file.".terminfo" = {
     source = "${pkgs.ghostty.terminfo}/share/terminfo";
     recursive = true;
   };
-}
 ```
 
 This places a correctly-compiled terminfo in `~/.terminfo/`, which takes precedence over the system-wide `/usr/share/terminfo/`.
@@ -111,5 +106,5 @@ shell-integration-features = ssh-env
 - [Ghostty Terminfo Documentation](https://ghostty.org/docs/help/terminfo)
 - [ncurses 6.5 Release Notes](https://invisible-island.net/ncurses/announce.html#h2-overview)
 - Related PRs:
-  - [#37: Add declarative ghostty terminfo via home-manager](https://github.com/john-s-lin/infra/pull/37)
-  - [#36: Disable zellij auto-start for SSH server](https://github.com/john-s-lin/infra/pull/36)
+  - [#37: Add declarative ghostty terminfo via home-manager](https://github.com/john-s-lin/dotfiles/pull/37)
+  - [#36: Disable zellij auto-start for SSH server](https://github.com/john-s-lin/dotfiles/pull/36)
