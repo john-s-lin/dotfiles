@@ -31,6 +31,11 @@
     ../../modules/gc/default.nix
   ];
 
+  # Fingerprint reader (Synaptics Prometheus 06cb:00bd, supported by the
+  # mainline libfprint "synaptics" driver). fprintd also wires itself into PAM
+  # (fprintAuth defaults on) so greetd, sudo, and polkit can all use it.
+  services.fprintd.enable = true;
+
   # Localsend
   programs.localsend = {
     enable = true;

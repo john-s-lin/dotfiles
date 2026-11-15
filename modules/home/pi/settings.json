@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.4.0",
+  "lastChangelogVersion": "1.5.2",
   "theme": "tokyo-passion",
   "defaultProvider": "openrouter",
   "defaultModel": "z-ai/glm-5.3-flash",
@@ -7,5 +7,9 @@
     "npm:pi-web-access",
     "npm:pi-subagents",
     "git:github.com/obra/superpowers"
-  ]
+  ],
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.46.0",
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.84.0"
+  }
 }
