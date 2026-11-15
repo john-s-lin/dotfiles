@@ -31,6 +31,14 @@
     ../../modules/gc/default.nix
   ];
 
+  # Polkit authentication agent for Wayland sessions (COSMIC, Hyprland).
+  # Without an agent, polkit requests that need a password (e.g. fprintd
+  # enrollment, pkexec) silently fail with "Not Authorized" because nothing
+  # can show the dialog. hyprpolkitagent ships its own systemd user unit,
+  # gated on WAYLAND_DISPLAY, so it works in any compositor session.
+  systemd.packages = [ pkgs.hyprpolkitagent ];
+  systemd.user.services.hyprpolkitagent.wantedBy = [ "graphical-session.target" ];
+
   # Fingerprint reader (Synaptics Prometheus 06cb:00bd, supported by the
   # mainline libfprint "synaptics" driver). fprintd also wires itself into PAM
   # (fprintAuth defaults on) so greetd, sudo, and polkit can all use it.
