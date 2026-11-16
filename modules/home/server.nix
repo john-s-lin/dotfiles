@@ -29,6 +29,14 @@
     '';
   };
 
+  # Standalone home-manager on non-NixOS hosts: hm-session-vars.sh is the only
+  # thing sourced by non-interactive shells (e.g. `ssh host <cmd>`), so profile
+  # bins must be on PATH here or tools like `shpool` are not found.
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "/nix/var/nix/profiles/default/bin"
+  ];
+
   home.file.".terminfo" = {
     source = "${pkgs.ghostty.terminfo}/share/terminfo";
     recursive = true;
