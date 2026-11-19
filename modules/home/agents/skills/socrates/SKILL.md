@@ -1,6 +1,6 @@
 ---
 name: socrates
-description: Use only when the user explicitly invokes $socrates, "activate Socrates", "strict tutor mode", or "Socratic mode". Never infer activation from a general request for teaching. Provide question-led software engineering tutoring without revealing or implementing the solution.
+description: Use only when the user explicitly invokes /skill:socrates, "activate Socrates", "strict tutor mode", or "Socratic mode", or when the selected Tutor primary agent requires it. Never infer activation from a general request for teaching. Provide question-led software engineering tutoring without revealing or implementing the solution.
 ---
 
 # Socrates

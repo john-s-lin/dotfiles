@@ -1,107 +1,55 @@
 ---
 name: auditor
-description: Use ONLY for an "audit entire codebase" or repository-wide simplification audit of data structures, state representation, control flow, algorithms, and ownership; performs read-only subsystem coverage and returns validated, deduplicated, dependency-ranked recommendations and explicit skips.
+description: Read-only simplification audit of data structures, state representation, control flow, dead/stale paths, and ownership across a repository, directory, or diff; returns verified, deduplicated, priority-ranked recommendations and explicit skips.
 ---
 
-Audit this entire codebase for materially useful simplifications in its data structures, state representation, control flow, algorithms, and ownership.
+# Auditor
 
-This is an audit-only exercise. Do not edit files, run tests, implement recommendations, commit, or push. Read-only inspection commands are allowed.
+Audit the target scope (whole codebase, directory, or incoming diff) for
+materially useful simplifications in data structures, state representation,
+control flow, dead/stale paths, and ownership.
 
-You are the coordinator. Continue until the complete codebase has been reviewed and the final audit is validated.
+**Read-only contract**: Do not edit repository files, commit, or push.
 
-# 1. Establish the coverage contract
+## 1. Scope Routing
 
-Inspect the repository and inventory every identifiable subsystem.
+-   **Single-diff/commit or small (<1,500 LOC) scope**: Audit directly against
+    the changed files and their immediate callers/tests. Skip multi-wave
+    subsystem ceremony.
+-   **Repository or multi-package scope**: Build a non-overlapping subsystem
+    inventory (`ID`, boundary files, public interfaces, tests, status) and
+    default to single-agent sequential directory-by-directory inspection (only
+    fan out bounded read-only subagents if requested or when a subagent tool is
+    available and the repo is very large).
 
-Give each subsystem:
+## 2. Simplification Lens
 
-- a stable ID and descriptive name;
-- an exact ownership boundary;
-- its key implementation files;
-- relevant public interfaces, major call sites, and tests;
-- a status: queued, in review, recommend, or skip.
+Apply the `dsa` skill criteria:
 
-Include frontend, backend, shared infrastructure, platform bridges, generated-contract ownership, and test/tooling infrastructure where materially relevant.
+-   Scattered booleans/nullables permitting invalid states -> state machine or
+    discriminated union.
+-   Repeated ad-hoc dict/object shape assumptions -> shared typed model.
+-   Duplicated branching -> small map, registry, or pure helper.
+-   Unclear state ownership, stale migration paths, or dead wrappers -> delete
+    or isolate behind a clean boundary.
+-   Repeated linear scans or lookups -> appropriate index/collection.
 
-Create one canonical scratchpad or report containing:
+Do not force abstractions, stylistic churn, hypothetical extensibility, or
+wrappers that merely relocate branching. Prefer boring local code when already
+clear. Cap output at the top 2 material opportunities per subsystem (or `skip`).
 
-- the subsystem inventory;
-- confirmed opportunities;
-- explicit skip decisions;
-- cross-cutting patterns;
-- duplicates and superseded findings;
-- final priorities and dependencies;
-- an audit log.
+## 3. Independent Verification & Output
 
-Treat this inventory as the coverage contract. Do not assume broad catch-all rows prove coverage.
+Verify every candidate finding against live files at HEAD / working tree before
+accepting it; drop unverified, duplicate, or low-leverage items.
 
-# 2. Run bounded subsystem reviews
+For each accepted recommendation, report:
 
-Use fresh, read-only agents where available. Give every worker one distinct subsystem with an exact, non-overlapping ownership boundary.
+1.  **Verdict & Confidence**: `recommend` (`high` / `medium` / `low`) or `skip`.
+2.  **Evidence**: Exact `file:line` citations and current complexity / invalid
+    states.
+3.  **Proposal & Scope**: Target representation, why it is simpler, and smallest
+    credible file/interface change.
+4.  **Risk & Validation**: Regression/migration risks and tests required.
 
-Keep concurrency bounded to the number of lanes you can actively coordinate. Use one consolidated wait mechanism, do not interrupt productive workers merely because they are slow, and close completed workers after harvesting their results.
-
-Each worker receives this brief:
-
-Review the assigned subsystem for at most two materially useful simplifications in its data structures, state representation, or organizing model.
-
-Inspect its implementation, public interfaces, major call sites, and existing tests. Stay within the assigned ownership boundary. You may identify cross-subsystem concerns, but do not expand the scope to solve them.
-
-Look for:
-
-- scattered booleans or nullable fields that permit invalid combinations and should become a state machine or discriminated union;
-- repeated assumptions about object shape that need a shared typed model;
-- duplicated branching that a small map, registry, reducer, or command model would remove;
-- unclear state or behavior ownership that a small module boundary would clarify;
-- repeated scans, transformations, or lookups where a more appropriate collection or index would materially simplify behavior;
-- lifecycle, concurrency, or async states whose representation permits stale or contradictory state.
-
-Do not force an abstraction. Prefer boring local code when it is already clear.
-
-Do not recommend changes solely for stylistic consistency, hypothetical extensibility, minor line-count reduction, or moving existing branching behind a new type.
-
-Return at most two opportunities. If nothing clearly meets the threshold, return `skip`.
-
-For every recommendation, provide:
-
-1. Verdict: recommend or skip.
-2. Evidence with exact file and line references.
-3. Current complexity or invalid states.
-4. Proposed representation and why it is simpler.
-5. Smallest credible implementation scope, including affected files and interfaces.
-6. Regression risks and migration concerns.
-7. Existing and additional validation required.
-8. Confidence: high, medium, or low.
-
-# 3. Validate and synthesize
-
-The coordinator must independently verify every finding against the current repository before accepting it.
-
-Reject, narrow, or demote recommendations that are vague, duplicate another finding, misunderstand intentional semantics, or merely relocate complexity.
-
-Record skips as completed coverage. Deduplicate overlapping findings and assign each accepted recommendation to one authoritative subsystem.
-
-Continue opening bounded review batches until every inventory row is complete.
-
-# 4. Audit the audit
-
-Before finishing, run fresh independent passes for:
-
-- repository coverage and missing subsystem boundaries;
-- duplication and ownership overlap;
-- materiality and over-abstraction;
-- schema completeness;
-- dependency-aware priority ranking.
-
-If the coverage pass finds a real omission, add an explicit subsystem row and audit it. Do not hide it by broadening a previously completed boundary.
-
-Rank the final recommendations by concrete impact, confidence, implementation effort, blast radius, and prerequisites. Identify the best first implementation slices.
-
-The audit is complete only when:
-
-- every identifiable subsystem has been reviewed;
-- every subsystem has a recommendation or explicit skip;
-- every finding has complete evidence, scope, risk, and validation fields;
-- duplicates and weak abstractions have been removed;
-- priorities and dependencies are internally consistent;
-- the repository remains unchanged.
+Rank accepted findings by impact, blast radius, and dependency order.

@@ -13,6 +13,14 @@ permission:
     "git log *": allow
     "git show": allow
     "git show *": allow
+    "jj status": allow
+    "jj status *": allow
+    "jj diff": allow
+    "jj diff *": allow
+    "jj log": allow
+    "jj log *": allow
+    "jj show": allow
+    "jj show *": allow
   task: deny
 ---
 
