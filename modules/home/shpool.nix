@@ -42,7 +42,10 @@ let
   shellFuncs = shprwFunc + "\n" + sshpFunc;
 in
 {
-  options.shpool.personal.enable = lib.mkEnableOption "shpool on personal servers";
+  # Installs the shpool package. The config below (shprw/sshp, config.toml) is
+  # neutral and applies to every host that imports this module, including nimbus,
+  # where shpool itself is IT-managed and must not be installed from here.
+  options.shpool.personal.enable = lib.mkEnableOption "the shpool package on personal hosts";
 
   config = lib.mkMerge [
     {

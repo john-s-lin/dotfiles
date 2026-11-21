@@ -8,12 +8,13 @@ Every runbook follows the same eight-section shape: when to use it, what done me
 | --- | --- | --- | --- |
 | `john-tpd-05` | NixOS | [nixos-fresh-install.md](./nixos-fresh-install.md) | Blank disk |
 | `john-mba-03` | nix-darwin (Apple silicon) | [nix-darwin-fresh-install.md](./nix-darwin-fresh-install.md) | Fresh macOS |
-| `john-mbp-04` | nix-darwin (Intel) | [nix-darwin-fresh-install.md](./nix-darwin-fresh-install.md) | Fresh macOS |
 | `work-mbp-01` | nix-darwin (work-managed) | [nix-darwin-fresh-install.md](./nix-darwin-fresh-install.md), Phase P9 | After IT provisioning |
 | `john@ajax` | Standalone Home Manager (aarch64-linux VPS) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
 | `dietpi@apollo` | Standalone Home Manager (Raspberry Pi) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
 | `dietpi@atlas` | Standalone Home Manager (Raspberry Pi) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
 | `johnslin@nimbus` | Standalone Home Manager (x86_64-linux cloudtop) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
+
+Some directories under `hosts/` are shared bases rather than flake outputs: `hosts/darwin` is the personal-macOS base imported by `hosts/john-mba-03`, and `hosts/dietpi` is the Raspberry Pi base shared by `dietpi@apollo` and `dietpi@atlas`. You cannot switch to either by name.
 
 ## Maintaining these runbooks
 

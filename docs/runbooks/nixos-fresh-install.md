@@ -26,14 +26,14 @@ Gather these items before booting the installer:
 - A NixOS graphical ISO written to a USB drive.
 - Wired Ethernet or known Wi-Fi credentials.
 - Access to the GitHub account, plus a phone to add an SSH key through the GitHub web UI.
-- A decision on the hostKey. For this runbook, the hostKey is `john-tpd-05`.
+- A decision on the host name. For this runbook it is `john-tpd-05`, which is both `hostDir` and `hostname`.
 - A backup of any existing data on the target disk. Partitioning erases the disk.
 
 Host-specific facts used throughout:
 
 | Fact | Value |
 | --- | --- |
-| hostKey | `john-tpd-05` |
+| hostDir | `john-tpd-05` |
 | hostname | `john-tpd-05` |
 | username | `john` |
 | groups | networkmanager, wheel, lp, scanner |
@@ -41,13 +41,15 @@ Host-specific facts used throughout:
 | timezone | America/Los_Angeles |
 | system.stateVersion | 25.05 |
 
-The flake output `nixosConfigurations."john-tpd-05"` exists in this repository. If you chose a different hostKey, confirm the matching output exists before installing. See "Adding a new host" if it does not.
+The flake output `nixosConfigurations."john-tpd-05"` exists in this repository. If you chose a different host name, confirm the matching output exists before installing. See "Adding a new host" if it does not.
+
+`hosts/john-tpd-05/home.nix` is thin by design: it imports `modules/home/profiles/personal.nix` for the shared personal-workstation environment and then adds the Linux-only pieces (browsers, developer/personal/work packages, COSMIC, Hyprland, alacritty, rclone). Put shared personal configuration in the profile, not in the host file.
 
 ## Checkpoint map
 
 | Phase | Goal | Checkpoint |
 | --- | --- | --- |
-| P0 | Confirm hostKey and flake output | Flake output exists |
+| P0 | Confirm the host name and flake output | Flake output exists |
 | P1 | Boot ISO, confirm UEFI and network | UEFI directory and GitHub reachable |
 | P2 | Partition, format, mount | `lsblk -f` shows expected mounts |
 | P3 | Generate NixOS config | `/mnt/etc/nixos/` populated |
@@ -57,9 +59,9 @@ The flake output `nixosConfigurations."john-tpd-05"` exists in this repository. 
 
 ## Phases
 
-### P0: HostKey decision and flake-output check
+### P0: Host name decision and flake-output check
 
-Decide the hostKey now. This runbook uses `john-tpd-05`. The hostKey must match the hostname and the `nixosConfigurations` output in `flake.nix`. If you are on a machine that already has this repository cloned, confirm the output exists:
+Decide the host name now. This runbook uses `john-tpd-05` for both `hostDir` (the directory under `hosts/`) and `hostname`. The `nixosConfigurations` key is always the directory name. If you are on a machine that already has this repository cloned, confirm the output exists:
 
 ```bash
 nix eval .#nixosConfigurations.john-tpd-05.config.system.build.toplevel.drvPath
@@ -67,7 +69,7 @@ nix eval .#nixosConfigurations.john-tpd-05.config.system.build.toplevel.drvPath
 
 **Checkpoint:** the command prints a `.drv` path without error.
 
-**If it fails:** the flake output is missing. Add the host to `flake.nix` using the "Adding a new host" procedure, or choose an existing hostKey that matches the machine.
+**If it fails:** the flake output is missing. Add the host to `flake.nix` using the "Adding a new host" procedure, or choose an existing host name that matches the machine.
 
 ### P1: Boot the ISO, confirm UEFI and network
 
@@ -158,7 +160,7 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and that the SSH agent is not required. Retry `ssh -T git@github.com`.
 
-Clone the repository into `/mnt/home/john/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`):
+Clone the repository into `/mnt/home/john/.dotfiles`, which is where `dotfiles.root` points by default for `john` (the out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix` follow it; override `dotfiles.root` if you clone elsewhere):
 
 ```bash
 mkdir -p /mnt/home/john

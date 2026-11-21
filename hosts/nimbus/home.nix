@@ -1,12 +1,14 @@
 { ... }:
 {
   imports = [
-    ../../modules/home/profiles/server.nix
+    ../../modules/home/profiles/base.nix
 
-    # Nimbus-specific
     ../../modules/home/bash.nix
-    ../../modules/home/grep.nix
     ../../modules/home/herdr.nix
+    # Neutral leaf: shell prompt/terminfo/sessionPath. Not profiles/server.nix.
+    ../../modules/home/server.nix
+    # Same shpool config and prompt as the personal hosts, but never the package:
+    # shpool here belongs to IT. Do not set shpool.personal.enable.
     ../../modules/home/shpool.nix
   ];
 

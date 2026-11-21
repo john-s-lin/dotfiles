@@ -1,29 +1,17 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   imports = [
-    # Common terminal tools (previously in common.nix)
-    ../../modules/home/bat.nix
-    ../../modules/home/bottom.nix
-    ../../modules/home/direnv.nix
-    ../../modules/home/git.nix
-    ../../modules/home/grep.nix
-    ../../modules/home/jujutsu.nix
+    ../../modules/home/profiles/base.nix
 
-    # Workstation tools (previously in workstation.nix)
-    ../../modules/home/herdr.nix
-    ../../modules/home/starship.nix
-    ../../modules/home/zellij.nix
-    ../../modules/home/zoxide.nix
-
-    # Additional config
+    # Neutral leaves a work machine may use: no personal accounts or endpoints.
     ../../modules/home/bash.nix
     ../../modules/home/ghostty.nix
-    ../../modules/home/helix.nix
+    ../../modules/home/herdr.nix
+    ../../modules/home/jujutsu.nix
     ../../modules/home/shpool.nix
-    ../../modules/home/zsh.nix
+    ../../modules/home/starship.nix
+    ../../modules/home/zellij.nix
 
-    # Terminal packages
-    ../../modules/packages/terminal.nix
     ../../modules/packages/workstation.nix
   ];
 
@@ -67,5 +55,7 @@
     fi
   '';
 
+  # Intentionally newer than the personal hosts, which default to 25.05. Do not
+  # align without reading the Home Manager release notes.
   home.stateVersion = "26.05";
 }

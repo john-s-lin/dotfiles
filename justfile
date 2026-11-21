@@ -34,6 +34,7 @@ upgrade message="chore: update flake":
     jj git fetch
     jj rebase --destination main@origin
     nix flake update
+    just check-all
     if [ -z "$(jj diff --name-only flake.lock)" ]; then
         { set +x; } 2>/dev/null
         echo "flake.lock unchanged; nothing to commit or push."
@@ -43,9 +44,26 @@ upgrade message="chore: update flake":
     jj bookmark move main --to @-
     jj git push --bookmark main
 
-# Run nix flake check
+# Check this machine's flake outputs: evaluates and builds its checks
 check:
     nix flake check
+
+# Evaluate every flake output, across architectures (no builds; ~6s per host)
+check-all:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for ns in nixosConfigurations darwinConfigurations homeConfigurations; do
+        case "$ns" in
+            nixosConfigurations) attr="config.system.build.toplevel.drvPath" ;;
+            darwinConfigurations) attr="system.drvPath" ;;
+            homeConfigurations) attr="activationPackage.drvPath" ;;
+        esac
+        mapfile -t names < <(nix eval --raw ".#$ns" --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)')
+        for name in "${names[@]}"; do
+            nix eval --raw ".#$ns.\"$name\".$attr" > /dev/null
+            echo "ok $ns.$name"
+        done
+    done
 
 # Run home-manager switch
 hm host=home_host *options:

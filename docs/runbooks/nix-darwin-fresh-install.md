@@ -1,10 +1,10 @@
 # nix-darwin Fresh-Install Runbook
 
-This runbook takes a fresh macOS installation to a working nix-darwin setup running this repository's configuration. It covers Apple-silicon (`john-mba-03`) and Intel (`john-mbp-04`) personal Macs. The work-managed Mac variant is covered in Phase P9.
+This runbook takes a fresh macOS installation to a working nix-darwin setup running this repository's configuration. It covers the Apple-silicon personal Mac (`john-mba-03`). The work-managed Mac variant is covered in Phase P9.
 
 ## When to use this runbook
 
-Use this runbook for a fresh or wiped personal Mac that will be managed by this repository's nix-darwin flake. It covers both aarch64 (Apple silicon) and x86_64 (Intel) Macs. Do not use it for an MDM-enrolled or IT-managed Mac; use the "work-managed Mac" variant in Phase P9 instead. If the Mac already has hand-made dotfiles in the home directory, read the warning in "Before you start" first.
+Use this runbook for a fresh or wiped personal Mac that will be managed by this repository's nix-darwin flake. It covers aarch64 (Apple silicon) Macs; the retired Intel Mac is no longer a flake output, and nixpkgs no longer supports `x86_64-darwin` in any case. Do not use it for an MDM-enrolled or IT-managed Mac; use the "work-managed Mac" variant in Phase P9 instead. If the Mac already has hand-made dotfiles in the home directory, read the warning in "Before you start" first.
 
 ## Done means
 
@@ -24,7 +24,7 @@ Gather these items before you begin:
 
 - Administrator access to the Mac.
 - A GitHub account and a phone with the GitHub web UI (for adding an SSH key).
-- A decision on the hostKey. This runbook uses `john-mba-03` for Apple silicon and `john-mbp-04` for Intel. The work-managed Mac uses `work-mbp-01` and the username `johnslin`. The hostKey must match the hostname and the `darwinConfigurations` output in `flake.nix`.
+- A decision on the host name. This runbook uses `john-mba-03` for Apple silicon. The work-managed Mac uses `work-mbp-01` and the username `johnslin`. In `flake.nix`, `hostDir` is the directory under `hosts/` and `hostname` is the machine name; on the personal Macs they are the same string.
 - A decision on the Apple ID: sign in during Setup Assistant or skip it. The configuration does not require an Apple ID.
 - A backup of any existing data on the target disk. Reinstalling macOS erases the disk.
 - A decision on the Nix installation method: the upstream multi-user installer or Determinate Nix. See Phase P2 for the tradeoff.
@@ -35,20 +35,20 @@ Gather these items before you begin:
 
 Host-specific facts used throughout:
 
-| Fact | Apple silicon | Intel |
-| --- | --- | --- |
-| hostKey | `john-mba-03` | `john-mbp-04` |
-| system | `aarch64-darwin` | `x86_64-darwin` |
-| username | `john` | `john` |
-| home directory | `/Users/john` | `/Users/john` |
+| Fact | Apple silicon |
+| --- | --- |
+| hostDir, hostname | `john-mba-03` |
+| system | `aarch64-darwin` |
+| username | `john` |
+| home directory | `/Users/john` |
 
-The flake outputs `darwinConfigurations."john-mba-03"` and `darwinConfigurations."john-mbp-04"` exist in this repository. If you chose a different hostKey, confirm the matching output exists before installing. See "Adding a new host" if it does not.
+The flake output `darwinConfigurations."john-mba-03"` exists in this repository. If you chose a different host name, confirm the matching output exists before installing. See "Adding a new host" if it does not.
 
 ## Checkpoint map
 
 | Phase | Goal | Checkpoint |
 | --- | --- | --- |
-| P0 | Confirm hostKey and flake output | Flake output evaluates |
+| P0 | Confirm the host name and flake output | Flake output evaluates |
 | P1 | Run Setup Assistant, create the admin user | FileVault is Off |
 | P2 | Install Nix (upstream or Determinate) | `nix --version` and flakes work |
 | P3 | Install Homebrew | `brew --version` and casks captured |
@@ -61,19 +61,17 @@ The flake outputs `darwinConfigurations."john-mba-03"` and `darwinConfigurations
 
 ## Phases
 
-### P0: hostKey decision and flake-output check
+### P0: Host name decision and flake-output check
 
-Decide the hostKey now. This runbook uses `john-mba-03` for Apple silicon and `john-mbp-04` for Intel. The hostKey must match the hostname and the `darwinConfigurations` output in `flake.nix`. If you are on a machine that already has this repository cloned, confirm the output exists:
+Decide the host name now. This runbook uses `john-mba-03` for both `hostDir` and `hostname`. The `darwinConfigurations` key is always the directory name. If you are on a machine that already has this repository cloned, confirm the output exists:
 
 ```bash
 nix eval .#darwinConfigurations.john-mba-03.config.system.build.toplevel.drvPath
 ```
 
-Replace `john-mba-03` with `john-mbp-04` if you are installing on Intel.
-
 **Checkpoint:** the command prints a `.drv` path without error.
 
-**If it fails:** the flake output is missing. Add the host to `flake.nix` using the "Adding a new host" procedure, or choose an existing hostKey that matches the machine.
+**If it fails:** the flake output is missing. Add the host to `flake.nix` using the "Adding a new host" procedure, or choose an existing host name that matches the machine.
 
 ### P1: Setup Assistant (first boot)
 
@@ -210,7 +208,7 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and that the SSH agent is not required. If the key was added to the wrong account or not saved, remove it in GitHub settings and repeat. Retry `ssh -T git@github.com`.
 
-Clone the repository into `~/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`):
+Clone the repository into `~/.dotfiles`, which is where `dotfiles.root` points by default (the out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix` follow it; override `dotfiles.root` if you clone elsewhere):
 
 ```bash
 git clone git@github.com:john-s-lin/dotfiles.git ~/.dotfiles
@@ -237,7 +235,7 @@ The first switch uses `nix run` to fetch nix-darwin and apply the flake. It requ
 nix run nix-darwin/master -- switch --flake .#john-mba-03
 ```
 
-Replace `john-mba-03` with `john-mbp-04` if you are installing on Intel. The first switch takes several minutes and downloads the nix-darwin and Home Manager closures. After the first switch, `darwin-rebuild` and `just` exist. Confirm `darwin-rebuild` is on `PATH`:
+The first switch takes several minutes and downloads the nix-darwin and Home Manager closures. After the first switch, `darwin-rebuild` and `just` exist. Confirm `darwin-rebuild` is on `PATH`:
 
 ```bash
 command -v darwin-rebuild
@@ -315,7 +313,7 @@ darwin-rebuild --list-generations
 
 **Checkpoint:** `darwin-rebuild --rollback` runs without error and the generation list shows the previous generation as current.
 
-**If it fails:** if `darwin-rebuild` is unavailable because the switch broke the tool, boot into macOS Recovery (hold the power button on Apple silicon, or Command-R on Intel), open Terminal from the Utilities menu, and inspect `/nix/var/nix/profiles`. If no generation boots, follow the Recovery-mode reinstall path in "Recovery and rollback".
+**If it fails:** if `darwin-rebuild` is unavailable because the switch broke the tool, boot into macOS Recovery (hold the power button on Apple silicon), open Terminal from the Utilities menu, and inspect `/nix/var/nix/profiles`. If no generation boots, follow the Recovery-mode reinstall path in "Recovery and rollback".
 
 ### P8: Enable FileVault
 
@@ -341,7 +339,7 @@ Expected output: `FileVault is On.`
 
 This variant is for the IT-provisioned work Mac (`work-mbp-01`, `aarch64-darwin`, user `johnslin`). Start after IT has provisioned the Mac and you have an admin account. Do not run the Setup Assistant phases; IT has already done that. Skip Phase P1 and Phase P8 (FileVault) as IT controls those settings. Follow the Determinate Nix path in Phase P2.
 
-The flake output for `work-mbp-01` sets `username = "johnslin"` and does not set a hostname. The host configuration imports only a subset of modules: fonts, packages, `modules/darwin/defaults.nix`, `modules/darwin/packages/common.nix`, and `modules/gc/darwin.nix`. It does not import `hosts/aqua/configuration.nix`.
+The flake output for `work-mbp-01` sets `username = "johnslin"` and does not set a hostname. The host configuration imports only a subset of modules: fonts, packages, `modules/darwin/defaults.nix`, `modules/darwin/packages/common.nix`, and `modules/gc/darwin.nix`. It does not import `hosts/darwin/configuration.nix`.
 
 On the Determinate path, `modules/gc/darwin.nix` (`nix.gc.automatic = true`) conflicts with Determinate's GC. The committed `hosts/work-mbp-01/configuration.nix` documents the workaround as a commented `nix.enable = false;` line. Do not edit committed host config to work around this; document the caveat and follow IT's instructions for the work Mac.
 
@@ -370,7 +368,7 @@ These tasks are outside the base install. Complete them after the verification p
 
 If a configuration switch breaks the system:
 
-1. Reboot and hold the power button on Apple silicon (or Command-R on Intel) to enter macOS Recovery. Open Terminal from the Utilities menu.
+1. Reboot and hold the power button on Apple silicon to enter macOS Recovery. Open Terminal from the Utilities menu.
 2. If the system boots but the desktop is broken, switch to a terminal and run:
 
 ```bash
@@ -383,24 +381,26 @@ darwin-rebuild --rollback
 
 To add a personal Mac that does not exist in the flake yet:
 
-1. Copy the closest existing host directory as the base. For a personal Mac, copy `hosts/aqua/`:
+1. Create the host directory. For a personal Mac, copy an existing personal host such as `hosts/john-mba-03/` — do not copy `hosts/darwin/`, which is the shared base that the personal host imports:
 
 ```bash
-cp -r hosts/aqua hosts/john-mba-05
+cp -r hosts/john-mba-03 hosts/john-mba-05
 ```
 
-Replace `john-mba-05` with the hostKey you chose.
+Replace `john-mba-05` with the host name you chose. A personal Mac's `home.nix` imports `../../modules/home/profiles/personal.nix` (or, like `john-mba-03`, another host that does) and its `configuration.nix` imports the shared `hosts/darwin/configuration.nix`. Add anything machine-specific on top of that; do not fork the shared base.
 
-2. Add the `darwinConfigurations` output in `flake.nix`, following the existing entries. Set the right `system` (`aarch64-darwin` or `x86_64-darwin`) and `username` (`john` or `johnslin`). Set `hostname` or omit it. For example:
+2. Add the `darwinConfigurations` output in `flake.nix`, following the existing entries. `hostDir` is the directory under `hosts/`, `hostname` is the machine's hostname, and `system`/`username` select the platform and user. Omit `hostname` on a machine whose hostname is not yours to set (see P9). For example:
 
 ```nix
 "john-mba-05" = mkDarwinSystem {
-  hostKey = "john-mba-05";
+  hostDir = "john-mba-05";
   hostname = "john-mba-05";
   system = "aarch64-darwin";
   username = "john";
 };
 ```
+
+For a standalone Home Manager host, add an entry to the list that builds `homeConfigurations`. The output key is derived as `"${username}@${hostName}"`, so `just hm <username>@<hostName>` cannot disagree with the entry.
 
 3. Review the copied `configuration.nix` and `home.nix` for host-specific values.
 4. Commit the changes with git (or your configured VCS).

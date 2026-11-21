@@ -1,16 +1,15 @@
+# Personal servers only (ajax, dietpi). nimbus is a work host: it imports the
+# neutral modules/home/server.nix leaf directly and never this profile, because
+# shpool there is IT-managed.
 { ... }:
 {
   imports = [
-    ../bat.nix
-    ../bottom.nix
-    ../direnv.nix
-    ../git.nix
-    ../helix.nix
-    ../server.nix
-    ../zoxide.nix
-    ../zsh.nix
+    ./base.nix
 
-    # Terminal packages
-    ../../packages/terminal.nix
+    ../jujutsu.nix
+    ../server.nix
+    ../shpool.nix
   ];
+
+  shpool.personal.enable = true;
 }

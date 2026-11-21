@@ -44,7 +44,7 @@
   # OpenCode 2 writes terminal state (theme overrides, panes, etc.) to cli.json.
   # Keep that file mutable in the dotfiles tree so app changes persist across hosts.
   xdg.configFile."opencode/cli.json".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/opencode/cli.json";
+    config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.root}/modules/home/opencode/cli.json";
 
   home.sessionVariables = {
     OPENCODE_ENABLE_EXA = 1;

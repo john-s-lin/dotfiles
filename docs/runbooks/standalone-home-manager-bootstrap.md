@@ -18,9 +18,9 @@ Do not use this runbook for NixOS or nix-darwin machines. Do not use it to reins
 The bootstrap is done when all of the following are true:
 
 - `home-manager generations` lists at least one generation and marks the current one.
-- A tool from the Home Manager profile resolves on `PATH` in a fresh shell; this runbook uses `shpool` as the example.
+- A tool from the Home Manager profile resolves on `PATH` in a fresh shell; this runbook uses `lazygit` as the example.
 - Shell activation works: a new login shell starts without Home Manager activation errors.
-- A shpool smoke test runs; on hosts that import `modules/home/zellij.nix`, a zellij smoke test also runs.
+- On the personal hosts (`john@ajax`, `dietpi@apollo`, `dietpi@atlas`), a shpool smoke test runs. On nimbus the shpool binary is IT-managed, so there is no package of ours to test even though the shpool config and prompt are applied.
 
 Expected time: 20-40 minutes.
 
@@ -40,9 +40,11 @@ Gather these items before you begin:
 | `homeConfigurations."dietpi@atlas"` | `dietpi` | `aarch64-linux` (Raspberry Pi) | none |
 | `homeConfigurations."johnslin@nimbus"` | `johnslin` | `x86_64-linux` (cloudtop) | `--impure` |
 
-The flake key is the username and hostKey joined with `@`, for example `john@ajax`. The hostKey must match the attribute name after the `@` in the flake key. Set `hostname` to the same value unless the host omits it, as nimbus does. If the machine's username does not match the table, either create a matching user or add a new host using "Adding a new host" before continuing.
+The flake key is `"${username}@${hostName}"`, for example `john@ajax`; `flake.nix` derives it, so the key and the entry cannot disagree. `hostDir` is the directory under `hosts/` (`ajax`, `dietpi`, `nimbus`) and `hostName` is the machine name (`ajax`, `apollo`, `atlas`, `nimbus`). If the machine's username does not match the table, either create a matching user or add a new host using "Adding a new host" before continuing.
 
 Nimbus is different from the other hosts in three ways. It is a work-managed cloudtop with a work-managed Nix daemon. The `johnslin` user is not a trusted user on that daemon, so extra-cache settings are ignored; `hosts/nimbus/home.nix` disables them with `dotfiles.nix.extraCaches.enable = false`. The flake reads `$HOME` at evaluation time with `builtins.getEnv`, so every nimbus command must pass `--impure`.
+
+The standalone hosts compose different profiles. `hosts/dietpi/home.nix` imports only `modules/home/profiles/server.nix`. `hosts/ajax/home.nix` imports that profile plus the AI modules `agents`, `opencode`, and `pi`. `hosts/nimbus/home.nix` imports `modules/home/profiles/base.nix`, `bash.nix`, `herdr.nix`, the neutral `modules/home/server.nix` leaf, and `modules/home/shpool.nix` for its config only. It must not import `modules/home/profiles/personal.nix` or `modules/home/profiles/server.nix`, because those belong to personal machines and the server profile enables `shpool.personal.enable`, which installs a shpool package that IT already provides.
 
 > [!WARNING]
 > The first switch runs with `-b bak`, which sets Home Manager's backup extension. Existing files that the configuration manages are moved aside with a `.bak` suffix rather than deleted. If you want to keep the originals in place, move them out of the way before the first switch. Review the moved files after the switch and copy back anything the configuration does not manage.
@@ -55,7 +57,7 @@ Nimbus is different from the other hosts in three ways. It is a work-managed clo
 | P1 | Install Nix and enable flakes | `nix --version` works and flakes are enabled |
 | P2 | Set up SSH auth and clone the repo | `ssh -T git@github.com` succeeds and the tree is clean |
 | P3 | Run the first switch | Switch completes and `command -v home-manager` prints a path |
-| P4 | Verify the user environment | Generation, profile tool, and shpool smoke test pass |
+| P4 | Verify the user environment | Generation and profile tool pass; shpool smoke test on personal hosts only |
 | P5 | Run the recovery drill | `home-manager --rollback` runs and the generation list changes |
 
 ## Phases
@@ -159,7 +161,7 @@ Expected output includes `Hi john-s-lin! You've successfully authenticated`.
 
 **If it fails:** confirm the public key was added to the correct GitHub account and saved. If the key was added to the wrong account or not saved, remove it in GitHub settings and repeat. Confirm the phone has network access to GitHub. Retry `ssh -T git@github.com`.
 
-Clone the repository into `~/.dotfiles` (required by out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix`) and enter it:
+Clone the repository into `~/.dotfiles`, which is where `dotfiles.root` points by default (the out-of-store symlinks in `modules/home/opencode.nix` and `modules/home/pi.nix` follow it; override `dotfiles.root` if you clone elsewhere) and enter it:
 
 ```bash
 git clone git@github.com:john-s-lin/dotfiles.git ~/.dotfiles
@@ -220,30 +222,28 @@ home-manager generations
 
 Expected output: a table with at least one generation and the current generation marked.
 
-Confirm a profile tool resolves on `PATH`:
+Confirm a profile tool resolves on `PATH` in a fresh shell:
 
 ```bash
-command -v shpool
+command -v lazygit
 ```
 
-Expected output: a path under the Home Manager profile. If your host imports `modules/home/zellij.nix`, also run:
+Expected output: a path under the Home Manager profile.
 
-```bash
-zellij --version
-```
+The shpool smoke test applies to the personal hosts only. `shpool.personal.enable` is set by `modules/home/profiles/server.nix`, which `john@ajax` and the two Raspberry Pis import. nimbus is a work host with an IT-managed shpool: it imports `modules/home/shpool.nix` for the same config and prompt but does not set `shpool.personal.enable`, so the binary is IT's, not Home Manager's. **Skip this step on nimbus.**
 
-Open a fresh login shell and confirm activation runs without errors. Then run the shpool smoke test:
+On a personal host, open a fresh login shell and confirm activation runs without errors, then run:
 
 ```bash
 shpool version
 shpool list
 ```
 
-Expected output: a shpool version string and a session list. An empty session list is fine; the command must exit without error. If zellij is configured on the host, `zellij --version` prints its version.
+Expected output: a shpool version string and a session list. An empty session list is fine; the command must exit without error.
 
-**Checkpoint:** `home-manager generations` lists a generation, `command -v shpool` prints a profile path, and `shpool version` plus `shpool list` run without error.
+**Checkpoint:** `home-manager generations` lists a generation and `command -v lazygit` prints a profile path. On `john@ajax`, `dietpi@apollo`, and `dietpi@atlas` only, `command -v shpool` prints a profile path and `shpool version` plus `shpool list` run without error.
 
-**If it fails:** if no generation is listed, re-run the first switch from P3 and read the output. If `shpool` is not found, confirm the host imports `modules/home/shpool.nix` and that the switch completed; then open a new login shell or source the activation profile. If `shpool list` fails, confirm the shpool daemon can start in the user session and retry. For a zellij failure, confirm the host imports `modules/home/zellij.nix`; standalone hosts do not import it by default. If the shell activation prints errors, run the first switch again and read the activation output.
+**If it fails:** if no generation is listed, re-run the first switch from P3 and read the output. If the profile tool is not found, confirm the switch completed, then open a new login shell or source the activation profile. If `shpool` is not found on a personal host, confirm it imports `modules/home/profiles/server.nix` and re-run the switch. Do not set `shpool.personal.enable` on nimbus: the shpool binary there belongs to IT. If `shpool list` fails, confirm the shpool daemon can start in the user session and retry. If the shell activation prints errors, run the first switch again and read the activation output.
 
 ### P5: Recovery drill and rollback path
 
@@ -304,21 +304,20 @@ To add a standalone host that is not in the flake yet:
 cp -r hosts/dietpi hosts/newpi
 ```
 
-Replace `newpi` with the hostKey you chose.
+Replace `newpi` with the host name you chose.
 
-2. Add a `homeConfigurations` entry in `flake.nix`, following the existing entries. Set `homeModule`, `hostKey`, `hostname`, `username`, and `system`. For example:
+2. Add an entry to the list that builds `homeConfigurations` in `flake.nix`, following the existing entries. Set `hostDir` (directory under `hosts/`), `hostName` (machine name), `username`, and `system`. For example:
 
 ```nix
-"dietpi@newpi" = mkStandaloneHome {
-  homeModule = ./hosts/newpi/home.nix;
-  hostKey = "newpi";
-  hostname = "newpi";
+{
+  hostDir = "newpi";
+  hostName = "newpi";
   username = "dietpi";
   system = "aarch64-linux";
-};
+}
 ```
 
-The flake key is the username and hostKey joined with `@`, so the example above is `dietpi@newpi`. If the host module reads the environment, as `hosts/nimbus/home.nix` does with `builtins.getEnv "HOME"`, set `home` explicitly and pass `--impure` on every command for that host. A host whose module reads the environment cannot be evaluated purely.
+The output key is derived as `"${username}@${hostName}"`, so the entry above is `dietpi@newpi`. If the host module reads the environment, as `hosts/nimbus/home.nix` does with `builtins.getEnv "HOME"`, set `home` explicitly and pass `--impure` on every command for that host. A host whose module reads the environment cannot be evaluated purely.
 
 3. Review the copied `home.nix` for host-specific values. Keep `dotfiles.nix.extraCaches.enable = false` on a work-managed daemon where the user is not trusted.
 

@@ -23,7 +23,6 @@
   };
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       zen-browser,
@@ -32,72 +31,53 @@
       ...
     }@inputs:
     let
+      # hostDir is the directory under ./hosts that holds the host's
+      # configuration.nix/home.nix; hostName is the flake key and the machine's
+      # hostname. They differ on the Raspberry Pis, which share hosts/dietpi.
       mkUserConfig =
-        {
-          username,
-          hostKey,
-          system,
-        }:
+        { hostDir, username }:
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "bak";
-          home-manager.extraSpecialArgs = {
-            inherit
-              inputs
-              system
-              username
-              hostKey
-              ;
-          };
+          home-manager.extraSpecialArgs = { inherit inputs username; };
           home-manager.users.${username} = {
-            imports = [
-              ./hosts/${hostKey}/home.nix
-            ];
+            imports = [ ./hosts/${hostDir}/home.nix ];
+            home.stateVersion = nixpkgs.lib.mkDefault "25.05";
           };
         };
 
       mkNixosSystem =
         {
-          hostKey,
+          hostDir,
           hostname,
-          system,
           username,
         }:
         nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit
-              inputs
-              system
-              username
-              hostname
-              ;
-          };
+          specialArgs = { inherit inputs username hostname; };
           modules = [
             ./modules/cache.nix
-            ./hosts/${hostKey}/configuration.nix
+            ./hosts/${hostDir}/configuration.nix
             home-manager.nixosModules.home-manager
-            (mkUserConfig { inherit hostKey system username; })
+            (mkUserConfig { inherit hostDir username; })
           ];
         };
 
       mkDarwinSystem =
         {
-          hostKey,
+          hostDir,
           hostname ? null,
           system,
           username,
         }:
         nix-darwin.lib.darwinSystem {
           inherit system;
-          specialArgs = {
-            inherit inputs system username;
-          };
+          specialArgs = { inherit inputs username; };
           modules = [
             ./modules/cache.nix
-            ./hosts/${hostKey}/configuration.nix
+            ./hosts/${hostDir}/configuration.nix
             home-manager.darwinModules.home-manager
-            (mkUserConfig { inherit hostKey system username; })
+            (mkUserConfig { inherit hostDir username; })
           ]
           ++ nixpkgs.lib.optional (hostname != null) {
             networking.hostName = hostname;
@@ -106,9 +86,8 @@
 
       mkStandaloneHome =
         {
-          homeModule,
-          hostKey,
-          hostname ? null,
+          hostDir,
+          hostName,
           system,
           username,
           home ? "/home/${username}",
@@ -117,7 +96,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             ./modules/cache.nix
-            homeModule
+            ./hosts/${hostDir}/home.nix
             {
               nix.package = nixpkgs.lib.mkDefault nixpkgs.legacyPackages.${system}.nix;
               home.username = username;
@@ -125,87 +104,73 @@
               home.stateVersion = nixpkgs.lib.mkDefault "25.05";
             }
           ];
-          extraSpecialArgs = {
-            inherit
-              inputs
-              username
-              system
-              hostname
-              hostKey
-              home
-              ;
-          };
+          extraSpecialArgs = { inherit inputs; };
         };
     in
     {
       nixosConfigurations = {
         "john-tpd-05" = mkNixosSystem {
-          hostKey = "john-tpd-05";
+          hostDir = "john-tpd-05";
           hostname = "john-tpd-05";
           username = "john";
-          system = "x86_64-linux";
         };
       };
 
       darwinConfigurations = {
         "john-mba-03" = mkDarwinSystem {
-          hostKey = "john-mba-03";
+          hostDir = "john-mba-03";
           hostname = "john-mba-03";
           system = "aarch64-darwin";
           username = "john";
         };
 
-        "john-mbp-04" = mkDarwinSystem {
-          hostKey = "john-mbp-04";
-          hostname = "john-mbp-04";
-          system = "x86_64-darwin";
-          username = "john";
-        };
-
+        # No hostname: work-mbp-01 keeps the hostname IT assigned.
         "work-mbp-01" = mkDarwinSystem {
-          hostKey = "work-mbp-01";
+          hostDir = "work-mbp-01";
           system = "aarch64-darwin";
           username = "johnslin";
         };
       };
 
-      # VPS Home-Manager only
-      homeConfigurations = {
-        "john@ajax" = mkStandaloneHome {
-          homeModule = ./hosts/ajax/home.nix;
-          hostKey = "ajax";
-          hostname = "ajax";
-          username = "john";
-          system = "aarch64-linux";
-        };
-
-        # Raspberry Pi - DietPi Home-Manager only
-        "dietpi@apollo" = mkStandaloneHome {
-          homeModule = ./hosts/dietpi/home.nix;
-          hostKey = "apollo";
-          hostname = "apollo";
-          username = "dietpi";
-          system = "aarch64-linux";
-        };
-        "dietpi@atlas" = mkStandaloneHome {
-          homeModule = ./hosts/dietpi/home.nix;
-          hostKey = "atlas";
-          hostname = "atlas";
-          username = "dietpi";
-          system = "aarch64-linux";
-        };
-
-        "johnslin@nimbus" = mkStandaloneHome {
-          homeModule = ./hosts/nimbus/home.nix;
-          hostKey = "nimbus";
-          username = "johnslin";
-          system = "x86_64-linux";
-          home =
-            let
-              h = builtins.getEnv "HOME";
-            in
-            if h != "" then h else "/home/johnslin";
-        };
-      };
+      # Keys are "${username}@${hostName}".
+      homeConfigurations = builtins.listToAttrs (
+        map
+          (host: {
+            name = "${host.username}@${host.hostName}";
+            value = mkStandaloneHome host;
+          })
+          [
+            {
+              hostDir = "ajax";
+              hostName = "ajax";
+              username = "john";
+              system = "aarch64-linux";
+            }
+            {
+              hostDir = "dietpi";
+              hostName = "apollo";
+              username = "dietpi";
+              system = "aarch64-linux";
+            }
+            {
+              hostDir = "dietpi";
+              hostName = "atlas";
+              username = "dietpi";
+              system = "aarch64-linux";
+            }
+            {
+              hostDir = "nimbus";
+              hostName = "nimbus";
+              username = "johnslin";
+              system = "x86_64-linux";
+              # Work-managed cloudtop: HOME is not /home/johnslin.
+              home =
+                let
+                  h = builtins.getEnv "HOME";
+                in
+                if h != "" then h else "/home/johnslin";
+            }
+          ]
+      );
     };
 }

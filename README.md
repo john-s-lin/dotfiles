@@ -6,6 +6,10 @@ Everything is computer
 
 Full install procedures for a blank disk or a fresh macOS live in [docs/runbooks/](./docs/runbooks/README.md). Start with the index there to pick the runbook for your machine. The commands below are the quick reference for machines that are already bootstrapped.
 
+## Machines and ownership
+
+Every flake output is either a personal machine or a work machine, and personal configuration may not leak into the work ones: work hosts import `modules/home/profiles/base.nix` and neutral leaf modules only, never `hosts/darwin`, `profiles/personal.nix`, or `profiles/server.nix`. The machine map, the airgap rules, and the validation contract are in [AGENTS.md](./AGENTS.md).
+
 ## Bootstrap (First Time Setup)
 
 Since `just` is installed via this Nix configuration, it won't be available on the first run. Use one of these methods to bootstrap:
@@ -130,15 +134,35 @@ just update
 
 which will update your `flake.lock` file.
 
-## Validation
+## Upgrade and Push
 
-To validate the flake configuration before applying changes, run
+`just upgrade` is the only supported way to publish a lock update. It fetches, rebases the working copy onto `main@origin`, runs `nix flake update`, **runs `just check-all`**, then commits `flake.lock`, moves the `main` bookmark, and pushes. A lock update that breaks evaluation of any host therefore cannot be pushed.
 
 ```bash
-just check
+just upgrade
 ```
 
-This runs `nix flake check` to verify the configuration is valid.
+The commit message defaults to `chore: update flake`; pass one to override it:
+
+```bash
+just upgrade "chore: bump nixpkgs"
+```
+
+## Validation
+
+Two gates, different scopes:
+
+```bash
+just check       # this machine: nix flake check, evaluates and builds its checks
+just check-all   # every output, every architecture: evaluation only
+```
+
+- `just check` is what you run while working on a host: `nix flake check` realises and builds the checks for the machine you are on, so it catches package build failures. It never looks at the other hosts.
+- `just check-all` is the pre-push gate: it evaluates the `drvPath` of every NixOS, nix-darwin, and standalone Home Manager output, on any architecture. Evaluation only, so nothing is built and inputs are already locked, but each host costs a few seconds (about 45 s for all seven here).
+
+The two overlap but catch different failures: a package can evaluate and fail to build (only `just check` sees that), and another architecture's output can be broken while this machine's is fine (only `just check-all` sees that). `just upgrade` runs `just check-all` for you.
+
+Neither gate proves activation or runtime behaviour: run the host's own `nixos-rebuild build`, `darwin-rebuild build`, or `home-manager build` before switching.
 
 ## Additional Setup
 
