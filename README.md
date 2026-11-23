@@ -10,6 +10,88 @@ Full install procedures for a blank disk or a fresh macOS live in [docs/runbooks
 
 Every flake output is either a personal machine or a work machine, and personal configuration may not leak into the work ones: work hosts import `modules/home/profiles/base.nix` and neutral leaf modules only, never `hosts/darwin`, `profiles/personal.nix`, or `profiles/server.nix`. The machine map, the airgap rules, and the validation contract are in [AGENTS.md](./AGENTS.md).
 
+### Module graph
+
+```mermaid
+flowchart LR
+  flake["flake.nix"]
+  flake -.-> cache["modules/cache.nix (all hosts)"]
+
+  %% Output groups
+  flake --> nixos["nixosConfigurations"]
+  flake --> darwin["darwinConfigurations"]
+  flake --> hm["homeConfigurations"]
+
+  %% NixOS hosts
+  nixos --> tpd["john-tpd-05 (personal)"]
+  tpd --> tpd_cfg["hosts/john-tpd-05/configuration.nix"]
+  tpd_cfg --> tpd_cfg_mods["hardware-configuration.nix<br/>desktop/{cosmic,greeter,hyprland}<br/>fonts, packages/default, gc/default<br/>services/{fingerprint,keyd,networking,printing,sound,vpn}"]
+  tpd --> tpd_hm["hosts/john-tpd-05/home.nix"]
+  tpd_hm --> prof_personal
+  tpd_hm --> tpd_hm_mods["packages/{browsers,developer,personal,work}<br/>desktop/cosmic/default<br/>home/{alacritty,rclone}"]
+  tpd_hm --> hypr["modules/desktop/hypr/default.nix"]
+  hypr --> noctalia["modules/desktop/noctalia.nix"]
+
+  nixos --> apollo["apollo (personal, RPi 4B)"]
+  nixos --> atlas["atlas (personal, RPi 4B)"]
+  apollo --> rpi["modules/server/rpi.nix"]
+  atlas --> rpi
+  rpi --> rpi_mods["nixos-raspberrypi base + sd-image<br/>modules/gc/default.nix"]
+  apollo --> apollo_cfg["hosts/apollo/configuration.nix"]
+  atlas --> atlas_cfg["hosts/atlas/configuration.nix"]
+  apollo_cfg --> rpi_svc["modules/services/{tailscale,cockpit}.nix"]
+  atlas_cfg --> rpi_svc
+  apollo --> apollo_hm["hosts/apollo/home.nix"]
+  atlas --> atlas_hm["hosts/atlas/home.nix"]
+  apollo_hm --> prof_server
+  atlas_hm --> prof_server
+
+  %% nix-darwin hosts
+  darwin --> mba["john-mba-03 (personal)"]
+  mba --> mba_cfg["hosts/john-mba-03/configuration.nix"]
+  mba_cfg --> mba_vpn["modules/darwin/packages/vpn.nix"]
+  mba_cfg --> darwin_cfg["hosts/darwin/configuration.nix"]
+  darwin_cfg --> darwin_cfg_mods["fonts, packages/{default,localsend}<br/>darwin/defaults, gc/darwin<br/>darwin/packages/{ai,common,personal,rclone}<br/>darwin/services/tailscale"]
+  mba --> mba_hm["hosts/john-mba-03/home.nix"]
+  mba_hm --> darwin_hm["hosts/darwin/home.nix"]
+  darwin_hm --> prof_personal
+
+  darwin --> wmbp["work-mbp-01 (work)"]:::work
+  wmbp --> wmbp_cfg["hosts/work-mbp-01/configuration.nix"]
+  wmbp_cfg --> wmbp_cfg_mods["fonts, packages/default<br/>darwin/defaults, darwin/packages/common<br/>gc/darwin"]
+  wmbp --> wmbp_hm["hosts/work-mbp-01/home.nix"]
+  wmbp_hm --> prof_base
+  wmbp_hm --> wmbp_hm_mods["home/{bash,ghostty,herdr,jujutsu,shpool,starship,zellij}<br/>packages/workstation"]
+
+  %% Standalone Home Manager hosts
+  hm --> ajax["john@ajax (personal)"]
+  ajax --> ajax_hm["hosts/ajax/home.nix"]
+  ajax_hm --> prof_server
+  ajax_hm --> ajax_ai["modules/home/{agents,opencode,pi}.nix"]
+
+  hm --> d_apollo["dietpi@apollo (personal)"]
+  hm --> d_atlas["dietpi@atlas (personal)"]
+  d_apollo --> dietpi_hm["hosts/dietpi/home.nix"]
+  d_atlas --> dietpi_hm
+  dietpi_hm --> prof_server
+
+  hm --> nimbus["johnslin@nimbus (work)"]:::work
+  nimbus --> nimbus_hm["hosts/nimbus/home.nix"]
+  nimbus_hm --> prof_base
+  nimbus_hm --> nimbus_mods["modules/home/{bash,herdr,server,shpool}.nix"]
+
+  %% Shared Home Manager profiles
+  prof_personal["modules/home/profiles/personal.nix"] --> prof_base
+  prof_personal --> prof_personal_mods["home/{agents,antigravity,bash,ghostty,gmailctl,herdr,jujutsu,opencode,pi,shpool,starship,zed,zellij}<br/>packages/workstation"]
+
+  prof_server["modules/home/profiles/server.nix"] --> prof_base
+  prof_server --> prof_server_mods["modules/home/{jujutsu,server,shpool}.nix"]
+
+  prof_base["modules/home/profiles/base.nix"] --> prof_base_mods["home/{dotfiles,bat,bottom,direnv,git,grep,helix,zoxide,zsh}<br/>packages/terminal"]
+
+  classDef work stroke-dasharray: 5 5
+```
+
 ## Bootstrap (First Time Setup)
 
 Since `just` is installed via this Nix configuration, it won't be available on the first run. Use one of these methods to bootstrap:
