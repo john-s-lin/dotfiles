@@ -1,15 +1,12 @@
 { ... }:
 {
   imports = [
-    ../../modules/home/profiles/base.nix
+    # Neutral server profile (base + server + shpool config). Never import
+    # profiles/personal/server.nix: shpool here belongs to IT.
+    ../../modules/home/profiles/server.nix
 
     ../../modules/home/bash.nix
     ../../modules/home/herdr.nix
-    # Neutral leaf: shell prompt/terminfo/sessionPath. Not profiles/server.nix.
-    ../../modules/home/server.nix
-    # Same shpool config and prompt as the personal hosts, but never the package:
-    # shpool here belongs to IT. Do not set shpool.personal.enable.
-    ../../modules/home/shpool.nix
   ];
 
   targets.genericLinux.enable = true;

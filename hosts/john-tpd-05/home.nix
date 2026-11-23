@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   imports = [
-    ../../modules/home/profiles/personal.nix
+    ../../modules/home/profiles/personal/workstation.nix
 
     # Linux-only extras: desktop, browsers, and host-specific leaves.
     ../../modules/packages/browsers.nix
@@ -20,7 +20,7 @@
   # home.packages = with pkgs; [
   # ];
 
-  # Aliases: lg/ldock/cat come from profiles/personal.nix
+  # Aliases: lg/ldock/cat come from profiles/workstation.nix
   home.shellAliases = {
     zed = "zeditor";
   };

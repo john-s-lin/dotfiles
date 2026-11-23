@@ -15,6 +15,8 @@
     nixos-raspberrypi.nixosModules.raspberry-pi-4.base
     nixos-raspberrypi.nixosModules.sd-image
     ../gc/default.nix
+    ../services/tailscale.nix
+    ../services/cockpit.nix
   ];
 
   # Never build locally on the Pis; fail fast on a cache miss instead of OOMing.

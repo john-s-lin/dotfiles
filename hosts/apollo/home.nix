@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ../../modules/home/profiles/server.nix ];
+  imports = [ ../../modules/home/profiles/personal/server.nix ];
 }

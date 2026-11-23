@@ -1,25 +1,9 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
   imports = [
-    ../../modules/home/profiles/base.nix
-
-    # Neutral leaves a work machine may use: no personal accounts or endpoints.
-    ../../modules/home/bash.nix
-    ../../modules/home/ghostty.nix
-    ../../modules/home/herdr.nix
-    ../../modules/home/jujutsu.nix
-    ../../modules/home/shpool.nix
-    ../../modules/home/starship.nix
-    ../../modules/home/zellij.nix
-
-    ../../modules/packages/workstation.nix
+    # Neutral workstation profile: never import from profiles/personal/.
+    ../../modules/home/profiles/workstation.nix
   ];
-
-  home.shellAliases = {
-    lg = "lazygit";
-    ldock = "lazydocker";
-    cat = "bat";
-  };
 
   home.sessionPath = [
     "/run/current-system/sw/bin"

@@ -339,7 +339,7 @@ Expected output: `FileVault is On.`
 
 This variant is for the IT-provisioned work Mac (`work-mbp-01`, `aarch64-darwin`, user `johnslin`). Start after IT has provisioned the Mac and you have an admin account. Do not run the Setup Assistant phases; IT has already done that. Skip Phase P1 and Phase P8 (FileVault) as IT controls those settings. Follow the Determinate Nix path in Phase P2.
 
-The flake output for `work-mbp-01` sets `username = "johnslin"` and does not set a hostname. The host configuration imports only a subset of modules: fonts, packages, `modules/darwin/defaults.nix`, `modules/darwin/packages/common.nix`, and `modules/gc/darwin.nix`. It does not import `hosts/darwin/configuration.nix`.
+The flake output for `work-mbp-01` sets `username = "johnslin"` and does not set a hostname. Its system config imports the neutral `modules/darwin/profiles/base.nix` (fonts, packages, `modules/darwin/defaults.nix`, `modules/darwin/packages/common.nix`, and `modules/gc/darwin.nix`) and never `modules/darwin/profiles/personal.nix`; its Home Manager config imports the neutral `modules/home/profiles/workstation.nix` and never anything under `modules/home/profiles/personal/`.
 
 On the Determinate path, `modules/gc/darwin.nix` (`nix.gc.automatic = true`) conflicts with Determinate's GC. The committed `hosts/work-mbp-01/configuration.nix` documents the workaround as a commented `nix.enable = false;` line. Do not edit committed host config to work around this; document the caveat and follow IT's instructions for the work Mac.
 
@@ -381,13 +381,13 @@ darwin-rebuild --rollback
 
 To add a personal Mac that does not exist in the flake yet:
 
-1. Create the host directory. For a personal Mac, copy an existing personal host such as `hosts/john-mba-03/` — do not copy `hosts/darwin/`, which is the shared base that the personal host imports:
+1. Create the host directory by copying an existing personal Mac host such as `hosts/john-mba-03/`:
 
 ```bash
 cp -r hosts/john-mba-03 hosts/john-mba-05
 ```
 
-Replace `john-mba-05` with the host name you chose. A personal Mac's `home.nix` imports `../../modules/home/profiles/personal.nix` (or, like `john-mba-03`, another host that does) and its `configuration.nix` imports the shared `hosts/darwin/configuration.nix`. Add anything machine-specific on top of that; do not fork the shared base.
+Replace `john-mba-05` with the host name you chose. A personal Mac's `home.nix` imports `../../modules/home/profiles/personal/workstation.nix` and its `configuration.nix` imports `../../modules/darwin/profiles/personal.nix`. Add anything machine-specific on top of that; do not fork the shared profiles.
 
 2. Add the `darwinConfigurations` output in `flake.nix`, following the existing entries. `hostDir` is the directory under `hosts/`, `hostname` is the machine's hostname, and `system`/`username` select the platform and user. Omit `hostname` on a machine whose hostname is not yours to set (see P9). For example:
 

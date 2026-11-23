@@ -242,7 +242,7 @@ gh run watch
 
 ## Adding a new Raspberry Pi host
 
-1. Create `hosts/<name>/configuration.nix` and `hosts/<name>/home.nix` (importing `../../modules/home/profiles/server.nix`).
+1. Create `hosts/<name>/configuration.nix` and `hosts/<name>/home.nix` (importing `../../modules/home/profiles/personal/server.nix`).
 2. Add `<name> = mkRpiNixosSystem { hostDir = "<name>"; hostname = "<name>"; username = "john"; };` under `nixosConfigurations` in `flake.nix`.
 3. Add `<name>` to the `validate` matrix and `workflow_dispatch` host options in `.github/workflows/rpi.yml`, and to the host loop in `justfile`'s `rpi-check`.
 4. Update `AGENTS.md` and `docs/runbooks/README.md`, then run `just check-all`.

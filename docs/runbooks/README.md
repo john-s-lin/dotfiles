@@ -15,7 +15,7 @@ Every runbook follows the same eight-section shape: when to use it, what done me
 | `dietpi@atlas` | Standalone Home Manager (Raspberry Pi, DietPi) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
 | `johnslin@nimbus` | Standalone Home Manager (x86_64-linux cloudtop) | [standalone-home-manager-bootstrap.md](./standalone-home-manager-bootstrap.md) | OS installed |
 
-Some directories under `hosts/` are shared bases rather than flake outputs: `hosts/darwin` is the personal-macOS base imported by `hosts/john-mba-03`, and `hosts/dietpi` is the Raspberry Pi base shared by `dietpi@apollo` and `dietpi@atlas`. You cannot switch to either by name.
+`hosts/dietpi` is a shared Raspberry Pi base imported by both `dietpi@apollo` and `dietpi@atlas` rather than a flake output of its own, so you cannot switch to `dietpi` by name.
 
 ## Maintaining these runbooks
 

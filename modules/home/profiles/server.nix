@@ -1,15 +1,12 @@
-# Personal servers only (ajax, dietpi). nimbus is a work host: it imports the
-# neutral modules/home/server.nix leaf directly and never this profile, because
-# shpool there is IT-managed.
+# Neutral server profile: safe for both personal and work servers (including
+# nimbus). Leaves shpool.personal.enable off so IT-managed hosts keep their
+# own shpool binary while sharing the config and prompt.
 { ... }:
 {
   imports = [
     ./base.nix
 
-    ../jujutsu.nix
     ../server.nix
     ../shpool.nix
   ];
-
-  shpool.personal.enable = true;
 }

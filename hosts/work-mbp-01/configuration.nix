@@ -1,11 +1,7 @@
 { pkgs, username, ... }:
 {
   imports = [
-    ../../modules/fonts.nix
-    ../../modules/packages/default.nix
-    ../../modules/darwin/defaults.nix
-    ../../modules/darwin/packages/common.nix
-    ../../modules/gc/darwin.nix
+    ../../modules/darwin/profiles/base.nix
   ];
 
   # patch: will work with Determinate Nix install
@@ -18,12 +14,7 @@
   programs.zsh.enable = false;
 
   users.users.${username} = {
-    name = username;
-    home = "/Users/${username}";
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };
-
-  system.primaryUser = username;
-  system.stateVersion = 6;
 }

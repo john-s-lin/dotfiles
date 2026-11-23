@@ -44,7 +44,7 @@ The flake key is `"${username}@${hostName}"`, for example `john@ajax`; `flake.ni
 
 Nimbus is different from the other hosts in three ways. It is a work-managed cloudtop with a work-managed Nix daemon. The `johnslin` user is not a trusted user on that daemon, so extra-cache settings are ignored; `hosts/nimbus/home.nix` disables them with `dotfiles.nix.extraCaches.enable = false`. The flake reads `$HOME` at evaluation time with `builtins.getEnv`, so every nimbus command must pass `--impure`.
 
-The standalone hosts compose different profiles. `hosts/dietpi/home.nix` imports only `modules/home/profiles/server.nix`. `hosts/ajax/home.nix` imports that profile plus the AI modules `agents`, `opencode`, and `pi`. `hosts/nimbus/home.nix` imports `modules/home/profiles/base.nix`, `bash.nix`, `herdr.nix`, the neutral `modules/home/server.nix` leaf, and `modules/home/shpool.nix` for its config only. It must not import `modules/home/profiles/personal.nix` or `modules/home/profiles/server.nix`, because those belong to personal machines and the server profile enables `shpool.personal.enable`, which installs a shpool package that IT already provides.
+The standalone hosts compose different profiles. `hosts/dietpi/home.nix` imports `modules/home/profiles/personal/server.nix`. `hosts/ajax/home.nix` imports `modules/home/profiles/personal/server.nix` plus `modules/home/profiles/personal/ai.nix` (`agents`, `opencode`, `pi`). `hosts/nimbus/home.nix` imports the neutral `modules/home/profiles/server.nix` (`base.nix`, `modules/home/server.nix`, and `modules/home/shpool.nix` for config only) plus `bash.nix` and `herdr.nix`. It must never import anything under `modules/home/profiles/personal/`, because those belong to personal machines and `profiles/personal/server.nix` sets `shpool.personal.enable`, which installs a shpool package that IT already provides.
 
 > [!WARNING]
 > The first switch runs with `-b bak`, which sets Home Manager's backup extension. Existing files that the configuration manages are moved aside with a `.bak` suffix rather than deleted. If you want to keep the originals in place, move them out of the way before the first switch. Review the moved files after the switch and copy back anything the configuration does not manage.
@@ -230,7 +230,7 @@ command -v lazygit
 
 Expected output: a path under the Home Manager profile.
 
-The shpool smoke test applies to the personal hosts only. `shpool.personal.enable` is set by `modules/home/profiles/server.nix`, which `john@ajax` and the two Raspberry Pis import. nimbus is a work host with an IT-managed shpool: it imports `modules/home/shpool.nix` for the same config and prompt but does not set `shpool.personal.enable`, so the binary is IT's, not Home Manager's. **Skip this step on nimbus.**
+The shpool smoke test applies to the personal hosts only. `shpool.personal.enable` is set by `modules/home/profiles/personal/server.nix`, which `john@ajax` and the two Raspberry Pis import. nimbus is a work host with an IT-managed shpool: it imports the neutral `modules/home/profiles/server.nix` for the same config and prompt without setting `shpool.personal.enable`, so the binary is IT's, not Home Manager's. **Skip this step on nimbus.**
 
 On a personal host, open a fresh login shell and confirm activation runs without errors, then run:
 
@@ -243,7 +243,7 @@ Expected output: a shpool version string and a session list. An empty session li
 
 **Checkpoint:** `home-manager generations` lists a generation and `command -v lazygit` prints a profile path. On `john@ajax`, `dietpi@apollo`, and `dietpi@atlas` only, `command -v shpool` prints a profile path and `shpool version` plus `shpool list` run without error.
 
-**If it fails:** if no generation is listed, re-run the first switch from P3 and read the output. If the profile tool is not found, confirm the switch completed, then open a new login shell or source the activation profile. If `shpool` is not found on a personal host, confirm it imports `modules/home/profiles/server.nix` and re-run the switch. Do not set `shpool.personal.enable` on nimbus: the shpool binary there belongs to IT. If `shpool list` fails, confirm the shpool daemon can start in the user session and retry. If the shell activation prints errors, run the first switch again and read the activation output.
+**If it fails:** if no generation is listed, re-run the first switch from P3 and read the output. If the profile tool is not found, confirm the switch completed, then open a new login shell or source the activation profile. If `shpool` is not found on a personal host, confirm it imports `modules/home/profiles/personal/server.nix` and re-run the switch. Do not set `shpool.personal.enable` on nimbus: the shpool binary there belongs to IT. If `shpool list` fails, confirm the shpool daemon can start in the user session and retry. If the shell activation prints errors, run the first switch again and read the activation output.
 
 ### P5: Recovery drill and rollback path
 

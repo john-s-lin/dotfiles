@@ -1,4 +1,4 @@
 { ... }:
 {
-  imports = [ ../darwin/home.nix ];
+  imports = [ ../../modules/home/profiles/personal/workstation.nix ];
 }

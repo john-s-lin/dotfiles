@@ -43,7 +43,7 @@ Host-specific facts used throughout:
 
 The flake output `nixosConfigurations."john-tpd-05"` exists in this repository. If you chose a different host name, confirm the matching output exists before installing. See "Adding a new host" if it does not.
 
-`hosts/john-tpd-05/home.nix` is thin by design: it imports `modules/home/profiles/personal.nix` for the shared personal-workstation environment and then adds the Linux-only pieces (browsers, developer/personal/work packages, COSMIC, Hyprland, alacritty, rclone). Put shared personal configuration in the profile, not in the host file.
+`hosts/john-tpd-05/home.nix` is thin by design: it imports `modules/home/profiles/personal/workstation.nix` for the shared personal-workstation environment and then adds the Linux-only pieces (browsers, developer/personal/work packages, COSMIC, Hyprland, alacritty, rclone). Put shared personal configuration in the profile, not in the host file.
 
 ## Checkpoint map
 

@@ -1,8 +1,4 @@
 # hosts/apollo/configuration.nix
+# Shared Raspberry Pi base, Tailscale, and Cockpit come from modules/server/rpi.nix.
 { ... }:
-{
-  imports = [
-    ../../modules/services/tailscale.nix
-    ../../modules/services/cockpit.nix
-  ];
-}
+{ }
