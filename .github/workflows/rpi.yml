@@ -1,0 +1,147 @@
+name: Raspberry Pi NixOS
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      host:
+        description: Raspberry Pi host to build an SD card image for
+        type: choice
+        default: apollo
+        options:
+          - apollo
+          - atlas
+      build_sd_image:
+        description: Build and upload a flashable SD card image artifact
+        type: boolean
+        default: true
+      deploy_apollo:
+        description: Push and activate apollo over Tailscale
+        type: boolean
+        default: false
+
+concurrency:
+  group: rpi-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NIX_EXTRA_CONF: |
+    extra-substituters = https://nixos-raspberrypi.cachix.org https://nix-community.cachix.org https://nixpkgs-unfree.cachix.org
+    extra-trusted-public-keys = nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs=
+
+jobs:
+  validate:
+    name: Validate (${{ matrix.host }})
+    runs-on: ubuntu-24.04-arm
+    strategy:
+      fail-fast: false
+      matrix:
+        host: [apollo, atlas]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Preflight cache coverage (dry-run)
+        run: |
+          nix build --dry-run ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel"
+
+      - name: Build toplevel closure
+        run: |
+          nix build ".#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel" --no-link
+
+  deploy-apollo:
+    name: Deploy (apollo)
+    needs: validate
+    if: >
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && inputs.deploy_apollo)
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Check Tailscale OAuth secrets
+        id: ts-secrets
+        env:
+          TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          TS_OAUTH_CLIENT_SECRET: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
+        run: |
+          if [ -n "$TS_OAUTH_CLIENT_ID" ] && [ -n "$TS_OAUTH_CLIENT_SECRET" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::TS_OAUTH_CLIENT_ID / TS_OAUTH_CLIENT_SECRET not set; skipping deploy to apollo."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.ts-secrets.outputs.configured == 'true'
+
+      - name: Connect to Tailscale
+        if: steps.ts-secrets.outputs.configured == 'true'
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
+          tags: tag:ci
+
+      - name: Check if apollo is reachable
+        id: reachability
+        if: steps.ts-secrets.outputs.configured == 'true'
+        run: |
+          if tailscale ping --c 1 --timeout 5s apollo; then
+            echo "online=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "online=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::apollo is not currently reachable on Tailscale; skipping deploy."
+          fi
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        if: steps.reachability.outputs.online == 'true'
+        with:
+          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+        if: steps.reachability.outputs.online == 'true'
+
+      - name: Push and activate apollo closure
+        if: steps.reachability.outputs.online == 'true'
+        env:
+          NIX_SSHOPTS: "-o StrictHostKeyChecking=accept-new -o BatchMode=yes"
+        run: |
+          nix run nixpkgs#nixos-rebuild -- switch \
+            --flake .#apollo \
+            --target-host root@apollo \
+            --build-host localhost
+
+  sd-image:
+    name: Build SD image (${{ inputs.host }})
+    if: github.event_name == 'workflow_dispatch' && inputs.build_sd_image
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build SD image
+        run: |
+          nix build ".#nixosConfigurations.${{ inputs.host }}.config.system.build.sdImage" -o result-sd
+          ls -lh result-sd/sd-image/
+
+      - name: Upload SD image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nixos-${{ inputs.host }}-sd-image
+          path: result-sd/sd-image/*.img*
+          retention-days: 7

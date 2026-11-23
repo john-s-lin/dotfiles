@@ -20,6 +20,16 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
     };
+    # Pinned to the released/cached nixos-raspberrypi branch (currently 26.05)
+    # so Pi kernels, firmware, and packages hit nixos-raspberrypi.cachix.org
+    # and cache.nixos.org without local builds. Do not follow repo nixpkgs.
+    nixos-raspberrypi = {
+      url = "github:nvmd/nixos-raspberrypi/main";
+    };
+    home-manager-rpi = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixos-raspberrypi/nixpkgs";
+    };
   };
   outputs =
     {
@@ -28,6 +38,8 @@
       zen-browser,
       nix-darwin,
       noctalia,
+      nixos-raspberrypi,
+      home-manager-rpi,
       ...
     }@inputs:
     let
@@ -59,6 +71,23 @@
             ./modules/cache.nix
             ./hosts/${hostDir}/configuration.nix
             home-manager.nixosModules.home-manager
+            (mkUserConfig { inherit hostDir username; })
+          ];
+        };
+
+      mkRpiNixosSystem =
+        {
+          hostDir,
+          hostname,
+          username,
+        }:
+        nixos-raspberrypi.lib.nixosSystem {
+          specialArgs = { inherit inputs username hostname; };
+          modules = [
+            ./modules/cache.nix
+            ./modules/server/rpi.nix
+            ./hosts/${hostDir}/configuration.nix
+            home-manager-rpi.nixosModules.home-manager
             (mkUserConfig { inherit hostDir username; })
           ];
         };
@@ -112,6 +141,16 @@
         "john-tpd-05" = mkNixosSystem {
           hostDir = "john-tpd-05";
           hostname = "john-tpd-05";
+          username = "john";
+        };
+        "apollo" = mkRpiNixosSystem {
+          hostDir = "apollo";
+          hostname = "apollo";
+          username = "john";
+        };
+        "atlas" = mkRpiNixosSystem {
+          hostDir = "atlas";
+          hostname = "atlas";
           username = "john";
         };
       };

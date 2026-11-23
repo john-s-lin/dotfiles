@@ -48,6 +48,17 @@ upgrade message="chore: update flake":
 check:
     nix flake check
 
+# Evaluate Raspberry Pi toplevel and SD image derivations (no builds)
+rpi-check:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for host in apollo atlas; do
+        nix eval --raw ".#nixosConfigurations.$host.config.system.build.toplevel.drvPath" > /dev/null
+        echo "ok nixosConfigurations.$host (toplevel)"
+        nix eval --raw ".#nixosConfigurations.$host.config.system.build.sdImage.drvPath" > /dev/null
+        echo "ok nixosConfigurations.$host (sdImage)"
+    done
+
 # Evaluate every flake output, across architectures (no builds; ~6s per host)
 check-all:
     #!/usr/bin/env bash

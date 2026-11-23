@@ -8,6 +8,8 @@ Repo-scoped so it loads for sessions working in this repository. The global
 | Flake output | Directory | Platform | Owner | Notes |
 | --- | --- | --- | --- | --- |
 | `nixosConfigurations.john-tpd-05` | `hosts/john-tpd-05` | x86_64-linux NixOS | personal | Full desktop: COSMIC, Hyprland, browsers, `packages/personal.nix` + `work.nix`. |
+| `nixosConfigurations.apollo` | `hosts/apollo` | aarch64-linux NixOS | personal | Raspberry Pi 4B (`nixos-raspberrypi`, `max-jobs = 0`, CI-built on `ubuntu-24.04-arm`). |
+| `nixosConfigurations.atlas` | `hosts/atlas` | aarch64-linux NixOS | personal | Raspberry Pi 4B target config (CI-validated ahead of on-site SD swap; do not deploy remotely to DietPi). |
 | `darwinConfigurations.john-mba-03` | `hosts/john-mba-03` + `hosts/darwin` | aarch64-darwin | personal | Imports the shared `hosts/darwin` base. |
 | `darwinConfigurations.work-mbp-01` | `hosts/work-mbp-01` | aarch64-darwin | work | User `johnslin`, no `hostname` (IT owns it), Determinate Nix. Read the GC caveat in the nix-darwin runbook P9. |
 | `homeConfigurations."john@ajax"` | `hosts/ajax` | aarch64-linux standalone | personal VPS | Profile plus the AI modules (`agents`, `opencode`, `pi`). |
