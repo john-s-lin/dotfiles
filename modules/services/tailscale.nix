@@ -1,16 +1,14 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
-  options.dotfiles.services.tailscale.ssh.enable = lib.mkEnableOption "Tailscale SSH (--ssh)";
+  services.tailscale = {
+    enable = true;
+    # Declaratively enable Tailscale SSH so both interactive SSH and CI
+    # push-deploys (tag:ci -> tag:rpi) work without committing SSH keys to git.
+    extraSetFlags = [ "--ssh" ];
+  };
 
-  config = {
-    services.tailscale = {
-      enable = true;
-      extraSetFlags = lib.mkIf config.dotfiles.services.tailscale.ssh.enable [ "--ssh" ];
-    };
-
-    networking.firewall = {
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
-    };
+  networking.firewall = {
+    trustedInterfaces = [ "tailscale0" ];
+    allowedUDPPorts = [ config.services.tailscale.port ];
   };
 }

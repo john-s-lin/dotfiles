@@ -38,10 +38,6 @@
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
 
-  # Declaratively enable Tailscale SSH so both interactive SSH and CI
-  # push-deploys (tag:ci -> tag:rpi) work without committing SSH keys to git.
-  dotfiles.services.tailscale.ssh.enable = true;
-
   # Publish <hostname>.local on LAN as a headless fallback alongside Tailscale.
   services.avahi = {
     enable = true;

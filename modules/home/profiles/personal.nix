@@ -21,4 +21,10 @@
 
     ../../packages/workstation.nix
   ];
+
+  home.shellAliases = {
+    lg = "lazygit";
+    ldock = "lazydocker";
+    cat = "bat";
+  };
 }

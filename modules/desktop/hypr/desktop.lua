@@ -201,6 +201,11 @@ hl.config({
 	},
 })
 
+hl.device({
+	name = "epic-mouse-v1",
+	sensitivity = -0.5,
+})
+
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XCURSOR_THEME", "macOS-White")

@@ -12,8 +12,6 @@
     ../../modules/home/shpool.nix
   ];
 
-  shpool.work.enable = true;
-
   targets.genericLinux.enable = true;
   # Headless cloudtop: skip the non-NixOS GPU driver check/nag.
   targets.genericLinux.gpu.enable = false;

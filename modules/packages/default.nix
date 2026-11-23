@@ -4,6 +4,7 @@ let
     nil
   ];
   defaultPackages = with pkgs; [
+    gh
     git
     vim
     wget
@@ -14,7 +15,7 @@ let
     # GUI for fingerprint enrollment via fprintd (cosmic-utils/enroll).
     # COSMIC Settings has no fingerprint page yet; enrollment data lives in
     # /var/lib/fprintd either way, so it works for every consumer.
-    enroll
+    pkgs.enroll
   ];
 in
 {
