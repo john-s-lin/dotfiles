@@ -130,11 +130,20 @@ jobs:
       - name: Build SD image
         run: |
           nix build ".#nixosConfigurations.${{ inputs.host }}.config.system.build.sdImage" -o result-sd
-          ls -lh result-sd/sd-image/
+          mkdir -p dist
+          SHORT_SHA="${GITHUB_SHA::7}"
+          for img in result-sd/sd-image/*.img*; do
+            base="$(basename "$img")"
+            ext="img${base#*.img}"
+            out="${{ inputs.host }}-rpi4-nixos-26.05-${SHORT_SHA}.${ext}"
+            cp -L "$img" "dist/${out}"
+            (cd dist && sha256sum "${out}" > "${out}.sha256")
+          done
+          ls -lh dist/
 
       - name: Upload SD image artifact
         uses: actions/upload-artifact@v7
         with:
-          name: nixos-${{ inputs.host }}-sd-image
-          path: result-sd/sd-image/*.img*
+          name: ${{ inputs.host }}-sd-image
+          path: dist/*
           retention-days: 7
