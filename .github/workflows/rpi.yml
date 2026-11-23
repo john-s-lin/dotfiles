@@ -32,6 +32,7 @@ permissions:
 
 env:
   NIX_EXTRA_CONF: |
+    extra-experimental-features = nix-command flakes
     extra-substituters = https://nixos-raspberrypi.cachix.org https://nix-community.cachix.org https://nixpkgs-unfree.cachix.org
     extra-trusted-public-keys = nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs=
 
@@ -46,9 +47,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/install-nix-action@v32
         with:
-          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: ${{ env.NIX_EXTRA_CONF }}
 
       - name: Preflight cache coverage (dry-run)
         run: |
@@ -101,10 +103,11 @@ jobs:
             echo "::warning::apollo is not currently reachable on Tailscale; skipping deploy."
           fi
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/install-nix-action@v32
         if: steps.reachability.outputs.online == 'true'
         with:
-          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: ${{ env.NIX_EXTRA_CONF }}
 
       - name: Push and activate apollo closure
         if: steps.reachability.outputs.online == 'true'
@@ -123,9 +126,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: cachix/install-nix-action@v32
         with:
-          extra-conf: ${{ env.NIX_EXTRA_CONF }}
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: ${{ env.NIX_EXTRA_CONF }}
 
       - name: Build SD image
         run: |
