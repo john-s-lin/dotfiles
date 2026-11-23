@@ -44,13 +44,11 @@ jobs:
       matrix:
         host: [apollo, atlas]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: ${{ env.NIX_EXTRA_CONF }}
-
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Preflight cache coverage (dry-run)
         run: |
@@ -81,12 +79,12 @@ jobs:
             echo "::notice::TS_OAUTH_CLIENT_ID / TS_OAUTH_CLIENT_SECRET not set; skipping deploy to apollo."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.ts-secrets.outputs.configured == 'true'
 
       - name: Connect to Tailscale
         if: steps.ts-secrets.outputs.configured == 'true'
-        uses: tailscale/github-action@v3
+        uses: tailscale/github-action@v4
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_CLIENT_SECRET }}
@@ -108,9 +106,6 @@ jobs:
         with:
           extra-conf: ${{ env.NIX_EXTRA_CONF }}
 
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-        if: steps.reachability.outputs.online == 'true'
-
       - name: Push and activate apollo closure
         if: steps.reachability.outputs.online == 'true'
         env:
@@ -122,17 +117,15 @@ jobs:
             --build-host localhost
 
   sd-image:
-    name: Build SD image (${{ inputs.host }})
+    name: Build SD image (${{ inputs.host || 'manual' }})
     if: github.event_name == 'workflow_dispatch' && inputs.build_sd_image
     runs-on: ubuntu-24.04-arm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: ${{ env.NIX_EXTRA_CONF }}
-
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Build SD image
         run: |
@@ -140,7 +133,7 @@ jobs:
           ls -lh result-sd/sd-image/
 
       - name: Upload SD image artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nixos-${{ inputs.host }}-sd-image
           path: result-sd/sd-image/*.img*
