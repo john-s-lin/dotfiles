@@ -59,22 +59,24 @@ rpi-check:
         echo "ok nixosConfigurations.$host (sdImage)"
     done
 
-# Evaluate every flake output, across architectures (no builds; ~6s per host)
+# Evaluate every flake output, across architectures (one nix eval per namespace; no builds)
 check-all:
     #!/usr/bin/env bash
     set -euo pipefail
-    for ns in nixosConfigurations darwinConfigurations homeConfigurations; do
-        case "$ns" in
-            nixosConfigurations) attr="config.system.build.toplevel.drvPath" ;;
-            darwinConfigurations) attr="system.drvPath" ;;
-            homeConfigurations) attr="activationPackage.drvPath" ;;
-        esac
-        mapfile -t names < <(nix eval --raw ".#$ns" --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)')
-        for name in "${names[@]}"; do
-            nix eval --raw ".#$ns.\"$name\".$attr" > /dev/null
-            echo "ok $ns.$name"
-        done
-    done
+    eval_ns() {
+        local ns="$1" expr="$2"
+        nix eval --raw ".#$ns" --apply "
+          xs:
+          builtins.concatStringsSep \"\\n\" (
+            builtins.map
+              (name: builtins.seq ($expr xs.\${name}) \"ok $ns.\${name}\")
+              (builtins.attrNames xs)
+          ) + \"\\n\"
+        "
+    }
+    eval_ns nixosConfigurations 'c: c.config.system.build.toplevel.drvPath'
+    eval_ns darwinConfigurations 'c: c.system.drvPath'
+    eval_ns homeConfigurations 'c: c.activationPackage.drvPath'
 
 # Run home-manager switch
 hm host=home_host *options:

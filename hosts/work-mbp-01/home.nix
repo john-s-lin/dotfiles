@@ -15,11 +15,7 @@
     ../../modules/packages/workstation.nix
   ];
 
-  home.shellAliases = {
-    lg = "lazygit";
-    ldock = "lazydocker";
-    cat = "bat";
-  };
+  shpool.work.enable = true;
 
   home.sessionPath = [
     "/run/current-system/sw/bin"

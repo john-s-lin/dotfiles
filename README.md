@@ -158,7 +158,7 @@ just check-all   # every output, every architecture: evaluation only
 ```
 
 - `just check` is what you run while working on a host: `nix flake check` realises and builds the checks for the machine you are on, so it catches package build failures. It never looks at the other hosts.
-- `just check-all` is the pre-push gate: it evaluates the `drvPath` of every NixOS, nix-darwin, and standalone Home Manager output, on any architecture. Evaluation only, so nothing is built and inputs are already locked, but each host costs a few seconds (about 45 s for all seven here).
+- `just check-all` is the pre-push gate: it evaluates the `drvPath` of every NixOS, nix-darwin, and standalone Home Manager output (all nine here), on any architecture, using one Nix evaluator invocation per namespace. Evaluation only, so nothing is built and inputs are already locked.
 
 The two overlap but catch different failures: a package can evaluate and fail to build (only `just check` sees that), and another architecture's output can be broken while this machine's is fine (only `just check-all` sees that). `just upgrade` runs `just check-all` for you.
 

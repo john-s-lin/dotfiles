@@ -13,4 +13,9 @@
     tree
     rename
   ];
+
+  home.shellAliases = {
+    lg = "lazygit";
+    ldock = "lazydocker";
+  };
 }

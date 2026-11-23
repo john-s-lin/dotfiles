@@ -1,4 +1,11 @@
-{ inputs, ... }:
+{
+  config,
+  inputs,
+  ...
+}:
+let
+  wallpapers = "${config.dotfiles.root}/modules/desktop/wallpapers";
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -90,16 +97,16 @@
       wallpaper = {
         enabled = true;
         fill_mode = "crop";
-        directory = "${./wallpapers}";
+        directory = wallpapers;
         per_monitor_directories = true;
-        default.path = "${./wallpapers/new-zealand-01.jpg}";
+        default.path = "${wallpapers}/new-zealand-01.jpg";
         monitor = {
-          "HDMI-A-2".directory = "${./wallpapers}";
-          "eDP-1".directory = "${./wallpapers}";
+          "HDMI-A-2".directory = wallpapers;
+          "eDP-1".directory = wallpapers;
         };
         monitors = {
-          "HDMI-A-2".path = "${./wallpapers/tokyo-01.jpg}";
-          "eDP-1".path = "${./wallpapers/new-zealand-01.jpg}";
+          "HDMI-A-2".path = "${wallpapers}/tokyo-01.jpg";
+          "eDP-1".path = "${wallpapers}/new-zealand-01.jpg";
         };
       };
 

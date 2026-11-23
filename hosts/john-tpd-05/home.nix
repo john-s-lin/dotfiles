@@ -16,11 +16,7 @@
     ../../modules/home/rclone.nix
   ];
 
-  # This is being imported from the modules above
-  # home.packages = with pkgs; [
-  # ];
-
-  # Aliases: lg/ldock/cat come from profiles/personal.nix
+  # Aliases: lg/ldock/cat come from profiles/base.nix (terminal.nix + bat.nix)
   home.shellAliases = {
     zed = "zeditor";
   };

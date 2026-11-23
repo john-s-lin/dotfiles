@@ -42,11 +42,6 @@
     recursive = true;
   };
 
-  home.shellAliases = {
-    lg = "lazygit";
-    cat = "bat";
-  };
-
   xdg.enable = true;
   programs.home-manager.enable = true;
 }

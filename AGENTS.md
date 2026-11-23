@@ -53,8 +53,9 @@ neutral leaf and safe to import; `modules/home/profiles/server.nix` is not.
 - Neither gate catches everything: a build only sees this machine, and
   evaluation only proves the other architectures evaluate. Run `just check`
   where you work and `just check-all` before pushing.
-- `just check-all` costs roughly 6 s per host (one `nix eval` per output), so
-  it is a pre-push gate, not a save-hook gate.
+- `just check-all` evaluates all outputs with one `nix eval` per namespace
+  (NixOS, nix-darwin, Home Manager), so it is a pre-push gate rather than a
+  save-hook gate.
 
 ## Change discipline
 

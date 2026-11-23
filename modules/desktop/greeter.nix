@@ -5,8 +5,24 @@
 # afterwards. Noctalia Greeter runs its own bundled wlroots compositor under
 # greetd, so it replaces per-desktop display managers (for example
 # cosmic-greeter) instead of running alongside them.
-{ pkgs, username, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
+{
+  # Binary cache for Noctalia (scoped to GUI NixOS hosts instead of modules/cache.nix).
+  nix.settings = lib.mkIf config.dotfiles.nix.extraCaches.enable {
+    extra-substituters = [
+      "https://noctalia.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
+
   services.displayManager.noctalia-greeter = {
     enable = true;
 

@@ -8,9 +8,8 @@
     ../../modules/gc/darwin.nix
   ];
 
-  # patch: will work with Determinate Nix install
-  # however, this will require disabling the nix.gc garbage collector
-  # nix.enable = false;
+  # Determinate Nix manages the daemon; see docs/runbooks/nix-darwin-fresh-install.md (Phase P9)
+  # before toggling `nix.enable = false` (which also requires removing modules/gc/darwin.nix).
 
   environment.shells = [ pkgs.zsh ];
 
