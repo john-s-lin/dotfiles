@@ -65,7 +65,15 @@
   #    power button to wake the laptop shut it down instead. The regular
   #    `button` driver handles the power button fine, so keep this one out.
   #    Ref: https://github.com/NixOS/nixpkgs/issues/577729
-  boot.blacklistedKernelModules = [ "tiny_power_button" ];
+  #
+  # apple_mfi_fastcharge binds iPhones as a whole USB device. While it is bound,
+  # usbmuxd's hotplug config switch (1 -> 4) leaves the daemon wedged: mux
+  # connections fail with lockdown error -8 until usbmuxd is restarted. iPhone
+  # charging works without it (it only allows faster charging).
+  boot.blacklistedKernelModules = [
+    "tiny_power_button"
+    "apple_mfi_fastcharge"
+  ];
 
   # 2. With `button` back in charge, the press reaches userspace as a power key
   #    event, so make a short press a no-op instead of logind's default
@@ -101,8 +109,8 @@
   # iPhone/iOS file access over USB. usbmuxd is the userspace daemon that
   # multiplexes the USB connection (it owns the udev rule for Apple's vendor id
   # 05ac), and ifuse/afcclient talk to the phone's AFC service through it.
-  # Note that gvfs has no AFC backend, so the phone does not appear in COSMIC
-  # Files or Thunar; mount it with ifuse instead.
+  # gvfs's AFC backend shows the phone in COSMIC Files and Thunar ("Documents
+  # on <phone>"), but read-only; use ifuse to write to it.
   services.usbmuxd.enable = true;
   environment.systemPackages = with pkgs; [
     libimobiledevice
