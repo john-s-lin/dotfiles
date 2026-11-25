@@ -69,9 +69,9 @@ check-all:
             darwinConfigurations) attr="system.drvPath" ;;
             homeConfigurations) attr="activationPackage.drvPath" ;;
         esac
-        mapfile -t names < <(nix eval --raw ".#$ns" --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)')
+        mapfile -t names < <(nix eval --option warn-dirty false --raw ".#$ns" --apply 'x: builtins.concatStringsSep "\n" (builtins.attrNames x)')
         for name in "${names[@]}"; do
-            nix eval --raw ".#$ns.\"$name\".$attr" > /dev/null
+            nix eval --option warn-dirty false --raw ".#$ns.\"$name\".$attr" > /dev/null
             echo "ok $ns.$name"
         done
     done
